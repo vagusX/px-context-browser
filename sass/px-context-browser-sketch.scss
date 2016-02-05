@@ -138,7 +138,11 @@ header {
 .selectable-item {
   padding-top: 5px;
   padding-bottom: 5px;
-
+  div {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
   .item-label {
     line-height: 20px;
   }
@@ -175,7 +179,7 @@ header {
 
 .ruler {
   width: $column-width;
-  position: absolute;
+  // position: absolute;
   visibility: hidden;
   height: 0;
   top: 0;
@@ -254,7 +258,7 @@ px-spinner {
   background:white;
 }
 #ruler{
-  position: absolute;
+  // position: absolute;
   background: white;
   z-index:2;
   width:100%;

@@ -1,0 +1,84 @@
+<!--
+    Relative paths assume component is being run from inside an app or another component, where dependencies are flat
+    siblings. When this component is run from its own repo (e.g. ui tests, examples), we assume the server is started with
+    'grunt depserve' (or similar server setup) to enable correct finding of bower dependencies for local runs
+    See https://github.sw.ge.com/jreichenberg/grunt-dep-serve#why-do-we-need-this
+-->
+<link rel="import" href="../polymer/polymer.html" />
+<link rel="import" href="../px-tooltip/px-tooltip.html" />
+<!--
+Element providing the text for the px-context-browser-item element
+
+##### Usage
+
+    <px-context-browser-item></px-context-browser-item>
+
+@element px-context-browser-item
+@blurb Element to contain clickable item.
+@homepage index.html
+@demo demo.html
+-->
+<dom-module id="px-context-browser-item">
+  <link rel="import" type="css" href="css/px-context-browser-item.css" />
+  <template>
+    <div class="flex__item item-label" id="content">{{getItemLabel(labelField)}}
+      <template is="dom-if" if="{{ellipsis}}" >
+        <px-tooltip tooltip-message="{{getItemLabel(labelField)}}" orientation="top"></px-tooltip>
+      </template>
+    </div>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+    is: 'px-context-browser-item',
+    /**
+     * Properties block, expose attribute values to the DOM via 'reflect'
+     *
+     * @property properties
+     * @type Object
+     */
+    properties: {
+      maxContCharacterWidth: {
+        type: Number,
+        value: 1
+      },
+      item: {
+        type: Object,
+        value: function() {return {};}
+      },
+      labelField: {
+        type: String,
+        value: ''
+      },
+      ellipsis: {
+        type: Boolean,
+        value: false
+      }
+    },
+    ready: function() {
+      this._isEllipsisActive();
+    },
+    _isEllipsisActive: function() {
+      var contentLength = this.$.content.textContent.length,
+          maxContCharacterWidth = this.maxContCharacterWidth;
+          console.log(this);
+      console.log('inside _isEllipsisActive');
+      console.log(maxContCharacterWidth < contentLength);
+      console.log('contentLength = ' + contentLength);
+      console.log('maxContCharacterWidth = ' + maxContCharacterWidth);
+      this.ellipsis = (maxContCharacterWidth < contentLength);
+    },
+    /**
+     * @param {Object} item
+     * @return {String} Display label for given item
+     * @private
+     */
+    getItemLabel: function(labelField) {
+      if (labelField) {
+        return (this.item) ? this.item[labelField] : '';
+      } else {
+        return '';
+      }
+    },
+  });
+</script>

@@ -10,7 +10,7 @@
     "isOpenable": true
   },
   {
-    "name": "Nested Great Grandchild 3",
+    "name": "Nested Great Grandchild 3 - this is a very long name that should wrap",
     "identifier": "001-2abc",
     "isOpenable": true
   }],

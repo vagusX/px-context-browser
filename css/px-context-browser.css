@@ -983,6 +983,10 @@ header {
 .selectable-item {
   padding-top: 5px;
   padding-bottom: 5px; }
+  .selectable-item div {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden; }
   .selectable-item .item-label {
     line-height: 20px; }
 
@@ -1009,7 +1013,6 @@ header {
 
 .ruler {
   width: 16rem;
-  position: absolute;
   visibility: hidden;
   height: 0;
   top: 0;
@@ -1087,7 +1090,6 @@ px-spinner {
   background: white; }
 
 #ruler {
-  position: absolute;
   background: white;
   z-index: 2;
   width: 100%;
