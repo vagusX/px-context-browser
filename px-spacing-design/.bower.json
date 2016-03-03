@@ -1,0 +1,37 @@
+{
+  "name": "px-spacing-design",
+  "version": "0.3.6",
+  "authors": [
+    "General Electric",
+    "Harry Roberts <harry@csswizardry.com>"
+  ],
+  "description": "Spacing helper classes for Predix Experience",
+  "main": "_trumps.spacing.scss",
+  "keywords": [
+    "sass",
+    "px",
+    "spacing"
+  ],
+  "license": "Apache 2",
+  "homepage": "https://github.com/PredixDev/px-spacing-design.git",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "px-defaults-design": "https://github.com/PredixDev/px-defaults-design.git#~0.2.0"
+  },
+  "_release": "0.3.6",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.3.6",
+    "commit": "73f0a8d4c8b00eb144a6d71664a9a07e6b37ec52"
+  },
+  "_source": "https://github.com/PredixDev/px-spacing-design.git",
+  "_target": "~0.3.0",
+  "_originalSource": "https://github.com/PredixDev/px-spacing-design.git"
+}

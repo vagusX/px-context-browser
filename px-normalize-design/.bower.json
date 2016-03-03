@@ -1,0 +1,38 @@
+{
+  "name": "px-normalize-design",
+  "version": "0.3.7",
+  "authors": [
+    "General Electric",
+    "Harry Roberts <harry@csswizardry.com>",
+    "Nicolas Gallagher <nicolasgallagher@gmail.com>"
+  ],
+  "description": "Nicolas Gallagher’s Normalize.css for Predix Experience",
+  "main": "_generic.normalize.scss",
+  "keywords": [
+    "px",
+    "sass",
+    "normalize.css"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/PredixDev/px-normalize-design.git",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "px-defaults-design": "https://github.com/PredixDev/px-defaults-design.git#~0.2.0"
+  },
+  "_release": "0.3.7",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.3.7",
+    "commit": "aeea12d27385eb9f81072f3725b7a7c2722014f9"
+  },
+  "_source": "https://github.com/PredixDev/px-normalize-design.git",
+  "_target": "~0.3.0",
+  "_originalSource": "https://github.com/PredixDev/px-normalize-design.git"
+}
