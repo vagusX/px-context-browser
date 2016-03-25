@@ -253,9 +253,16 @@ Define how your data will come in using these methods:
           type: Boolean,
           value: false,
           reflectToAttribute: true
+        },
+
+        childrenKey: {
+          type: String,
+          value: "data"
         }
+
       },
       ready: function() {
+
         var _this = this;
 
         //use setTimeout to yield for angular databind to populate the handlers
@@ -473,7 +480,8 @@ Define how your data will come in using these methods:
        *
        * @private
        */
-      contextChanged: function() {
+      contextChanged: function(newValue, oldValue) {
+        console.log('contextChanged', newValue, oldValue);
         var _this= this,
             browserContext = this.browserContext,
             root;
@@ -554,7 +562,7 @@ Define how your data will come in using these methods:
         if (results === undefined || results === null) {
           return;
         }
-        var children = results.data || [];
+        var children = results[this.childrenKey] || [];
         // set up the parent pointers
         for (var i = 0; i < children.length; i++) {
           children[i].parent = parentNode;
