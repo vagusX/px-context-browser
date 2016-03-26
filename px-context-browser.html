@@ -633,8 +633,8 @@ Define how your data will come in using these methods:
           this.handlers.getChildren(item).then(
             function(data) {
               _this.spinner('hide');
-              var children = data.data,
-                  parentId = data.meta.parentId,
+              var children = data[this.childrenKey],
+                  parentId = data.parentId || data.meta.parentId,
                   selectedNode = _this.selectedItem;
 
               if (parentId === undefined || parentId === null) {
