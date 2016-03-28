@@ -264,19 +264,7 @@ Define how your data will come in using these methods:
       ready: function() {
 
         var _this = this;
-
-        //use setTimeout to yield for angular databind to populate the handlers
-        setTimeout(function() {
-          //TBD whether we need _this.
-          if (window['angular'] && _this.hasAttributes()) {
-            //if angular exists and was passed 'ngScope:a.b.c' for any attribute, fish object value from current angular scope.
-            var ngScope = angular.element(_this.root).scope();
-            for (var i = 0; i < _this.attributes.length; i++) {
-              _this.resolveNgScopeAttr(ngScope, _this.attributes[i].name, _this.attributes[i].value);
-            }
-          }
-        }, 0);
-
+        
         // Need to watch the width of the column-browser.
         var columnBrowser = this.$.columnBrowser,
             columnBrowserColumnRuler = Polymer.dom(columnBrowser).querySelector('.ruler'),
