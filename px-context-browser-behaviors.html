@@ -21,24 +21,6 @@
       return this.conditionalClass(!condition, className, base);
     },
 
-
-    /**
-     * Observer on LI, and whether they should show up.
-     * Replaces polymer hidden, which seems to be shaky with IE.
-     * If base_classes is passed in, it is returned with the appropriate response.
-     *
-     * @param {string} item
-     * param {string} base_classes
-     * @private
-     */
-    isItemHidden: function(item, base_classes) {
-      if (base_classes  !== undefined) {
-        return base_classes += (!item) ? " visuallyhidden" : '';
-      } else {
-        return (!item) ? "visuallyhidden" : '';
-      }
-    },
-
     /**
      * turns the spinner on or off when promises are requested.
      *
