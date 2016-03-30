@@ -64,10 +64,7 @@ Define how your data will come in using these methods:
 <dom-module id="px-context-browser">
   <link rel="import" type="css" href="css/px-context-browser.css" polyfill-next-selector/>
   <template>
-    <!--
-    <div id="modal" on-click="toggleColumnBrowser" class$="{{isItemHidden(showColumnBrowser)}}"></div>
-    -->
-    <px-overlay id="overlay" type="dark" class$="[[conditionalClass(showColumnBrowser, 'fadeFromHidden')]]"></px-overlay>
+    <px-overlay id="overlay" type="dark" class$="[[removeConditionalClass(showColumnBrowser, 'fadeFromHidden')]]"></px-overlay>
     <div id="back">
       <div class="column-browser-container flex flex--col">
         <px-context-browser-header
@@ -76,8 +73,8 @@ Define how your data will come in using these methods:
           opened-item-name="[[openedItemName]]">
           <content></content>
         </px-context-browser-header>
-        <div id="ruler" class$="{{isItemHidden(showColumnBrowser, 'flex flex--col')}}">
-          <div class$="{{isItemHidden(showColumnBrowser, 'flex flex--col')}}">
+        <div id="ruler" class$="{{addConditionalClass(showColumnBrowser, 'visuallyhidden', 'flex flex--col')}}">
+          <div class$="{{addConditionalClass(showColumnBrowser, 'visuallyhidden', 'flex flex--col')}}">
             <px-context-browser-breadcrumbs></px-context-browser-bread-crumbs>
             <px-context-browser-column-browser
               id="column-browser"
@@ -238,10 +235,6 @@ Define how your data will come in using these methods:
     onHeaderClick: function(e) {
       this.toggleColumnBrowser();
       this.spinner('hide');
-    },
-
-    conditionalClass: function(condition, className) {
-      return condition ? className : '';
     },
 
     ready: function() {

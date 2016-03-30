@@ -5,6 +5,23 @@
 
     },
 
+
+    // Base method for adding / removing classnames to base if condition is true
+    conditionalClass: function(condition, className, base) {
+      return condition ? className + ' ' + base : base;
+    },
+
+    // Add classname to base classnames if condition is true
+    addConditionalClass: function(condition, className, base) {
+      return this.conditionalClass(!condition, className, base);
+    },
+
+    // Remove classname to base classnames if condition is true
+    removeConditionalClass: function(condition, className, base) {
+      return this.conditionalClass(condition, className, base);
+    },
+
+
     /**
      * Observer on LI, and whether they should show up.
      * Replaces polymer hidden, which seems to be shaky with IE.
