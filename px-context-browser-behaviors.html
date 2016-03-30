@@ -13,12 +13,12 @@
 
     // Add classname to base classnames if condition is true
     addConditionalClass: function(condition, className, base) {
-      return this.conditionalClass(!condition, className, base);
+      return this.conditionalClass(condition, className, base);
     },
 
     // Remove classname to base classnames if condition is true
     removeConditionalClass: function(condition, className, base) {
-      return this.conditionalClass(condition, className, base);
+      return this.conditionalClass(!condition, className, base);
     },
 
 
