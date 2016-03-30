@@ -4,8 +4,9 @@
 <dom-module id="px-context-browser-column-browser">
   <link rel="import" type="css" href="css/px-context-browser.css" />
   <template>
-    <div class="flex flex--col column-browser" id="columnBrowser">
-      <px-spinner finished></px-spinner>
+    <h1> Hello World!</h1>
+    <div class="flex flex--col column-browser">
+      <px-spinner id="spinner" finished></px-spinner>
       <div class="flex">
         <template is="dom-repeat" id="levels" items="{{parentNodes}}">
           <px-context-browser-menu menu-data="[[item]]"></px-context-browser-menu>
@@ -23,7 +24,7 @@
 
 <script>
   Polymer({
-    is: 'px-context-column-browser',
+    is: 'px-context-browser-column-browser',
     properties: {
       /**
        * Hierarchy of items down to currently selected item. Set here as a property to expose it to the template, but managed internally. Do not set this.
@@ -37,5 +38,22 @@
         value: function() {return [];} //this is Polmer's way of defining an empty array in properties
       }
     },
-  })
+
+    showOverlay: function() {
+      this.$$('.overlay').style.display = 'block';
+    },
+
+    hideOverlay: function() {
+      this.$$('.overlay').style.display = 'none';
+    },
+
+    showSpinner: function() {
+      this.$.spinner.set('finished', false);
+    },
+
+    hideSpinner: function() {
+      this.$.spinner.set('finished', true);
+    }
+
+  });
 </script>

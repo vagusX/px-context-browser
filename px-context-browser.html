@@ -77,7 +77,7 @@ Define how your data will come in using these methods:
           <div class$="{{removeConditionalClass(showColumnBrowser, 'visuallyhidden', 'flex flex--col')}}">
             <px-context-browser-breadcrumbs></px-context-browser-bread-crumbs>
             <px-context-browser-column-browser
-              id="column-browser"
+              id="columnBrowser"
               parent-nodes="[[parentNodes]]">
             </px-context-browser-column-browser>
           </div>
@@ -234,7 +234,8 @@ Define how your data will come in using these methods:
 
     onHeaderClick: function(e) {
       this.toggleColumnBrowser();
-      this.spinner('hide');
+      console.log('this.$', this.$.columnBrowser);
+      this.$.columnBrowser.hideSpinner();
     },
 
     ready: function() {
@@ -247,7 +248,7 @@ Define how your data will come in using these methods:
 
 
       // Need to watch the width of the column-browser.
-      var columnBrowser = this.$$('#column-browser');
+      var columnBrowser = this.$$('#columnBrowser');
 
       var columnBrowserColumnRuler = Polymer.dom(columnBrowser).querySelector('.ruler');
       var columnBrowserColumns = Polymer.dom(columnBrowser).querySelector('div:first-of-type');
@@ -336,7 +337,7 @@ Define how your data will come in using these methods:
 
           if (hiddenContentHeight - evt.target.scrollTop <= threshold) {
             if (this.handlers.getChildren) {
-              _this.spinner('show');
+              _this.$.columnBrowser.showSpinner();
               var item = this.parentNodes[levelIdx],
                   options = {};
               if (item && item.meta) {
@@ -354,7 +355,7 @@ Define how your data will come in using these methods:
 
                 this.handlers.getChildren(item).then(
                   function(children) {
-                    _this.spinner('hide');
+                    _this.$.columnBrowser.hideSpinner();
                     _this.appendChildren(item, children);
                   });
               }
@@ -572,12 +573,12 @@ Define how your data will come in using these methods:
      * @private
      */
     getNewChildren: function(item) {
-      this.spinner('show');
+      this.showSpinner();
       if (this.handlers.getChildren) {
         var _this = this;
         this.handlers.getChildren(item).then(
           function(data) {
-            _this.spinner('hide');
+            _this.$.columnBrowser.hideSpinner();
             var children = data[this.childrenKey],
                 parentId = data.parentId || data.meta.parentId,
                 selectedNode = _this.selectedItem;

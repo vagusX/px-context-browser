@@ -5,7 +5,6 @@
 
     },
 
-
     // Base method for adding / removing classnames to base if condition is true
     conditionalClass: function(condition, className, base) {
       return condition ? className + ' ' + base : base;
@@ -19,25 +18,6 @@
     // Remove classname to base classnames if condition is true
     removeConditionalClass: function(condition, className, base) {
       return this.conditionalClass(!condition, className, base);
-    },
-
-    /**
-     * turns the spinner on or off when promises are requested.
-     *
-     * @param {String} state
-     * @private
-     */
-    spinner: function(state) {
-      var columnBrowser = this.$.columnBrowser,
-          spinner = Polymer.dom(columnBrowser).querySelector('px-spinner'),
-          overlay = Polymer.dom(columnBrowser).querySelector('.overlay');
-      if (state === 'show') {
-        spinner.set('finished', false);
-        overlay.style.display = 'block';
-      } else if (state === 'hide'){
-        spinner.set('finished', true);
-        overlay.style.display = 'none';
-      }
     }
 
   };
