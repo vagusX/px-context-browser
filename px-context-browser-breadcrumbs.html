@@ -1,0 +1,41 @@
+<link rel="import" href="../polymer/polymer.html"/>
+<link rel="import" href="px-context-browser-behaviors.html"/>
+
+<dom-module id="px-context-browser-breadcrumbs">
+  <link rel="import" type="css" href="css/px-context-browser.css" />
+  <template>
+    <ul class="breadcrumbs list-inline list-inline--delimited u-pv-">
+      <template is="dom-repeat" id="breadcrumbs" items="{{parentNodes}}">
+        <li class$="{{isItemHidden(item.hideBreadcrumb, 'u-pv--')}}">
+          <span class="breadcrumb" on-click="handleBreadcrumbClick">{{item.name}}</span>
+        </li>
+      </template>
+    </ul>
+  </template>
+</dom-module>
+
+<script>
+  Polymer({
+    is: 'px-context-browser-breadcrumbs',
+    behaviors: [PxContextBrowserBehaviors],
+    properties: {
+      /**
+       * Item data passed from parent menu
+       *
+       * @type {Object}
+       * @default null
+       */
+      menuData: {
+        type: Object,
+        value: null
+      }
+    },
+
+    menu: null,
+
+    ready: function() {
+      this.parent = this.parentNode;
+    }
+
+  });
+</script>

@@ -1,0 +1,117 @@
+<link rel="import" href="../polymer/polymer.html"/>
+
+<dom-module id="px-context-browser-menu-item">
+  <link rel="import" type="css" href="css/px-context-browser.css" />
+  <template>
+    <li on-click="itemClickHandler" id$="[[getItemId(item)]]" class$="{{isItemSelected(item, selectedItem)}}">
+      <span class="flex__item item-label">{{getItemLabel(item)}}</span>
+      <button class$="[[getItemOpenerClass(item)]]" on-click="openClickHandler" key$="[[getItemId(item)]]">
+        Open
+      </button>
+      <template is="dom-if" if="{{_hasChildren(item)}}">
+        <span class="chevron"><i class="fa fa-angle-right"></i></span>
+      </template>
+    </li>
+  </template>
+</dom-module>
+
+<script>
+  Polymer({
+    is: 'px-context-browser-menu-item',
+    properties: {
+      /**
+       * Item data passed from parent menu
+       *
+       * @type {Object}
+       * @default null
+       */
+      item: {
+        type: Object,
+        value: null
+      },
+      /**
+       * show chevron
+       * @type {Boolean}
+       * @default false
+       *
+       */
+      showChevron: {
+        type: Boolean,
+        value: false,
+        reflectToAttribute: true
+      },
+    },
+
+    menu: null,
+
+    ready: function() {
+      this.parent = this.parentNode;
+      console.log('this.parent', this.parent);
+      console.log('showChevron', this.showChevron);
+    },
+
+    /**
+     * this method checks whether the attribute hasChildren has been set to true, and if it has,
+     * whether the item has a property by the name of children or hasChildren
+     * @param {object} item
+     * @private
+     */
+    _hasChildren: function(item) {
+      return (this.showChevron) ? (item.hasChildren || item.children) : false;
+    },
+
+    /**
+     * @param {Object} item
+     * @return {String} Display label for given item
+     * @private
+     */
+    getItemLabel: function(item) {
+      return item ? item[this.parent.labelField] || '' : '';
+    },
+
+    /**
+     * @param {Object} item
+     * @return {String} Id for given item
+     * @private
+     */
+    getItemId: function(item) {
+      return item ? item[this.parent.idField] : null;
+    },
+
+    /**
+     * @param {Object} item
+     * @return {String} CSS class for item opener
+     * @private
+     */
+    getItemOpenerClass: function(item) {
+      var base = "opener btn btn--small btn--tertiary ";
+      return base = (item.isOpenable) ? base + "openable" : base + "unopenable";
+    },
+
+    /**
+     * @param {String} base
+     * @return {String} CSS class for item
+     * @private
+     */
+    isItemSelected: function(item, selectedItem) {
+      var base = "flex flex--middle selectable-item";
+      return base = (item.inSelectedPath) ? base += " selected" : base;
+    },
+
+    /**
+     * Observer on LI, and whether they should show up. replaces polymer hidden, which seems to be shaky with IE.
+     * if base_classes is passed in, it is returned with the appropriate response.
+     *
+     * @param {string} item
+     * param {string} base_classes
+     * @private
+     */
+    isItemHidden: function(item, base_classes) {
+      if (base_classes  !== undefined) {
+        return base_classes += (!item) ? " visuallyhidden" : '';
+      } else {
+        return (!item) ? "visuallyhidden" : '';
+      }
+    }
+  });
+</script>

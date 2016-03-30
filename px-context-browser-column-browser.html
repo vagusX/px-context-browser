@@ -1,0 +1,40 @@
+<link rel="import" href="../polymer/polymer.html"/>
+<link rel="import" href="px-context-browser-menu.html"/>
+
+<dom-module id="px-context-browser-column-browser">
+  <link rel="import" type="css" href="css/px-context-browser.css" />
+  <template>
+    <div class="flex flex--col column-browser" id="columnBrowser">
+      <px-spinner finished></px-spinner>
+      <div class="flex">
+        <template is="dom-repeat" id="levels" items="{{parentNodes}}">
+          <px-context-browser-menu menu-data="[[item]]"></px-context-browser-menu>
+        </template>
+      </div>
+      <!-- Ruler needs to be within a container that can enforce its relative size -->
+      <div class="ruler">
+        <!-- Use this as a ruler to measure the true minimum width of column browser -->
+      </div>
+      <!-- this overlay is for the spinner -->
+      <div class="overlay"></div>
+    </div>
+  </template>
+</dom-module>
+
+<script>
+  Polymer({
+    is: 'px-context-column-browser',
+    properties: {
+      /**
+       * Hierarchy of items down to currently selected item. Set here as a property to expose it to the template, but managed internally. Do not set this.
+       *
+       * @type {Array}
+       * @default []
+       * @private
+       */
+      parentNodes: {
+        type: Array,
+        value: function() {return [];} //this is Polmer's way of defining an empty array in properties
+      }
+    },
+  })

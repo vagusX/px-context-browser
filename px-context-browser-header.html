@@ -1,0 +1,70 @@
+<link rel="import" href="../polymer/polymer.html"/>
+<link rel="import" href="px-context-browser-behaviors.html"/>
+
+<dom-module id="px-context-browser-header">
+  <link rel="import" type="css" href="css/px-context-browser.css" />
+  <template>
+    <header class="flex u-pl" id="selectContext">
+      <div class="content-wrapper">
+        <content></content>
+      </div>
+      <div class="flex__item--middle">
+        <h1 class="epsilon caps weight--normal u-m0" on-click="toggleColumnBrowser">
+          <span>{{openedItemName}}</span>
+          <i class="fa fa-caret-down"></i>
+        </h1>
+        <ul class="list-inline list-inline--delimited">
+          <template is="dom-repeat" items="{{openedBreadcrumbs}}">
+            <li>{{item}}</li>
+          </template>
+        </ul>
+      </div>
+    </header>
+  </template>
+</dom-module>
+
+<script>
+  Polymer({
+    is: 'px-context-browser-header',
+    behaviors: [PxContextBrowserBehaviors],
+    properties: {
+
+      /**
+       * Item data passed from parent menu
+       *
+       * @type {Object}
+       * @default null
+       */
+      menuData: {
+        type: Object,
+        value: null
+      },
+
+      /**
+       * Initial context name to be shown on page
+       *
+       * @type {String}
+       * @default 'Select Context'
+       */
+      openedItemName: {
+        type: String,
+        value: 'Select Context'
+      }
+    },
+
+    menu: null,
+
+    ready: function() {
+      this.parent = this.parentNode;
+    },
+
+    /**
+     * toggle visbility of the column browser
+     */
+    toggleColumnBrowser: function() {
+      this.showColumnBrowser = !this.showColumnBrowser;
+      this.spinner('hide');
+    }
+
+  });
+</script>
