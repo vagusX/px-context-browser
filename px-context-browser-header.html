@@ -9,7 +9,7 @@
         <content></content>
       </div>
       <div class="flex__item--middle">
-        <h1 class="epsilon caps weight--normal u-m0" on-click="toggleColumnBrowser">
+        <h1 class="epsilon caps weight--normal u-m0" on-click="handleHeaderClick">
           <span>{{openedItemName}}</span>
           <i class="fa fa-caret-down"></i>
         </h1>
@@ -58,12 +58,8 @@
       this.parent = this.parentNode;
     },
 
-    /**
-     * toggle visbility of the column browser
-     */
-    toggleColumnBrowser: function() {
-      this.showColumnBrowser = !this.showColumnBrowser;
-      this.spinner('hide');
+    handleHeaderClick: function(e) {
+      this.fire('header-click', { type: e.type });
     }
 
   });

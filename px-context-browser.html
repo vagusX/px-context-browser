@@ -10,6 +10,7 @@
 <link rel="import" href="px-context-browser-breadcrumbs.html"/>
 <link rel="import" href="px-context-browser-column-browser.html"/>
 <link rel="import" href="px-context-browser-header.html"/>
+<link rel="import" href="../px-overlay/px-overlay.html"/>
 
 <style>
   [dir=rtl] .fa.px-context-browser {
@@ -63,10 +64,14 @@ Define how your data will come in using these methods:
 <dom-module id="px-context-browser">
   <link rel="import" type="css" href="css/px-context-browser.css" polyfill-next-selector/>
   <template>
+    <!--
     <div id="modal" on-click="toggleColumnBrowser" class$="{{isItemHidden(showColumnBrowser)}}"></div>
+    -->
+    <px-overlay id="overlay" type="dark" class$="[[conditionalClass(showColumnBrowser, 'fadeFromHidden')]]"></px-overlay>
     <div id="back">
       <div class="column-browser-container flex flex--col">
         <px-context-browser-header
+          id="header"
           opened-breadcrumbs="[[openedBreadcrumbs]]"
           opened-item-name="[[openedItemName]]">
           <content></content>
@@ -222,17 +227,39 @@ Define how your data will come in using these methods:
       }
 
     },
+
+    /**
+     * toggle visbility of the column browser
+     */
+    toggleColumnBrowser: function() {
+      this.showColumnBrowser = !this.showColumnBrowser;
+    },
+
+    onHeaderClick: function(e) {
+      this.toggleColumnBrowser();
+      // this.spinner('hide');
+    },
+
+    conditionalClass: function(condition, className) {
+      return condition ? className : '';
+    },
+
     ready: function() {
 
       var _this = this;
 
+      this.$.header.addEventListener("header-click", function() {
+        _this.onHeaderClick();
+      });
+
+
       // Need to watch the width of the column-browser.
       var columnBrowser = this.$$('#column-browser');
 
-      var columnBrowserColumnRuler = Polymer.dom(columnBrowser).querySelector('.ruler'),
-      var columnBrowserColumns = Polymer.dom(columnBrowser).querySelector('div:first-of-type'),
+      var columnBrowserColumnRuler = Polymer.dom(columnBrowser).querySelector('.ruler');
+      var columnBrowserColumns = Polymer.dom(columnBrowser).querySelector('div:first-of-type');
       //columnBrowserColumnsBaseCss = columnBrowserColumns.className, // Polymer does weird stuff.
-      var $columnBrowserColumns = Polymer.dom(columnBrowserColumns),
+      var $columnBrowserColumns = Polymer.dom(columnBrowserColumns);
       var contextBrowserWidth, contextBrowserChildrenCount;
 
       console.log('columnBrowserColumns: ', columnBrowserColumns);
@@ -256,9 +283,10 @@ Define how your data will come in using these methods:
           if (width !== contextBrowserWidth || cCount !== contextBrowserChildrenCount) {
             contextBrowserWidth = width;
             contextBrowserChildrenCount = cCount;
-            var count = getColumns().length - removedCount,
-                columns = Math.floor(width / columnBrowserColumnRuler.offsetWidth),
-                desiredClass = columnBrowserColumnsBaseCss + ' columns-' + columns;
+            var count = getColumns().length - removedCount;
+            /*
+            columns = Math.floor(width / columnBrowserColumnRuler.offsetWidth),
+            desiredClass = columnBrowserColumnsBaseCss + ' columns-' + columns;
 
             if (count > columns) {
               desiredClass += " column-index-" + (count - columns);
@@ -267,6 +295,7 @@ Define how your data will come in using these methods:
             if (columnBrowserColumns.className !== desiredClass) {
               columnBrowserColumns.className = desiredClass;
             }
+            */
           }
         }, 2000); // ms/fps
     },
@@ -653,7 +682,7 @@ Define how your data will come in using these methods:
         }
         this[attrName] = resolvedValue;
       }
-    },
+    }
 
   });
 </script>

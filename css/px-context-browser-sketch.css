@@ -632,6 +632,13 @@ a {
   .btn:active {
     outline: none; }
 
+/** Workaround for FF since it does not support calc().
+  * Other buttons appear ok with the height declaration, but non-button elements do not.
+**/
+@-moz-document url-prefix() {
+  .btn:not(button) {
+    line-height: 1.8em; } }
+
 button.btn {
   -webkit-appearance: button; }
 
@@ -665,7 +672,14 @@ button.btn {
 .btn--small {
   height: 1.6666666667em;
   font-size: 0.8rem;
-  line-height: calc(1.6666666667em - 2px); }
+  line-height: calc($inuit-btn-height--small - 2px); }
+
+/** Workaround for FF since it does not support calc().
+    * Other buttons appear ok with the height declaration, but non-button elements do not.
+  **/
+@-moz-document url-prefix() {
+  .btn--small {
+    line-height: 1.4em; } }
 
 .list-bare {
   margin: 0;
@@ -1067,8 +1081,18 @@ px-spinner {
   width: 100%;
   height: 100%; }
 
+#overlay {
+  opacity: 0;
+  visibility: hidden;
+  transition: visibility 0s .10s, opacity .10s ease-out; }
+  #overlay.fadeFromHidden {
+    transition: opacity .10s ease-out;
+    opacity: 1;
+    visibility: visible; }
+
 #back {
-  position: relative; }
+  position: relative;
+  z-index: 1001; }
 
 #selectContext {
   background: white; }
