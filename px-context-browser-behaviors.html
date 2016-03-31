@@ -8,6 +8,9 @@
     // Base method for adding / removing classnames to base if condition is true
     conditionalClass: function(condition, className, base) {
       base = (typeof base === 'undefined') ? '' : base;
+      if(typeof condition === 'undefined' || typeof className === 'undefined') {
+        return '';
+      }
       return condition ? className + ' ' + base : base;
     },
 
