@@ -6,16 +6,15 @@
   <template>
     <div class="flex flex--col column-browser">
       <px-spinner id="spinner" finished></px-spinner>
+      <!--
       <div class="flex">
         <template is="dom-repeat" id="levels" items="{{parentNodes}}">
           <px-context-browser-menu menu-data="[[item]]"></px-context-browser-menu>
         </template>
       </div>
-      <!-- Ruler needs to be within a container that can enforce its relative size -->
+      -->
       <div class="ruler">
-        <!-- Use this as a ruler to measure the true minimum width of column browser -->
       </div>
-      <!-- this overlay is for the spinner -->
       <div class="overlay"></div>
     </div>
   </template>

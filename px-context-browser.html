@@ -64,6 +64,10 @@ Define how your data will come in using these methods:
 <dom-module id="px-context-browser">
   <link rel="import" type="css" href="css/px-context-browser.css" polyfill-next-selector/>
   <template>
+    <px-context-browser-column-browser
+      id="columnBrowser"
+      parent-nodes="[[parentNodes]]">
+    </px-context-browser-column-browser>
     <px-overlay id="overlay" type="dark" class$="[[addConditionalClass(showColumnBrowser, 'fadeFromHidden')]]"></px-overlay>
     <div id="back">
       <div class="column-browser-container flex flex--col">
@@ -250,15 +254,15 @@ Define how your data will come in using these methods:
       // Need to watch the width of the column-browser.
       var columnBrowser = this.$$('#columnBrowser');
 
-      var columnBrowserColumnRuler = Polymer.dom(columnBrowser).querySelector('.ruler');
-      var columnBrowserColumns = Polymer.dom(columnBrowser).querySelector('div:first-of-type');
-      //columnBrowserColumnsBaseCss = columnBrowserColumns.className, // Polymer does weird stuff.
-      var $columnBrowserColumns = Polymer.dom(columnBrowserColumns);
-      var contextBrowserWidth, contextBrowserChildrenCount;
+      // var columnBrowserColumnRuler = Polymer.dom(columnBrowser).querySelector('.ruler');
+      // var columnBrowserColumns = Polymer.dom(columnBrowser).querySelector('div:first-of-type');
+      // columnBrowserColumnsBaseCss = columnBrowserColumns.className, // Polymer does weird stuff.
+      // var $columnBrowserColumns = Polymer.dom(columnBrowserColumns);
+      // var contextBrowserWidth, contextBrowserChildrenCount;
 
-      console.log('columnBrowserColumns: ', columnBrowserColumns);
-      console.log('this.$$', this.$$);
-      console.log('columnBrowser: ', columnBrowser);
+      //console.log('columnBrowserColumns: ', columnBrowserColumns);
+      //console.log('this.$$', this.$$);
+      //console.log('columnBrowser: ', columnBrowser);
 
       // Watch the container size change.
       var getColumns = function() {
@@ -268,30 +272,27 @@ Define how your data will come in using these methods:
           });
       };
 
-      setInterval(
-        function() {
-          var width = columnBrowser.offsetWidth,
-              removedCount = $columnBrowserColumns.querySelectorAll('.removed').length;
-              // cCount = columnBrowserColumns.childNodes.length - removedCount;
-          cCount = 0;
-          if (width !== contextBrowserWidth || cCount !== contextBrowserChildrenCount) {
-            contextBrowserWidth = width;
-            contextBrowserChildrenCount = cCount;
-            var count = getColumns().length - removedCount;
-            /*
-            columns = Math.floor(width / columnBrowserColumnRuler.offsetWidth),
-            desiredClass = columnBrowserColumnsBaseCss + ' columns-' + columns;
+      // setInterval(
+      // function() {
+        // var width = columnBrowser.offsetWidth,
+        //    removedCount = $columnBrowserColumns.querySelectorAll('.removed').length;
+            // cCount = columnBrowserColumns.childNodes.length - removedCount;
+        // cCount = 0;
+        // if (width !== contextBrowserWidth || cCount !== contextBrowserChildrenCount) {
+        //   contextBrowserWidth = width;
+        //   contextBrowserChildrenCount = cCount;
+        //   var count = getColumns().length - removedCount;
 
-            if (count > columns) {
-              desiredClass += " column-index-" + (count - columns);
-            }
-
-            if (columnBrowserColumns.className !== desiredClass) {
-              columnBrowserColumns.className = desiredClass;
-            }
-            */
-          }
-        }, 2000); // ms/fps
+        // columns = Math.floor(width / columnBrowserColumnRuler.offsetWidth),
+        // desiredClass = columnBrowserColumnsBaseCss + ' columns-' + columns;
+        // if (count > columns) {
+        // desiredClass += " column-index-" + (count - columns);
+        // }
+        // if (columnBrowserColumns.className !== desiredClass) {
+        //   columnBrowserColumns.className = desiredClass;
+        // }
+        // }
+      // }, 2000); // ms/fps
     },
     /**
      * Event listener on breadcrumb clicks, listener is registered from the template
