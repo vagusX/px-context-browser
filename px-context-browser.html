@@ -66,7 +66,10 @@ Define how your data will come in using these methods:
   <template>
     <px-context-browser-column-browser
       id="columnBrowser"
-      parent-nodes="[[parentNodes]]">
+      parent-nodes="[[parentNodes]]"
+      field-keys="[[fieldKeys]]"
+      browser-context="[[browserContext]]"
+      >
     </px-context-browser-column-browser>
     <px-overlay id="overlay" type="dark" class$="[[addConditionalClass(showColumnBrowser, 'fadeFromHidden')]]"></px-overlay>
     <div id="back">
@@ -79,11 +82,13 @@ Define how your data will come in using these methods:
         </px-context-browser-header>
         <div id="ruler" class$="{{removeConditionalClass(showColumnBrowser, 'visuallyhidden', 'flex flex--col')}}">
           <div class$="{{removeConditionalClass(showColumnBrowser, 'visuallyhidden', 'flex flex--col')}}">
-            <px-context-browser-breadcrumbs></px-context-browser-bread-crumbs>
+            <px-context-browser-breadcrumbs></px-context-browser-breadcrumbs>
+            <!--
             <px-context-browser-column-browser
               id="columnBrowser"
               parent-nodes="[[parentNodes]]">
             </px-context-browser-column-browser>
+            -->
           </div>
         </div>
       </div>
@@ -136,7 +141,7 @@ Define how your data will come in using these methods:
       browserContext : {
           value: function() {return {};},
           type: Object,
-          observer: 'contextChanged'
+          observer: 'browserContextChanged'
       },
       /**
        * if we have a selected Item, it's stored here.
@@ -225,8 +230,28 @@ Define how your data will come in using these methods:
       childrenKey: {
         type: String,
         value: "data"
+      },
+
+      fieldKeys: {
+        type: Object,
+        value: function() {
+          return {
+            children: "data",
+            id: "id",
+            label: "name"
+          }
+        },
+        computed: "computeKeys(childrenKey, idField, labelField)"
       }
 
+    },
+
+    computeKeys: function() {
+      return {
+        children: this.childrenKey,
+        id: this.idField,
+        label: this.labelField
+      }
     },
 
     /**
@@ -439,12 +464,19 @@ Define how your data will come in using these methods:
     _hasChildren: function(item) {
       return (this.showChevron) ? (item.hasChildren || item.children) : false;
     },
+
+    browserContextChanged: function(newValue, oldValue) {
+      console.log('browserContextChanged', newValue, oldValue);
+
+    },
+
     /**
      * Observer on context attribute. loads up the initial Context of the browser.
      *
      * @private
      */
     contextChanged: function(newValue, oldValue) {
+
       console.log('contextChanged', newValue, oldValue);
       var _this= this,
           browserContext = this.browserContext,

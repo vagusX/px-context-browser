@@ -1,14 +1,14 @@
 <link rel="import" href="../polymer/polymer.html"/>
 
-<dom-module id="px-context-browser-menu-item">
+<dom-module id="px-context-browser-column-item">
   <link rel="import" type="css" href="css/px-context-browser.css" />
   <template>
-    <li on-click="itemClickHandler" id$="[[getItemId(item)]]" class$="{{isItemSelected(item, selectedItem)}}">
+    <li on-click="itemClickHandler" id$="[[itemId]]" class$="{{isItemSelected}}">
       <span class="flex__item item-label">{{getItemLabel(item)}}</span>
-      <button class$="[[getItemOpenerClass(item)]]" on-click="openClickHandler" key$="[[getItemId(item)]]">
+      <button class$="[[itemOpenerClass]]" on-click="openClickHandler" key$="[[itemId]]">
         Open
       </button>
-      <template is="dom-if" if="{{_hasChildren(item)}}">
+      <template is="dom-if" if="{{_hasChildren}}">
         <span class="chevron"><i class="fa fa-angle-right"></i></span>
       </template>
     </li>
@@ -17,7 +17,7 @@
 
 <script>
   Polymer({
-    is: 'px-context-browser-menu-item',
+    is: 'px-context-browser-column-item',
     properties: {
       /**
        * Item data passed from parent menu
@@ -40,9 +40,60 @@
         value: false,
         reflectToAttribute: true
       },
+
+      itemOpenerClass: {
+        type: String,
+        value: 'temp-item-opener-class',
+        computed: 'computeItemOpenerClass(item)'
+      },
+
+      itemId: {
+        type: String,
+        value: null,
+        computed: 'computeItemId(item)'
+      },
+
+      isItemSelected: {
+        type: Boolean,
+        value: false,
+        computed: 'computeIsItemSelected(item)'
+      },
+
+      _hasChildren: {
+        type: Boolean,
+        value: false,
+        computed: 'computeHasChildren(item)'
+      },
+
+      baseClassNames: {
+        type: String,
+        value: 'opener btn btn--small btn--tertiary '
+      }
+
+    },
+
+    computeItemOpenerClass: function(item) {
+      var openableClassName = this.item.isOpenable ? "openable" : "unopenable";
+      return this.baseClassNames + openableClassName;
     },
 
     menu: null,
+
+    computeItemId: function(item) {
+      return item ? item[this.parent.idField] : null;
+    },
+
+    computeIsItemSelected: function(item) {
+
+    },
+
+    computeHasChildren: function(item) {
+
+    },
+
+    openClickHandler: function() {
+
+    },
 
     ready: function() {
       this.parent = this.parentNode;
@@ -56,8 +107,8 @@
      * @param {object} item
      * @private
      */
-    _hasChildren: function(item) {
-      return (this.showChevron) ? (item.hasChildren || item.children) : false;
+    _hasChildren: function() {
+      return (this.showChevron) ? (this.item.hasChildren || this.item.children) : false;
     },
 
     /**
@@ -75,7 +126,7 @@
      * @private
      */
     getItemId: function(item) {
-      return item ? item[this.parent.idField] : null;
+
     },
 
     /**
@@ -83,9 +134,8 @@
      * @return {String} CSS class for item opener
      * @private
      */
-    getItemOpenerClass: function(item) {
-      var base = "opener btn btn--small btn--tertiary ";
-      return base = (item.isOpenable) ? base + "openable" : base + "unopenable";
+    getItemOpenerClass: function() {
+
     },
 
     /**
@@ -93,9 +143,10 @@
      * @return {String} CSS class for item
      * @private
      */
-    isItemSelected: function(item, selectedItem) {
+    isItemSelected: function(selectedItem) {
       var base = "flex flex--middle selectable-item";
-      return base = (item.inSelectedPath) ? base += " selected" : base;
+
+      return base = (this.item.inSelectedPath) ? base += " selected" : base;
     },
 
     /**

@@ -1,17 +1,17 @@
 <link rel="import" href="../polymer/polymer.html"/>
-<link rel="import" href="px-context-browser-menu-item.html"/>
+<link rel="import" href="px-context-browser-column-item.html"/>
 
-<dom-module id="px-context-browser-menu">
+<dom-module id="px-context-browser-column">
   <link rel="import" type="css" href="css/px-context-browser.css" />
   <template>
     <div class="flex flex--col column push" data-column>
       <div class="head">{{menuData.header}}</div>
       <div class="flex__item scroll-y" on-scroll="scrollEndHandler">
         <ul class$="{{UlSelected(menuData, selectedItem)}}">
-          <template is="dom-repeat" id="level" items="{{item.children}}">
-            <px-context-browser-menu-item
+          <template is="dom-repeat" id="level" items="{{columnItems}}">
+            <px-context-browser-column-item
               show-chevron
-              item-data="[[item]]"></px-context-browser-menu-item>
+              item-data="[[item]]"></px-context-browser-column-item>
           </template>
         </ul>
       </div>
@@ -21,7 +21,7 @@
 
 <script>
   Polymer({
-    is: 'px-context-browser-menu',
+    is: 'px-context-browser-column',
     properties: {
       /**
        * Item data passed from parent menu
@@ -29,9 +29,14 @@
        * @type {Object}
        * @default null
        */
-      menuData: {
+      columnData: {
         type: Object,
-        value: null
+        value: null,
+        observer: 'columnDataChanged'
+      },
+      columnItems: {
+        type: Array,
+        value: function() { return []; }
       },
       /**
        * show chevron
@@ -44,13 +49,25 @@
         value: false,
         reflectToAttribute: true
       },
+      fieldKeys: {
+        type: Object,
+        value: null
+      }
     },
 
     menu: null,
 
     ready: function() {
       this.parent = this.parentNode;
+    },
 
+    columnDataChanged: function(newValue, oldValue) {
+      console.log('columnDataChanged');
+      console.log('newValue', newValue);
+      console.log('oldValue', oldValue);
+      console.log('fieldKeys', this.fieldKeys);
+      //console.log('');
+      // this.columnItems = newValue[this.fieldKeys['children']];
     },
 
     /**
