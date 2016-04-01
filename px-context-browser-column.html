@@ -32,7 +32,7 @@
       columnData: {
         type: Object,
         value: null,
-        observer: 'columnDataChanged'
+        observer: '_columnDataChanged'
       },
       columnItems: {
         type: Array,
@@ -59,15 +59,19 @@
 
     ready: function() {
       this.parent = this.parentNode;
+      this._setColumnItems(this.columnData);
     },
 
-    columnDataChanged: function(newValue, oldValue) {
-      console.log('columnDataChanged');
-      console.log('newValue', newValue);
-      console.log('oldValue', oldValue);
-      console.log('fieldKeys', this.fieldKeys);
-      //console.log('');
-      // this.columnItems = newValue[this.fieldKeys['children']];
+    _columnDataChanged: function(newValue, oldValue) {
+      if(typeof newValue !== 'undefined') {
+        this._setColumnItems(newValue);
+      }
+    },
+
+    _setColumnItems(columnData) {
+      if(typeof this.fieldKeys !== 'undefined') {
+        this.columnItems = columnData[this.fieldKeys['children']];
+      }
     },
 
     /**

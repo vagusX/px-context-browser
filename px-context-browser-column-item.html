@@ -44,54 +44,56 @@
       itemOpenerClass: {
         type: String,
         value: 'temp-item-opener-class',
-        computed: 'computeItemOpenerClass(item)'
+        computed: '_computeItemOpenerClass(item)'
       },
 
       itemId: {
         type: String,
         value: null,
-        computed: 'computeItemId(item)'
+        computed: '_computeItemId(item)'
       },
 
       isItemSelected: {
         type: Boolean,
         value: false,
-        computed: 'computeIsItemSelected(item)'
+        computed: '_computeIsItemSelected(item)'
       },
 
       _hasChildren: {
         type: Boolean,
         value: false,
-        computed: 'computeHasChildren(item)'
+        computed: '_computeHasChildren(item)'
       },
 
-      baseClassNames: {
+      _baseClassNames: {
         type: String,
         value: 'opener btn btn--small btn--tertiary '
       }
 
     },
 
-    computeItemOpenerClass: function(item) {
-      var openableClassName = this.item.isOpenable ? "openable" : "unopenable";
-      return this.baseClassNames + openableClassName;
+    _computeItemOpenerClass: function(item) {
+      if(item !== null) {
+        var openableClassName = item.isOpenable ? "openable" : "unopenable";
+        return this._baseClassNames + openableClassName;
+      }
     },
 
     menu: null,
 
-    computeItemId: function(item) {
+    _computeItemId: function(item) {
       return item ? item[this.parent.idField] : null;
     },
 
-    computeIsItemSelected: function(item) {
+    _computeIsItemSelected: function(item) {
 
     },
 
-    computeHasChildren: function(item) {
+    _computeHasChildren: function(item) {
 
     },
 
-    openClickHandler: function() {
+    _openClickHandler: function() {
 
     },
 
