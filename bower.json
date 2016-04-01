@@ -14,7 +14,7 @@
     "test"
   ],
   "dependencies": {
-    "polymer": "~v1.2.3",
+    "polymer": "~v1.4.0",
     "px-spinner": "https://github.com/predixdev/px-spinner.git#~0.1.1",
     "px-theme": "https://github.com/PredixDev/px-theme.git#~v0.4.0",
     "px-overlay": "https://github.com/PredixDev/px-overlay.git#~0.0.3",

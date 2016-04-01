@@ -263,7 +263,7 @@ Define how your data will come in using these methods:
 
     onHeaderClick: function(e) {
       this.toggleColumnBrowser();
-      console.log('this.$', this.$.columnBrowser);
+      // console.log('this.$', this.$.columnBrowser);
       this.$.columnBrowser.hideSpinner();
     },
 
@@ -466,7 +466,7 @@ Define how your data will come in using these methods:
     },
 
     browserContextChanged: function(newValue, oldValue) {
-      console.log('browserContextChanged', newValue, oldValue);
+      // console.log('browserContextChanged', newValue, oldValue);
 
     },
 
@@ -477,7 +477,7 @@ Define how your data will come in using these methods:
      */
     contextChanged: function(newValue, oldValue) {
 
-      console.log('contextChanged', newValue, oldValue);
+      // console.log('contextChanged', newValue, oldValue);
       var _this= this,
           browserContext = this.browserContext,
           root;

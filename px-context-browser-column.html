@@ -11,7 +11,8 @@
           <template is="dom-repeat" id="level" items="{{columnItems}}">
             <px-context-browser-column-item
               show-chevron
-              item-data="[[item]]"></px-context-browser-column-item>
+              column-item="[[item]]"
+              field-keys="[[fieldKeys]]"></px-context-browser-column-item>
           </template>
         </ul>
       </div>
