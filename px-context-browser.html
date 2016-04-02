@@ -289,24 +289,17 @@ Define how your data will come in using these methods:
 
     _findNodeById: function(nodes, id) {
       var _this = this;
-      var match = _.find(nodes, function(node) {
-        return _.isEqual(node.id, id);
-      });
-      if(typeof match !== 'undefined') {
-        return match;
-      } else {
-        var found = null;
-        _.each(nodes, function(node) {
+      var found = null;
+      _.each(nodes, function(node) {
+        if(_.isEqual(node.id, id)) {
+          found = node;
+        } else {
           if(node.children && node.children.length > 0) {
             found = _this._findNodeById(node.children, id);
           }
-        });
-        if(found) {
-          return found;
-        } else {
-          return null;
         }
-      }
+      });
+      return found;
     },
 
     _markSelected: function(nodes, item) {
