@@ -287,15 +287,15 @@ Define how your data will come in using these methods:
       this.$.columnBrowser.hideSpinner();
     },
 
-    _findNodeById: function(nodes, id) {
+    _findNode: function(nodes, key, value) {
       var _this = this;
       var found = null;
       _.each(nodes, function(node) {
-        if(_.isEqual(node.id, id)) {
+        if(_.isEqual(node[key], value)) {
           found = node;
         } else {
-          if(node.children && node.children.length > 0) {
-            found = _this._findNodeById(node.children, id);
+          if(node[_this.fieldKeys['children']] && node[_this.fieldKeys['children']].length > 0) {
+            found = _this._findNode(node.children, key, value);
           }
         }
       });
@@ -327,7 +327,7 @@ Define how your data will come in using these methods:
         var item = e.detail.item;
         //console.log(this.browserContext);
         // this._markSelected([this.browserContext], item);
-        var returned = this._findNodeById([this.browserContext], item.id);
+        var returned = this._findNode([this.browserContext], 'id', item.id);
         console.log(returned);
       });
 
