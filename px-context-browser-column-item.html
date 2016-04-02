@@ -1,11 +1,12 @@
 <link rel="import" href="../polymer/polymer.html"/>
+<link rel="import" href="px-context-browser-behaviors.html"/>
 
 <dom-module id="px-context-browser-column-item">
   <link rel="import" type="css" href="css/px-context-browser.css" />
   <template>
-    <li on-click="itemClickHandler" id$="[[itemId]]" class$="{{isItemSelected}}">
-      <span class="flex__item item-label">{{getItemLabel(item)}}</span>
-      <button class$="[[itemOpenerClass]]" on-click="openClickHandler" key$="[[itemId]]">
+    <li on-click="itemClickHandler" id$="[[itemId]]" class$="{{_itemClassNames}}">
+      <span class="flex__item item-label">{{itemLabel}}</span>
+      <button class$="[[_openButtonClass]]" on-click="openClickHandler" key$="[[itemId]]">
         Open
       </button>
       <template is="dom-if" if="{{_hasChildren}}">
@@ -18,6 +19,7 @@
 <script>
   Polymer({
     is: 'px-context-browser-column-item',
+    behaviors: [PxContextBrowserBehaviors],
     properties: {
       /**
        * Item data passed from parent menu
@@ -44,20 +46,13 @@
       testValue: 'test',
 
       fieldKeys: {
-        type: Object,
-        value: function() {
-          return {
-            children: "data",
-            id: "id",
-            label: "name"
-          }
-        }
+        type: Object
       },
 
-      itemOpenerClass: {
+      _openButtonClass: {
         type: String,
         value: 'temp-item-opener-class',
-        computed: '_computeItemOpenerClass(columnItem)'
+        computed: '_computeOpenButtonClass(columnItem, _baseOpenButtonClassNames)'
       },
 
       itemId: {
@@ -65,10 +60,15 @@
         computed: '_computeItemId(columnItem, fieldKeys)'
       },
 
-      isItemSelected: {
+      itemLabel: {
+        type: String,
+        computed: '_computeItemLabel(columnItem, fieldKeys)'
+      },
+
+      _itemClassNames: {
         type: Boolean,
         value: false,
-        computed: '_computeIsItemSelected(columnItem)'
+        computed: '_computeItemClassNames(columnItem)'
       },
 
       _hasChildren: {
@@ -77,38 +77,68 @@
         computed: '_computeHasChildren(columnItem)'
       },
 
-      _baseClassNames: {
+      _baseOpenButtonClassNames: {
         type: String,
         value: 'opener btn btn--small btn--tertiary '
+      },
+
+      _baseItemClassNames: {
+        type: String,
+        value: 'flex flex--middle selectable-item'
+      },
+
+      _isSelected: {
+        type: Boolean,
+        computed: '_computeIsSelected(columnItem)'
       }
+
+
 
     },
 
     ready: function() {
-      
+      //console.log(this.showChevron);
     },
 
-    _computeItemOpenerClass: function(item) {
-      if(item !== null) {
-        var openableClassName = item.isOpenable ? "openable" : "unopenable";
-        return this._baseClassNames + openableClassName;
-      }
+    _computeOpenButtonClass: function(item) {
+      var openableClassName = item.isOpenable ? "openable" : "unopenable";
+      return this._baseOpenButtonClassNames + openableClassName;
+    },
+
+    _computeIsSelected: function(item) {
+      return item.selected === true;
     },
 
     menu: null,
 
     _computeItemId: function(item) {
-      return item ? item[this.fieldKeys['id']] : null;
+      return item ? item[this.fieldKeys.id] : null;
     },
 
-    _computeIsItemSelected: function(item) {
-      var base = "flex flex--middle selectable-item";
-      // console.log('item',this.item);
-      return item.inSelectedPath ? base += " selected" : base;
+    _computeItemLabel: function(item) {
+      return item ? item[this.fieldKeys.label] : null;
+    },
+
+    _computeItemClassNames: function(item) {
+      return this.addConditionalClass(item._isSelected, "selected", this._baseItemClassNames);
     },
 
     _computeHasChildren: function(item) {
+      //console.log(item);
+      //console.log(item.hasChildren, item.children);
+      return (this.showChevron) ? (item.hasChildren || item.children) : false;
+    },
 
+    /**
+     * Event listener on item clicks, listener is registered from the template
+     *
+     * @param {Event} evt
+     * @private
+     */
+    itemClickHandler: function(evt) {
+      this.debounce('itemClick', function() {
+        this.fire('item-click', { 'item': this.columnItem } );
+      }, 1);
     },
 
     _openClickHandler: function() {

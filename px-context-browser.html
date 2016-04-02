@@ -63,14 +63,23 @@ Define how your data will come in using these methods:
 -->
 <dom-module id="px-context-browser">
   <link rel="import" type="css" href="css/px-context-browser.css" polyfill-next-selector/>
+  <script src="../lodash/lodash.js"></script>
   <template>
+    <iron-ajax
+      id="ironAjaxElement"
+      url="[[_jsonURL]]"
+      handle-as="json"
+      debounce-duration="300"
+      last-response="{{_lastJSONResponse}}"
+      auto></iron-ajax>
+
     <px-context-browser-column-browser
       id="columnBrowser"
       parent-nodes="[[parentNodes]]"
       field-keys="[[fieldKeys]]"
       browser-context="[[browserContext]]"
-      >
-    </px-context-browser-column-browser>
+      ></px-context-browser-column-browser>
+
     <px-overlay id="overlay" type="dark" class$="[[addConditionalClass(showColumnBrowser, 'fadeFromHidden')]]"></px-overlay>
     <div id="back">
       <div class="column-browser-container flex flex--col">
@@ -83,12 +92,7 @@ Define how your data will come in using these methods:
         <div id="ruler" class$="{{removeConditionalClass(showColumnBrowser, 'visuallyhidden', 'flex flex--col')}}">
           <div class$="{{removeConditionalClass(showColumnBrowser, 'visuallyhidden', 'flex flex--col')}}">
             <px-context-browser-breadcrumbs></px-context-browser-breadcrumbs>
-            <!--
-            <px-context-browser-column-browser
-              id="columnBrowser"
-              parent-nodes="[[parentNodes]]">
-            </px-context-browser-column-browser>
-            -->
+
           </div>
         </div>
       </div>
@@ -101,6 +105,13 @@ Define how your data will come in using these methods:
     is: 'px-context-browser',
     behaviors: [PxContextBrowserBehaviors],
     properties: {
+      browserContextUrl: {
+        type: String
+      },
+      _lastJSONResponse: {
+        type: Object,
+        observer: '_lastResponseChanged'
+      },
       /**
       * Mapping for the field name in the context data that represents the display label for an item. This property allows data of any form/keys to be used as
       * long as it has the notion of a 'display label' in it.
@@ -254,6 +265,15 @@ Define how your data will come in using these methods:
       }
     },
 
+    _lastResponseChanged: function(newValue, oldValue) {
+      console.log('_lastResponseChanged');
+      console.log(newValue, oldValue);
+      if(_.isEmpty(this.browserContext)) {
+        this.set('browserContext', newValue);
+      };
+
+    },
+
     /**
      * toggle visbility of the column browser
      */
@@ -267,6 +287,19 @@ Define how your data will come in using these methods:
       this.$.columnBrowser.hideSpinner();
     },
 
+    _markSelected: function(nodes, item) {
+      var _this = this;
+      var match = _.each(nodes, function(node) {
+        if(_.isEqual(node.uri, item.uri)) {
+          node.selected = true;
+        } else {
+          if(node.children && node.children.length > 0) {
+            _this._markSelected(node.children, item);
+          }
+        }
+      });
+    },
+
     ready: function() {
 
       var _this = this;
@@ -275,6 +308,13 @@ Define how your data will come in using these methods:
         _this.onHeaderClick();
       });
 
+      this.addEventListener("item-click", function(e) {
+        var item = e.detail.item;
+        //console.log(this.browserContext);
+        this._markSelected([this.browserContext], item);
+      });
+
+      this.set('_jsonURL', this.browserContextUrl);
 
       // Need to watch the width of the column-browser.
       var columnBrowser = this.$$('#columnBrowser');
@@ -330,17 +370,6 @@ Define how your data will come in using these methods:
       this.selectItem(this.parentNodes[level]);
     },
 
-    /**
-     * Event listener on item clicks, listener is registered from the template
-     *
-     * @param {Event} evt
-     * @private
-     */
-    itemClickHandler: function(evt) {
-      this.debounce('itemClick', function() {
-        this.selectItem(evt.model.item, evt.currentTarget);
-      }, 1);
-    },
 
     /**
      * Event listener on scroll of item panels/columns, listener is registered from the template
@@ -466,7 +495,8 @@ Define how your data will come in using these methods:
     },
 
     browserContextChanged: function(newValue, oldValue) {
-      // console.log('browserContextChanged', newValue, oldValue);
+
+      console.log('browserContextChanged', newValue, oldValue);
 
     },
 
