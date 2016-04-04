@@ -6,6 +6,7 @@
   <template>
     <li on-click="itemClickHandler" id$="[[itemId]]" class$="{{_itemClassNames}}">
       <span class="flex__item item-label">{{itemLabel}}</span>
+      {{_isSelected}}
       <button class$="[[_openButtonClass]]" on-click="openClickHandler" key$="[[itemId]]">
         Open
       </button>
@@ -92,12 +93,19 @@
         computed: '_computeIsSelected(columnItem)'
       }
 
-
-
     },
 
+    observers: [
+      '_columnItemSelectedChanged(columnItem.selected)'
+    ],
+
     ready: function() {
-      //console.log(this.showChevron);
+
+      console.log(this.showChevron);
+    },
+
+    _columnItemSelectedChanged: function(item) {
+      console.log('asdf');
     },
 
     _computeOpenButtonClass: function(item) {
@@ -106,6 +114,7 @@
     },
 
     _computeIsSelected: function(item) {
+      console.log('_computeIsSelected', item.selected === false);
       return item.selected === true;
     },
 

@@ -8,10 +8,11 @@
     <div class="flex flex--col column-browser">
       <px-spinner id="spinner" finished></px-spinner>
       <div class="flex">
-        <template is="dom-repeat" id="levels" items="{{columns}}">
+        <template is="dom-repeat" id="levels" items="[[columns]]">
           <px-context-browser-column
             column-data="[[item]]"
-            field-keys="[[fieldKeys]]"></px-context-browser-column>
+            field-keys="[[fieldKeys]]"
+            context="[[context]]"></px-context-browser-column>
         </template>
       </div>
       <div class="ruler">
@@ -36,10 +37,10 @@
         type: Array,
         value: function() {return [];} //this is Polmer's way of defining an empty array in properties
       },
-      browserContext: {
+      context: {
         type: Object,
         value: function() { return {}; },
-        observer: 'browserContextChanged'
+        observer: 'contextChanged'
       },
       columns: {
         type: Array,
@@ -49,14 +50,16 @@
         type: Object,
         value: null
       }
-
     },
 
-
-    browserContextChanged: function(newValue, oldValue) {
+    contextChanged: function(newValue, oldValue) {
+      console.log('contextChanged', newValue)
       if(!_.isEmpty(newValue)) {
         var children = newValue[this.fieldKeys['children']] || [];
         this.columns = [{ children }];
+      } else {
+        this.columns = [];
+        // merge with existing?
       }
     },
 

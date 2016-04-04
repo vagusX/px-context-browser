@@ -9,6 +9,7 @@
       <div class="flex__item scroll-y" on-scroll="scrollEndHandler">
         <ul class$="{{UlSelected(menuData, selectedItem)}}">
           <template is="dom-repeat" id="level" items="{{columnItems}}">
+            {{_firstColumnItemSelected}}
             <px-context-browser-column-item
               show-chevron
               column-item="[[item]]"
@@ -53,7 +54,21 @@
       fieldKeys: {
         type: Object,
         value: null
+      },
+      _firstColumnItemSelected: {
+        type: Boolean,
+        computed: '_computeFirstColumnItemSelected(columnItems)'
       }
+    },
+
+    _computeFirstColumnItemSelected: function(columnItems) {
+      console.log('return columnItems[0].selected;set')
+      if(columnItems[0]) {
+        return columnItems[0].selected;
+      } else {
+        return false;
+      }
+
     },
 
     menu: null,
@@ -71,7 +86,9 @@
 
     _setColumnItems(columnData) {
       if(typeof this.fieldKeys !== 'undefined') {
-        this.columnItems = columnData[this.fieldKeys['children']];
+        console.log('columnItems');
+        this.set('columnItems', columnData[this.fieldKeys['children']]);
+        this.async( function() { this.$.level.render(); });
       }
     },
 

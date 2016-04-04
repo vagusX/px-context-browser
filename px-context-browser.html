@@ -77,7 +77,7 @@ Define how your data will come in using these methods:
       id="columnBrowser"
       parent-nodes="[[parentNodes]]"
       field-keys="[[fieldKeys]]"
-      browser-context="[[browserContext]]"
+      context="[[context]]"
       ></px-context-browser-column-browser>
 
     <px-overlay id="overlay" type="dark" class$="[[addConditionalClass(showColumnBrowser, 'fadeFromHidden')]]"></px-overlay>
@@ -149,10 +149,10 @@ Define how your data will come in using these methods:
        * @type {Polymer empty Object}
        * @default null
        */
-      browserContext : {
+      context : {
           value: function() {return {};},
           type: Object,
-          observer: 'browserContextChanged'
+          observer: 'contextChanged'
       },
       /**
        * if we have a selected Item, it's stored here.
@@ -266,12 +266,9 @@ Define how your data will come in using these methods:
     },
 
     _lastResponseChanged: function(newValue, oldValue) {
-      console.log('_lastResponseChanged');
-      console.log(newValue, oldValue);
-      if(_.isEmpty(this.browserContext)) {
-        this.set('browserContext', newValue);
+      if(_.isEmpty(this.context)) {
+        this.set('context', newValue);
       };
-
     },
 
     /**
@@ -283,7 +280,6 @@ Define how your data will come in using these methods:
 
     onHeaderClick: function(e) {
       this.toggleColumnBrowser();
-      // console.log('this.$', this.$.columnBrowser);
       this.$.columnBrowser.hideSpinner();
     },
 
@@ -303,16 +299,10 @@ Define how your data will come in using these methods:
     },
 
     _markSelected: function(nodes, item) {
-      var _this = this;
-      var match = _.each(nodes, function(node) {
-        if(_.isEqual(node.uri, item.uri)) {
-          node.selected = true;
-        } else {
-          if(node.children && node.children.length > 0) {
-            _this._markSelected(node.children, item);
-          }
-        }
-      });
+      var node = this._findNode(nodes, 'id', item.id);
+      if(node) {
+        node.selected = true;
+      }
     },
 
     ready: function() {
@@ -325,10 +315,10 @@ Define how your data will come in using these methods:
 
       this.addEventListener("item-click", function(e) {
         var item = e.detail.item;
-        //console.log(this.browserContext);
-        // this._markSelected([this.browserContext], item);
-        var returned = this._findNode([this.browserContext], 'id', item.id);
-        console.log(returned);
+        this._markSelected([this.context], item);
+        var contextClone = this.context;
+        this.context = {};
+        this.context = contextClone;
       });
 
       this.set('_jsonURL', this.browserContextUrl);
@@ -511,9 +501,9 @@ Define how your data will come in using these methods:
       return (this.showChevron) ? (item.hasChildren || item.children) : false;
     },
 
-    browserContextChanged: function(newValue, oldValue) {
+    contextChanged: function(newValue, oldValue) {
 
-      console.log('browserContextChanged', newValue, oldValue);
+      // console.log('contextChanged', newValue, oldValue);
 
     },
 
@@ -525,6 +515,7 @@ Define how your data will come in using these methods:
     contextChanged: function(newValue, oldValue) {
 
       // console.log('contextChanged', newValue, oldValue);
+      /*
       var _this= this,
           browserContext = this.browserContext,
           root;
@@ -568,6 +559,7 @@ Define how your data will come in using these methods:
         this.configureBreadcrumbs();
         this.openedItemName = this.selectedItem.name;
       }
+      */
     },
     /**
      * Appends children to those already at a level.
