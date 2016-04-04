@@ -62,7 +62,7 @@
     },
 
     _computeFirstColumnItemSelected: function(columnItems) {
-      console.log('return columnItems[0].selected;set')
+      //console.log('return columnItems[0].selected;set')
       if(columnItems[0]) {
         return columnItems[0].selected;
       } else {
@@ -86,7 +86,6 @@
 
     _setColumnItems(columnData) {
       if(typeof this.fieldKeys !== 'undefined') {
-        console.log('columnItems');
         this.set('columnItems', columnData[this.fieldKeys['children']]);
         this.async( function() { this.$.level.render(); });
       }

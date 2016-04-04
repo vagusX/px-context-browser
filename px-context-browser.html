@@ -283,6 +283,7 @@ Define how your data will come in using these methods:
       this.$.columnBrowser.hideSpinner();
     },
 
+    /* recursive find node by arbitrary key / value pair on nested objects */
     _findNode: function(nodes, key, value) {
       var _this = this;
       var found = null;
@@ -298,8 +299,12 @@ Define how your data will come in using these methods:
       return found;
     },
 
-    _markSelected: function(nodes, item) {
-      var node = this._findNode(nodes, 'id', item.id);
+    _findNodeById: function(nodes, id) {
+      return this._findNode(nodes, 'id', id);
+    },
+
+    _markSelected: function(nodes, itemId) {
+      var node = this._findNodeById(nodes, itemId);
       if(node) {
         node.selected = true;
       }
@@ -314,11 +319,12 @@ Define how your data will come in using these methods:
       });
 
       this.addEventListener("item-click", function(e) {
-        var item = e.detail.item;
-        this._markSelected([this.context], item);
-        var contextClone = this.context;
+        var itemId = e.detail.itemId;
+        this._markSelected([this.context], itemId);
+        /*var contextClone = this.context;
         this.context = {};
         this.context = contextClone;
+        */
       });
 
       this.set('_jsonURL', this.browserContextUrl);

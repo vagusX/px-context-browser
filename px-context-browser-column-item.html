@@ -101,11 +101,11 @@
 
     ready: function() {
 
-      console.log(this.showChevron);
+      // console.log(this.showChevron);
     },
 
     _columnItemSelectedChanged: function(item) {
-      console.log('asdf');
+      // console.log('asdf');
     },
 
     _computeOpenButtonClass: function(item) {
@@ -114,7 +114,7 @@
     },
 
     _computeIsSelected: function(item) {
-      console.log('_computeIsSelected', item.selected === false);
+      // console.log('_computeIsSelected', item.selected === false);
       return item.selected === true;
     },
 
@@ -128,7 +128,9 @@
       return item ? item[this.fieldKeys.label] : null;
     },
 
+    /* returns string to be used for _itemClassNames */
     _computeItemClassNames: function(item) {
+      // console.log(item._isSelected);
       return this.addConditionalClass(item._isSelected, "selected", this._baseItemClassNames);
     },
 
@@ -146,7 +148,7 @@
      */
     itemClickHandler: function(evt) {
       this.debounce('itemClick', function() {
-        this.fire('item-click', { 'item': this.columnItem } );
+        this.fire('item-click', { 'itemId': this.columnItem['id'] } );
       }, 1);
     },
 
