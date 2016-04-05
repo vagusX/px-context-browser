@@ -267,7 +267,7 @@ Define how your data will come in using these methods:
 
     _lastResponseChanged: function(newValue, oldValue) {
       if(_.isEmpty(this.context)) {
-        newValue.random = this._generateRandomString();
+        newValue.localUpdatedAt = (new Date).getTime();
         this.set('context', newValue);
       };
     },
@@ -311,10 +311,6 @@ Define how your data will come in using these methods:
       }
     },
 
-    _generateRandomString: function() {
-      return String(Math.random());
-    },
-
     ready: function() {
 
       var _this = this;
@@ -324,11 +320,10 @@ Define how your data will come in using these methods:
       });
 
       this.addEventListener("item-click", function(e) {
-        var itemId = e.detail.itemId;
-        var oldContext = this.context;
-        this._markSelected([this.context], itemId);
-        console.log('context should be updated... ');
-        this.set('context.random', this._generateRandomString());
+        // 'item-click' event is passed with object: { itemId: 'item-id-value' }
+        this._markSelected([this.context], e.detail.itemId);
+        console.log(this.context.children);
+        this.set('context.localUpdatedAt', (new Date).getTime());
       });
 
       this.addEventListener("context-changed", function(e) {
