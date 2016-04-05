@@ -9,7 +9,6 @@
       <div class="flex__item scroll-y" on-scroll="scrollEndHandler">
         <ul class$="{{UlSelected(menuData, selectedItem)}}">
           <template is="dom-repeat" id="level" items="{{columnItems}}">
-            {{_firstColumnItemSelected}}
             <px-context-browser-column-item
               show-chevron
               column-item="[[item]]"
@@ -54,21 +53,7 @@
       fieldKeys: {
         type: Object,
         value: null
-      },
-      _firstColumnItemSelected: {
-        type: Boolean,
-        computed: '_computeFirstColumnItemSelected(columnItems)'
       }
-    },
-
-    _computeFirstColumnItemSelected: function(columnItems) {
-      //console.log('return columnItems[0].selected;set')
-      if(columnItems[0]) {
-        return columnItems[0].selected;
-      } else {
-        return false;
-      }
-
     },
 
     menu: null,
@@ -86,8 +71,21 @@
 
     _setColumnItems(columnData) {
       if(typeof this.fieldKeys !== 'undefined') {
-        this.set('columnItems', columnData[this.fieldKeys['children']]);
-        this.async( function() { this.$.level.render(); });
+        var newColumnItems = columnData[this.fieldKeys['children']];
+        var i = 0, len = this.columnItems.length;
+        console.log(len);
+        for(i;i<len;i++) {
+          console.log(i);
+          this.pop('columnItems');
+        };
+        console.log('this.columnItems', this.columnItems);
+        var i = 0, len = newColumnItems.length;
+        for(i;i<len;i++) {
+          this.push('columnItems', newColumnItems[i]);
+        };
+        console.log('this.columnItems', this.columnItems);
+        this.$.level.render();
+        // this.async( function() { this.$.level.render(); });
       }
     },
 

@@ -70,7 +70,7 @@ Define how your data will come in using these methods:
       url="[[_jsonURL]]"
       handle-as="json"
       debounce-duration="300"
-      last-response="{{_lastJSONResponse}}"
+      last-response="{{_lastResponse}}"
       auto></iron-ajax>
 
     <px-context-browser-column-browser
@@ -108,7 +108,7 @@ Define how your data will come in using these methods:
       browserContextUrl: {
         type: String
       },
-      _lastJSONResponse: {
+      _lastResponse: {
         type: Object,
         observer: '_lastResponseChanged'
       },
@@ -152,7 +152,7 @@ Define how your data will come in using these methods:
       context : {
           value: function() {return {};},
           type: Object,
-          observer: 'contextChanged'
+          observer: '_contextChanged'
       },
       /**
        * if we have a selected Item, it's stored here.
@@ -267,6 +267,7 @@ Define how your data will come in using these methods:
 
     _lastResponseChanged: function(newValue, oldValue) {
       if(_.isEmpty(this.context)) {
+        newValue.random = this._generateRandomString();
         this.set('context', newValue);
       };
     },
@@ -310,6 +311,10 @@ Define how your data will come in using these methods:
       }
     },
 
+    _generateRandomString: function() {
+      return String(Math.random());
+    },
+
     ready: function() {
 
       var _this = this;
@@ -320,11 +325,14 @@ Define how your data will come in using these methods:
 
       this.addEventListener("item-click", function(e) {
         var itemId = e.detail.itemId;
+        var oldContext = this.context;
         this._markSelected([this.context], itemId);
-        /*var contextClone = this.context;
-        this.context = {};
-        this.context = contextClone;
-        */
+        console.log('context should be updated... ');
+        this.set('context.random', this._generateRandomString());
+      });
+
+      this.addEventListener("context-changed", function(e) {
+        this._contextChanged(this.context);
       });
 
       this.set('_jsonURL', this.browserContextUrl);
@@ -507,66 +515,10 @@ Define how your data will come in using these methods:
       return (this.showChevron) ? (item.hasChildren || item.children) : false;
     },
 
-    contextChanged: function(newValue, oldValue) {
-
-      // console.log('contextChanged', newValue, oldValue);
-
+    _contextChanged: function(newValue, oldValue) {
+      console.log('contextChanged at px-context-browser level: ', newValue, oldValue);
     },
 
-    /**
-     * Observer on context attribute. loads up the initial Context of the browser.
-     *
-     * @private
-     */
-    contextChanged: function(newValue, oldValue) {
-
-      // console.log('contextChanged', newValue, oldValue);
-      /*
-      var _this= this,
-          browserContext = this.browserContext,
-          root;
-
-      root = {hideBreadcrumb: true};
-      this.parentNodes = [];
-      this.openedBreadcrumbs = [];
-
-      this.push('parentNodes', root);
-      this.addChildren(root, browserContext);
-
-      //dig into the tree, and keep going while we have children
-      function recursiveAddChildren(currentRoot) {
-        var current_elem;
-        for (var i in currentRoot) {
-          if (currentRoot.hasOwnProperty(i)) {
-            current_elem = currentRoot[i];
-            if(Object.keys(current_elem).indexOf('children') > -1 ) {
-                current_elem.inSelectedPath = true;
-              //only direct lineage of the selected child have children..
-              _this.push('parentNodes',current_elem);
-              if (current_elem.selectedAsset) {
-                  current_elem.inSelectedPath = true;
-                  _this.set('selectedItem',current_elem);
-              }
-              var obj = {"data" : current_elem.children};
-              _this.addChildren(current_elem, obj);
-              recursiveAddChildren(current_elem.children);
-            } else if (current_elem.selectedAsset) {
-                current_elem.inSelectedPath = true;
-                _this.set('selectedItem',current_elem);
-              //we're pushing this item into parentNode to ensure the breadcrumbs work correctly.
-              _this.push('parentNodes',current_elem);
-            }
-          }
-        }
-      }
-      recursiveAddChildren(root.children);
-      // Repopulate the openedItemName and Breadcrumbs if we have a directContext
-      if (this.selectedItem && this.selectedItem.name) {
-        this.configureBreadcrumbs();
-        this.openedItemName = this.selectedItem.name;
-      }
-      */
-    },
     /**
      * Appends children to those already at a level.
      *

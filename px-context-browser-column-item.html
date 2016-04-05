@@ -6,7 +6,6 @@
   <template>
     <li on-click="itemClickHandler" id$="[[itemId]]" class$="{{_itemClassNames}}">
       <span class="flex__item item-label">{{itemLabel}}</span>
-      {{_isSelected}}
       <button class$="[[_openButtonClass]]" on-click="openClickHandler" key$="[[itemId]]">
         Open
       </button>
@@ -30,7 +29,8 @@
        */
       columnItem: {
         type: Object,
-        value: null
+        value: null,
+        observer: '_columnItemChanged'
       },
       /**
        * show chevron
@@ -90,7 +90,7 @@
 
       _isSelected: {
         type: Boolean,
-        computed: '_computeIsSelected(columnItem)'
+        computed: '_computeIsSelected(columnItem.selected)'
       }
 
     },
@@ -99,13 +99,17 @@
       '_columnItemSelectedChanged(columnItem.selected)'
     ],
 
-    ready: function() {
+    _columnItemChanged: function() {
+      console.log('_columnItemChanged')
+    },
 
+    ready: function() {
+      console.log('column item ready');
       // console.log(this.showChevron);
     },
 
     _columnItemSelectedChanged: function(item) {
-      // console.log('asdf');
+      console.log('asdf');
     },
 
     _computeOpenButtonClass: function(item) {
@@ -113,9 +117,10 @@
       return this._baseOpenButtonClassNames + openableClassName;
     },
 
-    _computeIsSelected: function(item) {
+    _computeIsSelected: function(selected) {
+      console.log('_computeIsSelected')
       // console.log('_computeIsSelected', item.selected === false);
-      return item.selected === true;
+      return selected;
     },
 
     menu: null,

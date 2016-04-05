@@ -40,7 +40,7 @@
       context: {
         type: Object,
         value: function() { return {}; },
-        observer: 'contextChanged'
+        observer: '_contextChanged'
       },
       columns: {
         type: Array,
@@ -52,11 +52,22 @@
       }
     },
 
-    contextChanged: function(newValue, oldValue) {
-      console.log('contextChanged', newValue)
-      if(!_.isEmpty(newValue)) {
-        var children = newValue[this.fieldKeys['children']] || [];
-        this.columns = [{ children }];
+    observers: [
+      '_contextChanged(context.random)'
+    ],
+
+    _contextChanged: function() {
+      if(!_.isEmpty(this.context)) {
+        var children = this.context[this.fieldKeys['children']] || [];
+        if(_.isEmpty(this.columns)) {
+          // add the first column
+          this.push('columns', { children });
+        } else {
+          // update existing columns
+          console.log('updating existing columns.0')
+          this.set('columns.0', { children });
+        }
+
       } else {
         this.columns = [];
         // merge with existing?
