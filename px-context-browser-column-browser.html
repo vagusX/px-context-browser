@@ -1,5 +1,6 @@
 <link rel="import" href="../polymer/polymer.html"/>
 <link rel="import" href="px-context-browser-column.html"/>
+<link rel="import" href="px-context-browser-behaviors.html"/>
 
 <dom-module id="px-context-browser-column-browser">
   <link rel="import" type="css" href="css/px-context-browser.css" />
@@ -25,6 +26,7 @@
 <script>
   Polymer({
     is: 'px-context-browser-column-browser',
+    behaviors: [PxContextBrowserBehaviors],
     properties: {
       /**
        * Hierarchy of items down to currently selected item. Set here as a property to expose it to the template, but managed internally. Do not set this.
@@ -35,7 +37,7 @@
        */
       parentNodes: {
         type: Array,
-        value: function() {return [];} //this is Polmer's way of defining an empty array in properties
+        value: function() { return []; }
       },
       context: {
         type: Object,
@@ -45,10 +47,6 @@
       _columns: {
         type: Array,
         value: function() { return []; }
-      },
-      fieldKeys: {
-        type: Object,
-        value: null
       }
     },
 

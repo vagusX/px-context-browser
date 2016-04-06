@@ -1,5 +1,6 @@
 <link rel="import" href="../polymer/polymer.html"/>
 <link rel="import" href="px-context-browser-column-item.html"/>
+<link rel="import" href="px-context-browser-behaviors.html"/>
 
 <dom-module id="px-context-browser-column">
   <link rel="import" type="css" href="css/px-context-browser.css" />
@@ -24,13 +25,14 @@
 <script>
   Polymer({
     is: 'px-context-browser-column',
+    behaviors: [PxContextBrowserBehaviors],
     properties: {
       /**
        * Item data passed from parent menu
        *
        * @type {Object}
        * @default null
-      */
+       */
       columnData: {
         type: Object,
         value: null,
@@ -50,10 +52,6 @@
         type: Boolean,
         value: false,
         reflectToAttribute: true
-      },
-      fieldKeys: {
-        type: Object,
-        value: null
       }
     },
 
@@ -68,9 +66,15 @@
       }
     },
 
-    // pop one single columnItem off this._columnItems
-    _popColumnItem: function() {
-      this.pop('_columnItems');
+    // set new column items
+    _setColumnItems(columnData) {
+      if(typeof this.fieldKeys !== 'undefined' && typeof this._columnItems !== 'undefined') {
+        var newColumnItems = columnData[this.fieldKeys['children']];
+        this._popAllColumnItems();
+        this._pushNewColumnItems(newColumnItems);
+        this.$.level.render();
+        // this.async( function() { this.$.level.render(); });
+      }
     },
 
     // remove all columns so that they can be reset
@@ -78,7 +82,13 @@
       _.forEach(this._columnItems, this._popColumnItem.bind(this));
     },
 
+    // pop one single columnItem off this._columnItems
+    _popColumnItem: function() {
+      this.pop('_columnItems');
+    },
+
     _pushColumnItem: function(item) {
+
       this.push('_columnItems', item);
     },
 
@@ -87,17 +97,7 @@
       _.forEach(newColumnItems, this._pushColumnItem.bind(this));
     },
 
-    // set new column items
-    _setColumnItems(columnData) {
-      if(typeof this.fieldKeys !== 'undefined') {
-        var newColumnItems = columnData[this.fieldKeys['children']];
-        this._popAllColumnItems();
-        this._pushNewColumnItems(newColumnItems);
-        this.$.level.render();
-        // this may be necessary...
-        // this.async( function() { this.$.level.render(); });
-      }
-    },
+
 
     /**
      * Finds out if the passed UL has a child that's selected, and if so, add selected to the return path

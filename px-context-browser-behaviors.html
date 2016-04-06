@@ -2,7 +2,16 @@
   PxContextBrowserBehaviors = {
 
     properties: {
-
+      fieldKeys: {
+        type: Object,
+        value: function() {
+          return {
+            children: "data",
+            id: "id",
+            label: "name"
+          }
+        }
+      }
     },
 
     // Base method for adding / removing classnames to base if condition is true

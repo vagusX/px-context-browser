@@ -144,6 +144,17 @@ Define how your data will come in using these methods:
         value: "id"
       },
       /**
+       * Mapping for the field name in the context data that represents an array of children
+       * for an item. This property allows data of any form/keys to be used as long as it has
+       * the notion of a 'unique id' in it.
+       * @type {String}
+       * @default "id"
+       */
+      childrenField: {
+        type: String,
+        value: "data"
+      },
+      /**
        * this is where the initial context is stored.
        *
        * @type {Polymer empty Object}
@@ -236,33 +247,20 @@ Define how your data will come in using these methods:
         type: Boolean,
         value: false,
         reflectToAttribute: true
-      },
-
-      childrenKey: {
-        type: String,
-        value: "data"
-      },
-
-      fieldKeys: {
-        type: Object,
-        value: function() {
-          return {
-            children: "data",
-            id: "id",
-            label: "name"
-          }
-        },
-        computed: "computeKeys(childrenKey, idField, labelField)"
       }
 
     },
 
-    computeKeys: function() {
-      return {
-        children: this.childrenKey,
+    observers: [
+      "_setFieldKeys(childrenField, idField, labelField)"
+    ],
+
+    _setFieldKeys: function() {
+      this.set('fieldKeys', {
         id: this.idField,
+        children: this.childrenField,
         label: this.labelField
-      }
+      });
     },
 
     _lastResponseChanged: function(newValue, oldValue) {
