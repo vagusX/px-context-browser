@@ -72,15 +72,10 @@ Define how your data will come in using these methods:
       debounce-duration="300"
       last-response="{{_lastResponse}}"
       auto></iron-ajax>
-
-    <px-context-browser-column-browser
-      id="columnBrowser"
-      parent-nodes="[[parentNodes]]"
-      field-keys="[[fieldKeys]]"
-      context="[[context]]"
-      ></px-context-browser-column-browser>
-
-    <px-overlay id="overlay" type="dark" class$="[[addConditionalClass(showColumnBrowser, 'fadeFromHidden')]]"></px-overlay>
+    <px-overlay
+      id="overlay"
+      type="dark"
+      class$="[[_overlayClassNames]]"></px-overlay>
     <div id="back">
       <div class="column-browser-container flex flex--col">
         <px-context-browser-header
@@ -89,10 +84,15 @@ Define how your data will come in using these methods:
           opened-item-name="[[openedItemName]]">
           <content></content>
         </px-context-browser-header>
-        <div id="ruler" class$="{{removeConditionalClass(showColumnBrowser, 'visuallyhidden', 'flex flex--col')}}">
-          <div class$="{{removeConditionalClass(showColumnBrowser, 'visuallyhidden', 'flex flex--col')}}">
+        <div id="ruler" class$="[[_rulerClassNames]]">
+          <div id="browser" class$="[[_browserClassNames]]">
             <px-context-browser-breadcrumbs></px-context-browser-breadcrumbs>
-
+            <px-context-browser-column-browser
+              id="columnBrowser"
+              parent-nodes="[[parentNodes]]"
+              field-keys="[[fieldKeys]]"
+              context="[[context]]"
+              ></px-context-browser-column-browser>
           </div>
         </div>
       </div>
@@ -245,15 +245,38 @@ Define how your data will come in using these methods:
        */
       showChevron: {
         type: Boolean,
-        value: false,
+        value: true,
         reflectToAttribute: true
+      },
+      _overlayClassNames: {
+        type: String,
+        computed: '_computeOverlayClassNames(showColumnBrowser)'
+      },
+      _rulerClassNames: {
+        type: String,
+        computed: '_computeRulerClassNames(showColumnBrowser)'
+      },
+      _browserClassNames: {
+        type: String,
+        computed: '_computeBrowserClassNames(showColumnBrowser)'
       }
-
     },
 
     observers: [
       "_setFieldKeys(childrenField, idField, labelField)"
     ],
+
+    _computeBrowserClassNames: function() {
+      return this.removeConditionalClass(this.showColumnBrowser, 'visuallyhidden', 'flex flex--col');
+    },
+
+    _computeRulerClassNames: function() {
+      return this.removeConditionalClass(this.showColumnBrowser, 'visuallyhidden', 'flex flex--col');
+    },
+
+    _computeOverlayClassNames: function() {
+      return this.addConditionalClass(this.showColumnBrowser, 'fadeFromHidden');
+    },
 
     _setFieldKeys: function() {
       this.set('fieldKeys', {
@@ -400,8 +423,6 @@ Define how your data will come in using these methods:
               visibleHeight = evt.target.offsetHeight,
               threshold = 10,
               hiddenContentHeight = scrollableHeight - visibleHeight;
-
-
 
           if (hiddenContentHeight - evt.target.scrollTop <= threshold) {
             if (this.handlers.getChildren) {

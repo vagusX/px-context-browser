@@ -9,7 +9,7 @@
     <div class="flex flex--col column push" data-column>
       <div class="head">{{menuData.header}}</div>
       <div class="flex__item scroll-y" on-scroll="scrollEndHandler">
-        <ul class$="{{UlSelected(menuData, selectedItem)}}">
+        <ul class$="{{_listClassNames}}">
           <template is="dom-repeat" id="level" items="{{_columnItems}}">
             <px-context-browser-column-item
               show-chevron
@@ -52,6 +52,10 @@
         type: Boolean,
         value: false,
         reflectToAttribute: true
+      },
+      _listClassNames: {
+        type: String,
+        computed: '_computeListClassNames(columnData)'
       }
     },
 
@@ -106,10 +110,15 @@
      * @param {selectedItem} the selected item.
      * @private
      */
-    UlSelected: function(item, selectedItem) {
-      var base = "list-bare level",
+    _computeListClassNames: function(columnData) {
+      // item, selectedItem
+      // console.log(columnData);
+      var base = "list-bare level";
+      /*
           id = this.idField,
           itemId = selectedItem[id];
+      */
+      /*
       if (item.children) {
         for (var i = 0, len = item.children.length; i < len; i++) {
           if (item.children[i][id] === itemId) {
@@ -117,6 +126,7 @@
           }
         }
       }
+      */
       return base;
     }
   });

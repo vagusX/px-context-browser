@@ -28,17 +28,6 @@
     is: 'px-context-browser-column-browser',
     behaviors: [PxContextBrowserBehaviors],
     properties: {
-      /**
-       * Hierarchy of items down to currently selected item. Set here as a property to expose it to the template, but managed internally. Do not set this.
-       *
-       * @type {Array}
-       * @default []
-       * @private
-       */
-      parentNodes: {
-        type: Array,
-        value: function() { return []; }
-      },
       context: {
         type: Object,
         value: function() { return {}; },
