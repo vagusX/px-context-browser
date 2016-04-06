@@ -322,7 +322,6 @@ Define how your data will come in using these methods:
       this.addEventListener("item-click", function(e) {
         // 'item-click' event is passed with object: { itemId: 'item-id-value' }
         this._markSelected([this.context], e.detail.itemId);
-        console.log(this.context.children);
         this.set('context.localUpdatedAt', (new Date).getTime());
       });
 
@@ -511,7 +510,7 @@ Define how your data will come in using these methods:
     },
 
     _contextChanged: function(newValue, oldValue) {
-      console.log('contextChanged at px-context-browser level: ', newValue, oldValue);
+      // console.log('contextChanged at px-context-browser level: ', newValue, oldValue);
     },
 
     /**

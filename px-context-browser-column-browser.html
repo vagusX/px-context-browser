@@ -56,17 +56,21 @@
       '_contextChanged(context.localUpdatedAt)'
     ],
 
+    _setColumns: function(children) {
+      if(_.isEmpty(this._columns)) {
+        // add the first column
+        this.push('_columns', { children });
+      } else {
+        // update existing columns
+        this.set('_columns.0', { children });
+        // TODO: Recursively add more columns as children have many children...
+      }
+    },
+
     _contextChanged: function() {
       if(!_.isEmpty(this.context)) {
         var children = this.context[this.fieldKeys['children']] || [];
-        if(_.isEmpty(this._columns)) {
-          // add the first column
-          this.push('_columns', { children });
-        } else {
-          // update existing columns
-          this.set('_columns.0', { children });
-          // TODO: Recursively add more columns as children have many children...
-        }
+        this._setColumns(children);
       } else {
         this.columns = [];
         // merge with existing?

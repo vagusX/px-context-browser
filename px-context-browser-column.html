@@ -3,6 +3,7 @@
 
 <dom-module id="px-context-browser-column">
   <link rel="import" type="css" href="css/px-context-browser.css" />
+  <script src="../lodash/lodash.js"></script>
   <template>
     <div class="flex flex--col column push" data-column>
       <div class="head">{{menuData.header}}</div>
@@ -29,7 +30,7 @@
        *
        * @type {Object}
        * @default null
-       */
+      */
       columnData: {
         type: Object,
         value: null,
@@ -56,8 +57,6 @@
       }
     },
 
-    menu: null,
-
     ready: function() {
       this.parent = this.parentNode;
       this._setColumnItems(this.columnData);
@@ -69,18 +68,33 @@
       }
     },
 
+    // pop one single columnItem off this._columnItems
+    _popColumnItem: function() {
+      this.pop('_columnItems');
+    },
+
+    // remove all columns so that they can be reset
+    _popAllColumnItems: function() {
+      _.forEach(this._columnItems, this._popColumnItem.bind(this));
+    },
+
+    _pushColumnItem: function(item) {
+      this.push('_columnItems', item);
+    },
+
+    // push new column items
+    _pushNewColumnItems: function(newColumnItems) {
+      _.forEach(newColumnItems, this._pushColumnItem.bind(this));
+    },
+
+    // set new column items
     _setColumnItems(columnData) {
       if(typeof this.fieldKeys !== 'undefined') {
         var newColumnItems = columnData[this.fieldKeys['children']];
-        var i = 0, len = this._columnItems.length;
-        for(i;i<len;i++) {
-          this.pop('_columnItems');
-        };
-        var i = 0, len = newColumnItems.length;
-        for(i;i<len;i++) {
-          this.push('_columnItems', newColumnItems[i]);
-        };
+        this._popAllColumnItems();
+        this._pushNewColumnItems(newColumnItems);
         this.$.level.render();
+        // this may be necessary...
         // this.async( function() { this.$.level.render(); });
       }
     },
