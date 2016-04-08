@@ -21,6 +21,10 @@
     -webkit-transform: scale(-1, 1);
     transform: scale(-1, 1);
   }
+  :host {
+    display: block;
+    margin-bottom: 5px;
+  }
 </style>
 
 <!--
@@ -84,17 +88,16 @@ Define how your data will come in using these methods:
           opened-item-name="[[openedItemName]]">
           <content></content>
         </px-context-browser-header>
-        <div id="ruler" class$="[[_rulerClassNames]]">
-          <div id="browser" class$="[[_browserClassNames]]">
-            <px-context-browser-breadcrumbs></px-context-browser-breadcrumbs>
-            <px-context-browser-column-browser
-              id="columnBrowser"
-              parent-nodes="[[parentNodes]]"
-              field-keys="[[fieldKeys]]"
-              context="[[context]]"
-              ></px-context-browser-column-browser>
-          </div>
-        </div>
+        <px-context-browser-breadcrumbs
+          class$="[[_breadcrumbsClassNames]]"></px-context-browser-breadcrumbs>
+        <px-context-browser-column-browser
+          id="columnBrowser"
+          parent-nodes="[[parentNodes]]"
+          field-keys="[[fieldKeys]]"
+          context="[[context]]"
+          show-column-browser="[[showColumnBrowser]]"
+          class$="[[_columnBrowserClassNames]]"
+          ></px-context-browser-column-browser>
       </div>
     </div>
   </template>
@@ -153,17 +156,6 @@ Define how your data will come in using these methods:
       childrenField: {
         type: String,
         value: "data"
-      },
-      /**
-       * this is where the initial context is stored.
-       *
-       * @type {Polymer empty Object}
-       * @default null
-       */
-      context : {
-          value: function() {return {};},
-          type: Object,
-          observer: '_contextChanged'
       },
       /**
        * if we have a selected Item, it's stored here.
@@ -256,9 +248,13 @@ Define how your data will come in using these methods:
         type: String,
         computed: '_computeRulerClassNames(showColumnBrowser)'
       },
-      _browserClassNames: {
+      _columnBrowserClassNames: {
         type: String,
-        computed: '_computeBrowserClassNames(showColumnBrowser)'
+        computed: '_computeColumnBrowserClassNames(showColumnBrowser)'
+      },
+      _breadcrumbsClassNames: {
+        type: String,
+        computed: '_computeBreadcrumbsClassNames(showColumnBrowser)'
       }
     },
 
@@ -266,7 +262,11 @@ Define how your data will come in using these methods:
       "_setFieldKeys(childrenField, idField, labelField)"
     ],
 
-    _computeBrowserClassNames: function() {
+    _computeBreadcrumbsClassNames: function() {
+      return this.removeConditionalClass(this.showColumnBrowser, 'visuallyhidden', 'flex flex--col');
+    },
+
+    _computeColumnBrowserClassNames: function() {
       return this.removeConditionalClass(this.showColumnBrowser, 'visuallyhidden', 'flex flex--col');
     },
 
@@ -300,10 +300,6 @@ Define how your data will come in using these methods:
       this.showColumnBrowser = !this.showColumnBrowser;
     },
 
-    onHeaderClick: function(e) {
-      this.toggleColumnBrowser();
-      this.$.columnBrowser.hideSpinner();
-    },
 
     /* recursive find node by arbitrary key / value pair on nested objects */
     _findNode: function(nodes, key, value) {
@@ -332,23 +328,24 @@ Define how your data will come in using these methods:
       }
     },
 
-    ready: function() {
-
-      var _this = this;
-
-      this.$.header.addEventListener("header-click", function() {
-        _this.onHeaderClick();
-      });
-
+    _setItemClickListener: function() {
       this.addEventListener("item-click", function(e) {
         // 'item-click' event is passed with object: { itemId: 'item-id-value' }
         this._markSelected([this.context], e.detail.itemId);
         this.set('context.localUpdatedAt', (new Date).getTime());
       });
+    },
 
-      this.addEventListener("context-changed", function(e) {
-        this._contextChanged(this.context);
+    _setHeaderClickListener: function() {
+      this.addEventListener("header-click", function() {
+        this.toggleColumnBrowser();
       });
+    },
+
+    ready: function() {
+      var _this = this;
+      this._setHeaderClickListener();
+      this._setItemClickListener();
 
       this.set('_jsonURL', this.browserContextUrl);
 
