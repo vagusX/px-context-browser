@@ -84,12 +84,12 @@
 
       _baseItemClassNames: {
         type: String,
-        value: 'flex flex--middle selectable-item'
+        value: 'flex flex--middle selectable-item column-item'
       },
 
       _isSelected: {
         type: Boolean,
-        computed: '_computeIsSelected(columnItem)'
+        computed: '_computeIsSelected(columnItem.selected)'
       }
 
     },
@@ -99,16 +99,12 @@
     ],
 
     _columnItemChanged: function() {
-      // console.log('_columnItemChanged')
     },
 
     ready: function() {
-      // console.log('column item ready');
-      // console.log(this.showChevron);
     },
 
     _columnItemSelectedChanged: function(item) {
-      // console.log('asdf');
     },
 
     _computeOpenButtonClass: function(item) {
@@ -116,36 +112,29 @@
       return this._baseOpenButtonClassNames + openableClassName;
     },
 
-    _computeIsSelected: function(item) {
+    _computeIsSelected: function(selected) {
       // assume selected is false
-      if(typeof item.selected === 'undefined' || item.selected === false) {
+      if(typeof selected === 'undefined' || selected === false) {
         return false;
       } else {
         return true;
       }
     },
 
-    menu: null,
-
     _computeItemId: function(item) {
-      return item ? item[this.fieldKeys.id] : null;
+      return item[this.fieldKeys.id];
     },
 
     _computeItemLabel: function(item) {
-      return item ? item[this.fieldKeys.label] : null;
+      return item[this.fieldKeys.label];
     },
 
     /* returns string to be used for _itemClassNames */
     _computeItemClassNames: function(item) {
-      console.log(item._isSelected);
-      console.log('this._baseItemClassNames)',this._baseItemClassNames);
-      console.log(this.addConditionalClass(item._isSelected, "selected", this._baseItemClassNames));
       return this.addConditionalClass(item._isSelected, "selected", this._baseItemClassNames);
     },
 
     _computeHasChildren: function(item) {
-      //console.log(item);
-      //console.log(item.hasChildren, item.children);
       return (this.showChevron) ? (item.hasChildren || item.children) : false;
     },
 
@@ -211,20 +200,5 @@
 
     },
 
-    /**
-     * Observer on LI, and whether they should show up. replaces polymer hidden, which seems to be shaky with IE.
-     * if base_classes is passed in, it is returned with the appropriate response.
-     *
-     * @param {string} item
-     * param {string} base_classes
-     * @private
-     */
-    isItemHidden: function(item, base_classes) {
-      if (base_classes  !== undefined) {
-        return base_classes += (!item) ? " visuallyhidden" : '';
-      } else {
-        return (!item) ? "visuallyhidden" : '';
-      }
-    }
   });
 </script>
