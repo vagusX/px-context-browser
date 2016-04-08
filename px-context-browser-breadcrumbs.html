@@ -35,6 +35,22 @@
 
     ready: function() {
       this.parent = this.parentNode;
+    },
+
+    /**
+     * Observer on LI, and whether they should show up. replaces polymer hidden, which seems to be shaky with IE.
+     * if base_classes is passed in, it is returned with the appropriate response.
+     *
+     * @param {string} item
+     * param {string} base_classes
+     * @private
+     */
+    isItemHidden: function(item, base_classes) {
+      if (base_classes  !== undefined) {
+        return base_classes += (!item) ? " visuallyhidden" : '';
+      } else {
+        return (!item) ? "visuallyhidden" : '';
+      }
     }
 
   });
