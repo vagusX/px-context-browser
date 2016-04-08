@@ -4,8 +4,8 @@
 <dom-module id="px-context-browser-column-item">
   <link rel="import" type="css" href="css/px-context-browser.css" />
   <template>
-    <li on-click="itemClickHandler" id$="[[itemId]]" class$="{{_itemClassNames}}">
-      <span class="flex__item item-label">{{itemLabel}}</span>
+    <li on-click="itemClickHandler" id$="[[itemId]]" class$="[[_itemClassNames]]">
+      <span class="flex__item item-label">[[itemLabel]]</span>
       <button class$="[[_openButtonClass]]" on-click="openClickHandler" key$="[[itemId]]">
         Open
       </button>
@@ -67,9 +67,8 @@
       },
 
       _itemClassNames: {
-        type: Boolean,
-        value: false,
-        computed: '_computeItemClassNames(columnItem)'
+        type: String,
+        computed: '_computeItemClassNames(columnItem, _baseItemClassNames, _isSelected)'
       },
 
       _hasChildren: {
@@ -90,7 +89,7 @@
 
       _isSelected: {
         type: Boolean,
-        computed: '_computeIsSelected(columnItem.selected)'
+        computed: '_computeIsSelected(columnItem)'
       }
 
     },
@@ -117,10 +116,13 @@
       return this._baseOpenButtonClassNames + openableClassName;
     },
 
-    _computeIsSelected: function(selected) {
-      // console.log('_computeIsSelected')
-      // console.log('_computeIsSelected', item.selected === false);
-      return selected;
+    _computeIsSelected: function(item) {
+      // assume selected is false
+      if(typeof item.selected === 'undefined' || item.selected === false) {
+        return false;
+      } else {
+        return true;
+      }
     },
 
     menu: null,
@@ -135,7 +137,9 @@
 
     /* returns string to be used for _itemClassNames */
     _computeItemClassNames: function(item) {
-      // console.log(item._isSelected);
+      console.log(item._isSelected);
+      console.log('this._baseItemClassNames)',this._baseItemClassNames);
+      console.log(this.addConditionalClass(item._isSelected, "selected", this._baseItemClassNames));
       return this.addConditionalClass(item._isSelected, "selected", this._baseItemClassNames);
     },
 
