@@ -818,10 +818,6 @@ button.btn {
   padding-top: 0.6666666667rem !important;
   padding-bottom: 0.6666666667rem !important; }
 
-:host {
-  display: block;
-  margin-bottom: 5px; }
-
 header {
   height: 4rem; }
   header h1 {
