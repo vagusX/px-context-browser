@@ -81,11 +81,6 @@ $column-width: calculateRem(240px);
   }
 }
 
-:host {
-  display: block;
-  margin-bottom: 5px;
-}
-
 header {
   height: calculateRem(60px);
   h1 {
