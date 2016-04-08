@@ -28,11 +28,6 @@
     is: 'px-context-browser-column-browser',
     behaviors: [PxContextBrowserBehaviors],
     properties: {
-      context: {
-        type: Object,
-        value: function() { return {}; },
-        observer: '_contextChanged'
-      },
       _columns: {
         type: Array,
         value: function() { return []; }
