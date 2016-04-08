@@ -1033,14 +1033,14 @@ header {
   min-width: 16rem;
   width: 100.5%; }
 
-.level li {
+li.column-item {
   padding-right: 0.6666666667rem;
   padding-left: 0.6666666667rem;
   line-height: 1;
   transition: color 0.2s ease 0s, background-color 0.2s ease 0s; }
-  .level li .opener.unopenable {
+  li.column-item .opener.unopenable {
     display: none; }
-  .level li .btn.opener {
+  li.column-item .btn.opener {
     margin-top: -2px;
     margin-right: 0.3333333333rem;
     margin-left: 0.3333333333rem;
@@ -1048,7 +1048,7 @@ header {
     line-height: 1;
     text-transform: uppercase;
     -webkit-appearance: none; }
-  .level li:not(.selected) .opener.openable {
+  li.column-item:not(.selected) .opener.openable {
     visibility: hidden; }
 
 .level:not(.selected) li .opener.openable {
