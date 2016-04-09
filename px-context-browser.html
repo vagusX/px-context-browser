@@ -244,10 +244,6 @@ Define how your data will come in using these methods:
         type: String,
         computed: '_computeOverlayClassNames(showColumnBrowser)'
       },
-      _rulerClassNames: {
-        type: String,
-        computed: '_computeRulerClassNames(showColumnBrowser)'
-      },
       _columnBrowserClassNames: {
         type: String,
         computed: '_computeColumnBrowserClassNames(showColumnBrowser)'
@@ -259,18 +255,19 @@ Define how your data will come in using these methods:
     },
 
     observers: [
-      "_setFieldKeys(childrenField, idField, labelField)"
+      "_setFieldKeys(childrenField, idField, labelField)",
+      "_setContextLocalUpdatedAt(context)"
     ],
+
+    _setContextLocalUpdatedAt: function() {
+      this.set('context.localUpdatedAt', (new Date).getTime());
+    },
 
     _computeBreadcrumbsClassNames: function() {
       return this.removeConditionalClass(this.showColumnBrowser, 'visuallyhidden', 'flex flex--col');
     },
 
     _computeColumnBrowserClassNames: function() {
-      return this.removeConditionalClass(this.showColumnBrowser, 'visuallyhidden', 'flex flex--col');
-    },
-
-    _computeRulerClassNames: function() {
       return this.removeConditionalClass(this.showColumnBrowser, 'visuallyhidden', 'flex flex--col');
     },
 
@@ -287,10 +284,12 @@ Define how your data will come in using these methods:
     },
 
     _lastResponseChanged: function(newValue, oldValue) {
-      if(_.isEmpty(this.context)) {
-        newValue.localUpdatedAt = (new Date).getTime();
+      if(typeof this.context.children === 'undefined') {
         this.set('context', newValue);
-      };
+      } else {
+        //
+      }
+      this.set('context.localUpdatedAt', (new Date).getTime());
     },
 
     /**

@@ -14,7 +14,8 @@
             <px-context-browser-column-item
               show-chevron
               column-item="[[item]]"
-              field-keys="[[fieldKeys]]"></px-context-browser-column-item>
+              field-keys="[[fieldKeys]]"
+              context="[[context]]"></px-context-browser-column-item>
           </template>
         </ul>
       </div>
@@ -56,6 +57,10 @@
       _listClassNames: {
         type: String,
         computed: '_computeListClassNames(columnData)'
+      },
+      _baseListClassNames: {
+        type: String,
+        value: 'list-bare level'
       }
     },
 
@@ -76,8 +81,7 @@
         var newColumnItems = columnData[this.fieldKeys['children']];
         this._popAllColumnItems();
         this._pushNewColumnItems(newColumnItems);
-        this.$.level.render();
-        // this.async( function() { this.$.level.render(); });
+        this.async( function() { this.$.level.render(); });
       }
     },
 
@@ -111,9 +115,6 @@
      * @private
      */
     _computeListClassNames: function(columnData) {
-      // item, selectedItem
-      // console.log(columnData);
-      var base = "list-bare level";
       /*
           id = this.idField,
           itemId = selectedItem[id];
@@ -127,7 +128,7 @@
         }
       }
       */
-      return base;
+      return this._baseListClassNames;
     }
   });
 </script>

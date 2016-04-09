@@ -9,7 +9,7 @@
       <button class$="[[_openButtonClass]]" on-click="openClickHandler" key$="[[itemId]]">
         Open
       </button>
-      <template is="dom-if" if="{{_hasChildren}}">
+      <template is="dom-if" if="[[_hasChildren]]">
         <span class="chevron"><i class="fa fa-angle-right"></i></span>
       </template>
     </li>
@@ -89,7 +89,7 @@
 
       _isSelected: {
         type: Boolean,
-        computed: '_computeIsSelected(columnItem.selected)'
+        computed: '_computeIsSelected(columnItem, columnItem.selected)'
       }
 
     },
@@ -98,10 +98,15 @@
       '_columnItemSelectedChanged(columnItem.selected)'
     ],
 
+    _contextChanged: function() {
+      console.log('this.columnItem.selected: ', this.columnItem.selected);
+    },
+
     _columnItemChanged: function() {
     },
 
     ready: function() {
+      this.set('columnItem.selected', this._computeIsSelected(this.columnItem.selected));
     },
 
     _columnItemSelectedChanged: function(item) {
@@ -131,6 +136,7 @@
 
     /* returns string to be used for _itemClassNames */
     _computeItemClassNames: function(item) {
+      console.log('_itemClassNames')
       return this.addConditionalClass(item._isSelected, "selected", this._baseItemClassNames);
     },
 
