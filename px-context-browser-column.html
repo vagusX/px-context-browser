@@ -9,7 +9,7 @@
     <div class="flex flex--col column push" data-column>
       <div class="head">{{menuData.header}}</div>
       <div class="flex__item scroll-y" on-scroll="scrollEndHandler">
-        <ul class$="{{_listClassNames}}">
+        <ul class$="[[_listClassNames]]">
           <template is="dom-repeat" id="level" items="{{_columnItems}}">
             <px-context-browser-column-item
               show-chevron
@@ -56,7 +56,7 @@
       },
       _listClassNames: {
         type: String,
-        computed: '_computeListClassNames(columnData)'
+        computed: '_computeListClassNames(columnData, _baseListClassNames)'
       },
       _baseListClassNames: {
         type: String,
