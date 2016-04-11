@@ -136,7 +136,6 @@
 
     /* returns string to be used for _itemClassNames */
     _computeItemClassNames: function(item) {
-      console.log('_itemClassNames')
       return this.addConditionalClass(item._isSelected, "selected", this._baseItemClassNames);
     },
 
@@ -152,7 +151,7 @@
      */
     itemClickHandler: function(evt) {
       this.debounce('itemClick', function() {
-        this.fire('item-click', { 'itemId': this.columnItem['id'] } );
+        this.fire('px-context-browser-column-item-click', { 'item': this.columnItem } );
       }, 1);
     },
 

@@ -1,0 +1,116 @@
+<link rel="import" href="../polymer/polymer.html"/>
+<link rel="import" href="../iron-ajax/iron-ajax.html"/>
+<link rel="import" href="px-context-browser-behaviors.html"/>
+<style>
+  /* this is a non-visual element */
+  :host {
+    display: none;
+  }
+</style>
+
+<dom-module id="px-context-browser-model">
+  <template>
+    <iron-ajax
+      url="[[_jsonUrl]]"
+      handle-as="json"
+      debounce-duration="300"
+      last-response="{{_lastResponse}}"
+      auto></iron-ajax>
+  </template>
+</dom-module>
+
+<script>
+  Polymer({
+    is: 'px-context-browser-model',
+    behaviors: [PxContextBrowserBehaviors],
+    properties: {
+      context : {
+        value: function() {return {};},
+        type: Object,
+        notify: true
+      },
+      apiUrl: {
+        type: String
+      },
+      selectedItemUri: {
+        type: String
+      },
+      _jsonUrl: {
+        type: String,
+        computed: '_computeJsonUrl(apiUrl, selectedItemUri)'
+      },
+      _lastResponse: {
+        type: Object,
+        observer: '_lastResponseChanged'
+      }
+    },
+
+    _computeJsonUrl: function() {
+      return this.apiUrl + this.selectedItemUri;
+    },
+
+    _setLocalUpdatedAt: function() {
+      this.set('context.localUpdatedAt', (new Date).getTime());
+    },
+
+    /* fires on change to json response vale in _lastResponse */
+    _lastResponseChanged: function(newValue, oldValue) {
+      // console.log(newValue);
+
+      if(typeof this.context.children === 'undefined') {
+        this.set('context', newValue);
+        this._setLocalUpdatedAt();
+      } else {
+        // Merge data into existing context object
+        // 1. Locate parent in context object
+        // 2. Replace the values of the correct 'child' node of the parent with new values
+        var parentNode = this._findNodeByUri(newValue.parent);
+        console.log(parentNode);
+      }
+    },
+
+    /* recursive find node by arbitrary key / value pair on nested objects */
+    _findNode: function(nodes, key, value) {
+      var _this = this;
+      var found = null;
+      _.each(nodes, function(node) {
+        console.log('node', node);
+        if(node[key] && _.isEqual(node[key], value)) {
+          found = node;
+        } else {
+          var childrenKey = _this.fieldKeys['children'];
+          console.log('childrenKey', childrenKey)
+          if(node[childrenKey] && node[childrenKey].length > 0) {
+            found = _this._findNode(node[childrenKey], key, value);
+          }
+        }
+      });
+      return found;
+    },
+
+    _findNodeByUri: function(uri) {
+      return this._findNode([this.context], 'uri', uri);
+    },
+
+    _findNodeById: function(id) {
+      return this._findNode([this.context], 'id', id);
+    },
+
+    _selectedItemIdChanged: function() {
+      if(typeof this.selectedItemId !== 'undefined') {
+        this._markSelected([this.context], this.selectedItemId);
+      }
+    },
+
+    _markSelected: function(nodes, itemId) {
+      var node = this._findNodeById(nodes, itemId);
+      if(node) {
+        node.selected = true;
+      }
+      this._setLocalUpdatedAt();
+    }
+
+
+
+  });
+</script>

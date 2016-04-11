@@ -35,8 +35,19 @@
     },
 
     observers: [
-      '_contextChanged(context, context.localUpdatedAt)'
+      '_contextChanged(fieldKeys, _columns, context, context.localUpdatedAt)'
     ],
+
+    _contextChanged: function() {
+      if(!_.isEmpty(this.context)) {
+        var children = this.context[this.fieldKeys['children']] || [];
+        console.log('_contextChanged children', children);
+        this._setColumns(children);
+      } else {
+        this.columns = [];
+        // merge with existing?
+      }
+    },
 
     _setColumns: function(children) {
       if(_.isEmpty(this._columns)) {
@@ -49,15 +60,7 @@
       }
     },
 
-    _contextChanged: function() {
-      if(!_.isEmpty(this.context)) {
-        var children = this.context[this.fieldKeys['children']] || [];
-        this._setColumns(children);
-      } else {
-        this.columns = [];
-        // merge with existing?
-      }
-    },
+
 
     showOverlay: function() {
       this.$$('.overlay').style.display = 'block';

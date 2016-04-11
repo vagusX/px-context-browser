@@ -10,6 +10,7 @@
 <link rel="import" href="px-context-browser-breadcrumbs.html"/>
 <link rel="import" href="px-context-browser-column-browser.html"/>
 <link rel="import" href="px-context-browser-header.html"/>
+<link rel="import" href="px-context-browser-model.html"/>
 <link rel="import" href="../px-overlay/px-overlay.html"/>
 
 <style>
@@ -69,13 +70,11 @@ Define how your data will come in using these methods:
   <link rel="import" type="css" href="css/px-context-browser.css" polyfill-next-selector/>
   <script src="../lodash/lodash.js"></script>
   <template>
-    <iron-ajax
-      id="ironAjaxElement"
-      url="[[_jsonURL]]"
-      handle-as="json"
-      debounce-duration="300"
-      last-response="{{_lastResponse}}"
-      auto></iron-ajax>
+    <px-context-browser-model
+      id="model"
+      api-url="[[apiUrl]]"
+      selected-item-uri="[[_selectedItemUri]]"
+      context="{{_context}}"></px-context-browser-model>
     <px-overlay
       id="overlay"
       type="dark"
@@ -94,7 +93,7 @@ Define how your data will come in using these methods:
           id="columnBrowser"
           parent-nodes="[[parentNodes]]"
           field-keys="[[fieldKeys]]"
-          context="[[context]]"
+          context="[[_context]]"
           show-column-browser="[[showColumnBrowser]]"
           class$="[[_columnBrowserClassNames]]"
           ></px-context-browser-column-browser>
@@ -108,12 +107,15 @@ Define how your data will come in using these methods:
     is: 'px-context-browser',
     behaviors: [PxContextBrowserBehaviors],
     properties: {
-      browserContextUrl: {
+
+      apiUrl: {
+        type: String,
+      },
+      rootUri: {
         type: String
       },
-      _lastResponse: {
-        type: Object,
-        observer: '_lastResponseChanged'
+      _selectedItemUri: {
+        type: String
       },
       /**
       * Mapping for the field name in the context data that represents the display label for an item. This property allows data of any form/keys to be used as
@@ -155,7 +157,7 @@ Define how your data will come in using these methods:
        */
       childrenField: {
         type: String,
-        value: "data"
+        value: "children"
       },
       /**
        * if we have a selected Item, it's stored here.
@@ -256,97 +258,17 @@ Define how your data will come in using these methods:
 
     observers: [
       "_setFieldKeys(childrenField, idField, labelField)",
-      "_setContextLocalUpdatedAt(context)"
+      "_contextChanged(_context.localUpdatedAt)"
     ],
-
-    _setContextLocalUpdatedAt: function() {
-      this.set('context.localUpdatedAt', (new Date).getTime());
-    },
-
-    _computeBreadcrumbsClassNames: function() {
-      return this.removeConditionalClass(this.showColumnBrowser, 'visuallyhidden', 'flex flex--col');
-    },
-
-    _computeColumnBrowserClassNames: function() {
-      return this.removeConditionalClass(this.showColumnBrowser, 'visuallyhidden', 'flex flex--col');
-    },
-
-    _computeOverlayClassNames: function() {
-      return this.addConditionalClass(this.showColumnBrowser, 'fadeFromHidden');
-    },
-
-    _setFieldKeys: function() {
-      this.set('fieldKeys', {
-        id: this.idField,
-        children: this.childrenField,
-        label: this.labelField
-      });
-    },
-
-    _lastResponseChanged: function(newValue, oldValue) {
-      if(typeof this.context.children === 'undefined') {
-        this.set('context', newValue);
-      } else {
-        //
-      }
-      this.set('context.localUpdatedAt', (new Date).getTime());
-    },
-
-    /**
-     * toggle visbility of the column browser
-     */
-    toggleColumnBrowser: function() {
-      this.showColumnBrowser = !this.showColumnBrowser;
-    },
-
-
-    /* recursive find node by arbitrary key / value pair on nested objects */
-    _findNode: function(nodes, key, value) {
-      var _this = this;
-      var found = null;
-      _.each(nodes, function(node) {
-        if(_.isEqual(node[key], value)) {
-          found = node;
-        } else {
-          if(node[_this.fieldKeys['children']] && node[_this.fieldKeys['children']].length > 0) {
-            found = _this._findNode(node.children, key, value);
-          }
-        }
-      });
-      return found;
-    },
-
-    _findNodeById: function(nodes, id) {
-      return this._findNode(nodes, 'id', id);
-    },
-
-    _markSelected: function(nodes, itemId) {
-      var node = this._findNodeById(nodes, itemId);
-      if(node) {
-        node.selected = true;
-      }
-    },
-
-    _setItemClickListener: function() {
-      this.addEventListener("item-click", function(e) {
-        // 'item-click' event is passed with object: { itemId: 'item-id-value' }
-        this._markSelected([this.context], e.detail.itemId);
-        this.set('context.localUpdatedAt', (new Date).getTime());
-      });
-    },
-
-    _setHeaderClickListener: function() {
-      this.addEventListener("header-click", function() {
-        this.toggleColumnBrowser();
-      });
-    },
 
     ready: function() {
       var _this = this;
       this._setHeaderClickListener();
       this._setItemClickListener();
 
-      this.set('_jsonURL', this.browserContextUrl);
+      console.log(this.rootUri);
+      this._selectedItemUri = this.rootUri;
+      console.log(this.rootUri);
 
       // Need to watch the width of the column-browser.
       var columnBrowser = this.$$('#columnBrowser');
@@ -391,6 +313,55 @@ Define how your data will come in using these methods:
         // }
       // }, 2000); // ms/fps
     },
+
+    _contextChanged: function(newValue, oldValue) {
+      // console.log('new context: ', this._context);
+    },
+
+    _computeBreadcrumbsClassNames: function() {
+      return this.removeConditionalClass(this.showColumnBrowser, 'visuallyhidden', 'flex flex--col');
+    },
+
+    _computeColumnBrowserClassNames: function() {
+      return this.removeConditionalClass(this.showColumnBrowser, 'visuallyhidden', 'flex flex--col');
+    },
+
+    _computeOverlayClassNames: function() {
+      return this.addConditionalClass(this.showColumnBrowser, 'fadeFromHidden');
+    },
+
+    _setFieldKeys: function() {
+      this.set('fieldKeys', {
+        id: this.idField,
+        children: this.childrenField,
+        label: this.labelField
+      });
+    },
+
+
+    /**
+     * toggle visbility of the column browser
+     */
+    toggleColumnBrowser: function() {
+      this.showColumnBrowser = !this.showColumnBrowser;
+    },
+
+    _setItemClickListener: function() {
+      this.addEventListener("px-context-browser-column-item-click", function(e) {
+        // 'item-click' event is passed with object: { itemId: 'item-id-value' }
+        console.log('px-context-browser-column-item-click', e.detail.item);
+        var item = e.detail.item;
+        this._selectedItemUri = item.uri;
+      });
+    },
+
+    _setHeaderClickListener: function() {
+      this.addEventListener("header-click", function() {
+        this.toggleColumnBrowser();
+      });
+    },
+
+
     /**
      * Event listener on breadcrumb clicks, listener is registered from the template
      *
@@ -522,10 +493,6 @@ Define how your data will come in using these methods:
      */
     _hasChildren: function(item) {
       return (this.showChevron) ? (item.hasChildren || item.children) : false;
-    },
-
-    _contextChanged: function(newValue, oldValue) {
-      // console.log('contextChanged at px-context-browser level: ', newValue, oldValue);
     },
 
     /**
