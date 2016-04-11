@@ -33,7 +33,8 @@
         type: String
       },
       selectedItemUri: {
-        type: String
+        type: String,
+        observer: '_selectedItemUriChanged'
       },
       _jsonUrl: {
         type: String,
@@ -55,17 +56,21 @@
 
     /* fires on change to json response vale in _lastResponse */
     _lastResponseChanged: function(newValue, oldValue) {
-      // console.log(newValue);
-
-      if(typeof this.context.children === 'undefined') {
+      // Upon init, context object should be empty {}
+      if(_.isEmpty(this.context)) {
         this.set('context', newValue);
         this._setLocalUpdatedAt();
       } else {
-        // Merge data into existing context object
-        // 1. Locate parent in context object
-        // 2. Replace the values of the correct 'child' node of the parent with new values
-        var parentNode = this._findNodeByUri(newValue.parent);
-        console.log(parentNode);
+        // After init, context will have data to be preserved
+        // So we must merge new data into existing context object using lodash merge
+        try {
+          var destination = this._findNodeByUri(newValue.uri);
+          _.merge(destination, newValue);
+          this._setLocalUpdatedAt();
+        } catch(e) {
+          console.log(e);
+        }
+
       }
     },
 
@@ -74,12 +79,10 @@
       var _this = this;
       var found = null;
       _.each(nodes, function(node) {
-        console.log('node', node);
         if(node[key] && _.isEqual(node[key], value)) {
           found = node;
         } else {
           var childrenKey = _this.fieldKeys['children'];
-          console.log('childrenKey', childrenKey)
           if(node[childrenKey] && node[childrenKey].length > 0) {
             found = _this._findNode(node[childrenKey], key, value);
           }
@@ -96,21 +99,19 @@
       return this._findNode([this.context], 'id', id);
     },
 
-    _selectedItemIdChanged: function() {
-      if(typeof this.selectedItemId !== 'undefined') {
-        this._markSelected([this.context], this.selectedItemId);
+    _selectedItemUriChanged: function() {
+      if(typeof this.selectedItemUri !== 'undefined') {
+        this._markSelected(this.selectedItemUri);
       }
     },
 
-    _markSelected: function(nodes, itemId) {
-      var node = this._findNodeById(nodes, itemId);
+    _markSelected: function(uri) {
+      var node = this._findNodeByUri(uri);
       if(node) {
         node.selected = true;
+        this._setLocalUpdatedAt();
       }
-      this._setLocalUpdatedAt();
     }
-
-
 
   });
 </script>
