@@ -46,12 +46,22 @@
       }
     },
 
+    // remove all columns so that they can be reset
+    _popAllColumns: function() {
+      _.forEach(this._columns, this._popColumn.bind(this));
+    },
+
+    // pop one single columnItem off this._columnItems
+    _popColumn: function() {
+      this.pop('_columns');
+    },
+
     _addColumn(node, index) {
       var childrenKey = this.fieldKeys['children'];
       var children = node[childrenKey] || [];
       var i, len = children.length;
       if(len > 0) {
-        if(!_.isEqual(this._columns[index], {children})) {
+        if(!_.isEqual(this._columns[index], { children })) {
           this.push('_columns', { children });
         }
         for(i=0;i<len;i++) {
@@ -59,8 +69,7 @@
           if(typeof childNode.selected !== 'undefined' && childNode.selected === true) {
             var grandChildren = childNode[childrenKey];
             if(typeof grandChildren !== 'undefined' && grandChildren.length > 0) {
-              index++;
-              this._addColumn(childNode, index);
+              this._addColumn(childNode, index++);
             }
           }
         }

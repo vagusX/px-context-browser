@@ -75,13 +75,25 @@
 
     /* recursive find node by arbitrary key / value pair on nested objects */
     _findNode: function(nodes, key, value) {
-      var _this = this, node, childrenKey, childrenExist, i = 0, len = nodes.length;
-      for(i;i<len;i++) {
-        node = nodes[i];
-        if(node[key] && _.isEqual(node[key], value)) { return node };
-        childrenKey = _this.fieldKeys['children'];
-        childrenExist = (node[childrenKey] && node[childrenKey].length > 0) ? true : false;
-        return childrenExist ? _this._findNode(node[childrenKey], key, value) : null;
+      var _this = this, found = null, childrenKey = _this.fieldKeys['children'];
+      var foundNodes = _.filter(nodes, function(n) { return n[key] === value; });
+      if(foundNodes.length) {
+        return foundNodes[0];
+      } else {
+        var haveChildren = _.filter(nodes, function(n) {
+          return typeof n[childrenKey] !== 'undefined' && n[childrenKey].length;
+        });
+        for(i=0;i<haveChildren.length;i++) {
+          var found = _this._findNode(haveChildren[i][childrenKey], key, value);
+          if(found !== null) {
+            break;
+          }
+        }
+        if(found) {
+          return found;
+        } else {
+          return null;
+        }
       }
     },
 
@@ -91,6 +103,31 @@
 
     _findNodeById: function(id) {
       return this._findNode([this.context], 'id', id);
+    },
+
+    _findNodePeers: function(nodes, peer) {
+      var _this = this, node, childrenExist, i = 0, len = nodes.length;
+      var childrenKey = _this.fieldKeys['children'];
+      for(i;i<len;i++) {
+        node = nodes[i];
+        if(_.isEqual(node, peer)) {
+          return _.reject(nodes, function(n) { return _.isEqual(n.uri, peer.uri); });
+        }
+      }
+      var haveChildren = _.filter(nodes, function(n) {
+        return typeof n[childrenKey] !== 'undefined' && n[childrenKey].length;
+      });
+      for(i=0;i<haveChildren.length;i++) {
+        var found = _this._findNodePeers(haveChildren[i][childrenKey], peer);
+        if(found !== null) {
+          break;
+        }
+      }
+      if(found) {
+        return found;
+      } else {
+        return null;
+      }
     },
 
     _selectedItemUriChanged: function() {
@@ -103,8 +140,14 @@
       var node = this._findNodeByUri(uri);
       if(node) {
         node.selected = true;
+        var peers = this._findNodePeers([this.context], node);
+        _.each(peers, function(p) {
+          p.selected = false;
+        });
+        console.log(peers);
         this._setLocalUpdatedAt();
       }
+
     }
 
   });
