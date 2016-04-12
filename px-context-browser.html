@@ -266,9 +266,7 @@ Define how your data will come in using these methods:
       this._setHeaderClickListener();
       this._setItemClickListener();
 
-      console.log(this.rootUri);
       this._selectedItemUri = this.rootUri;
-      console.log(this.rootUri);
 
       // Need to watch the width of the column-browser.
       var columnBrowser = this.$$('#columnBrowser');
@@ -348,8 +346,7 @@ Define how your data will come in using these methods:
 
     _setItemClickListener: function() {
       this.addEventListener("px-context-browser-column-item-click", function(e) {
-        // 'item-click' event is passed with object: { itemId: 'item-id-value' }
-        console.log('px-context-browser-column-item-click', e.detail.item);
+        // 'px-context-browser-column-item-click' event is passed with object: { item: ItemObject{...} }
         var item = e.detail.item;
         this._selectedItemUri = item.uri;
       });

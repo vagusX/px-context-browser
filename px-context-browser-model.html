@@ -64,8 +64,8 @@
         // After init, context will have data to be preserved
         // So we must merge new data into existing context object using lodash merge
         try {
-          var destination = this._findNodeByUri(newValue.uri);
-          _.merge(destination, newValue);
+          var destinationNode = this._findNodeByUri(newValue.uri);
+          _.merge(destinationNode, newValue);
           this._setLocalUpdatedAt();
         } catch(e) {
           console.log(e);
@@ -75,19 +75,14 @@
 
     /* recursive find node by arbitrary key / value pair on nested objects */
     _findNode: function(nodes, key, value) {
-      var _this = this;
-      var found = null;
-      _.each(nodes, function(node) {
-        if(node[key] && _.isEqual(node[key], value)) {
-          found = node;
-        } else {
-          var childrenKey = _this.fieldKeys['children'];
-          if(node[childrenKey] && node[childrenKey].length > 0) {
-            found = _this._findNode(node[childrenKey], key, value);
-          }
-        }
-      });
-      return found;
+      var _this = this, node, childrenKey, childrenExist, i = 0, len = nodes.length;
+      for(i;i<len;i++) {
+        node = nodes[i];
+        if(node[key] && _.isEqual(node[key], value)) { return node };
+        childrenKey = _this.fieldKeys['children'];
+        childrenExist = (node[childrenKey] && node[childrenKey].length > 0) ? true : false;
+        return childrenExist ? _this._findNode(node[childrenKey], key, value) : null;
+      }
     },
 
     _findNodeByUri: function(uri) {

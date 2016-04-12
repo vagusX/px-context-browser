@@ -40,27 +40,52 @@
 
     _contextChanged: function() {
       if(!_.isEmpty(this.context)) {
-        var children = this.context[this.fieldKeys['children']] || [];
-        console.log('_contextChanged children', children);
-        this._setColumns(children);
+        this._setColumns();
       } else {
         this.columns = [];
-        // merge with existing?
       }
     },
 
-    _setColumns: function(children) {
+    _addColumn(node, index) {
+      var childrenKey = this.fieldKeys['children'];
+      var children = node[childrenKey] || [];
+      var i, len = children.length;
+      if(len > 0) {
+        if(!_.isEqual(this._columns[index], {children})) {
+          this.push('_columns', { children });
+        }
+        for(i=0;i<len;i++) {
+          var childNode = children[i];
+          if(typeof childNode.selected !== 'undefined' && childNode.selected === true) {
+            var grandChildren = childNode[childrenKey];
+            if(typeof grandChildren !== 'undefined' && grandChildren.length > 0) {
+              index++;
+              this._addColumn(childNode, index);
+            }
+          }
+        }
+      }
+    },
+
+    _setColumns: function() {
+      this._addColumn(this.context, 0);
+      /*
       if(_.isEmpty(this._columns)) {
         // add the first column
         this.push('_columns', { children });
       } else {
+        console.log('update existing columns')
         // update existing columns
         this.set('_columns.0', { children });
+        _.each(children, function(child) {
+          if(child.selected) {
+            console.log('child selected:', child);
+          }
+        });
         // TODO: Recursively add more columns as children have many children...
-      }
+        }
+      */
     },
-
-
 
     showOverlay: function() {
       this.$$('.overlay').style.display = 'block';
