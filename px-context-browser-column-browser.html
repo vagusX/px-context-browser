@@ -56,6 +56,10 @@
       this.pop('_columns');
     },
 
+    _isSelected(node) {
+      return (typeof node.selected !== 'undefined' && node.selected === true);
+    },
+
     _addColumn(node, index) {
       var childrenKey = this.fieldKeys['children'];
       var children = node[childrenKey] || [];
@@ -66,13 +70,22 @@
         }
         for(i=0;i<len;i++) {
           var childNode = children[i];
-          if(typeof childNode.selected !== 'undefined' && childNode.selected === true) {
+          if(this._isSelected(childNode)) {
             var grandChildren = childNode[childrenKey];
             if(typeof grandChildren !== 'undefined' && grandChildren.length > 0) {
-              this._addColumn(childNode, index++);
+              index++;
+              this._addColumn(childNode, index);
             }
+          } else {
+            this._removeColumn(index+1);
           }
         }
+      }
+    },
+
+    _removeColumn: function(index) {
+      if(this._columns) {
+        this.splice('_columns', index, 1);
       }
     },
 

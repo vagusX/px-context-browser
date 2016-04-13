@@ -140,14 +140,13 @@
       var node = this._findNodeByUri(uri);
       if(node) {
         node.selected = true;
+        // mark all peers as not selected
         var peers = this._findNodePeers([this.context], node);
         _.each(peers, function(p) {
           p.selected = false;
         });
-        console.log(peers);
         this._setLocalUpdatedAt();
       }
-
     }
 
   });
