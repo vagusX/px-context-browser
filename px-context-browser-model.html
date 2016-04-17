@@ -25,7 +25,7 @@
     behaviors: [PxContextBrowserBehaviors],
     properties: {
       context : {
-        value: function() {return {};},
+        value: function() { return {}; },
         type: Object,
         notify: true
       },
@@ -65,8 +65,12 @@
         // So we must merge new data into existing context object using lodash merge
         try {
           var destinationNode = this._findNodeByUri(newValue.uri);
-          _.merge(destinationNode, newValue);
-          this._setLocalUpdatedAt();
+          if(destinationNode === null) {
+            console.log('could not find destinationNode for: ', newValue.uri);
+          } else {
+            _.merge(destinationNode, newValue);
+            this._setLocalUpdatedAt();
+          }
         } catch(e) {
           console.log(e);
         }

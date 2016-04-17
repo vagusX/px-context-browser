@@ -12,46 +12,45 @@
       </template>
     </ul>
   </template>
-</dom-module>
+  <script>
+    Polymer({
+      is: 'px-context-browser-breadcrumbs',
+      behaviors: [PxContextBrowserBehaviors],
+      properties: {
+        /**
+         * Item data passed from parent menu
+         *
+         * @type {Object}
+         * @default null
+         */
+        menuData: {
+          type: Object,
+          value: null
+        }
+      },
 
-<script>
-  Polymer({
-    is: 'px-context-browser-breadcrumbs',
-    behaviors: [PxContextBrowserBehaviors],
-    properties: {
+      menu: null,
+
+      ready: function() {
+        this.parent = this.parentNode;
+      },
+
       /**
-       * Item data passed from parent menu
+       * Observer on LI, and whether they should show up. replaces polymer hidden, which seems to be shaky with IE.
+       * if base_classes is passed in, it is returned with the appropriate response.
        *
-       * @type {Object}
-       * @default null
+       * @param {string} item
+       * param {string} base_classes
+       * @private
        */
-      menuData: {
-        type: Object,
-        value: null
+      isItemHidden: function(item, base_classes) {
+        if (base_classes  !== undefined) {
+          return base_classes += (!item) ? " visuallyhidden" : '';
+        } else {
+          return (!item) ? "visuallyhidden" : '';
+        }
       }
-    },
 
-    menu: null,
-
-    ready: function() {
-      this.parent = this.parentNode;
-    },
-
-    /**
-     * Observer on LI, and whether they should show up. replaces polymer hidden, which seems to be shaky with IE.
-     * if base_classes is passed in, it is returned with the appropriate response.
-     *
-     * @param {string} item
-     * param {string} base_classes
-     * @private
-     */
-    isItemHidden: function(item, base_classes) {
-      if (base_classes  !== undefined) {
-        return base_classes += (!item) ? " visuallyhidden" : '';
-      } else {
-        return (!item) ? "visuallyhidden" : '';
-      }
-    }
-
-  });
-</script>
+    });
+  </script>
+</dom-module>

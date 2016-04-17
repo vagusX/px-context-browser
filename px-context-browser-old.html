@@ -28,6 +28,44 @@
   }
 </style>
 
+<!--
+Context browser element.  See the demo page (demo.html) for a working example.
+
+#### Usage
+Minimum:
+
+    <px-context-browser browser-context={{browserContext}}></px-context-browser>
+
+Advanced:
+
+    <px-context-browser label-field="description"
+                        parent-id-field="parent"
+                        id-field="identifier"
+                        browser-context={{browserContext}}
+                        show-chevron="true">
+    </px-context-browser>
+
+### code on your page
+
+Define how your data will come in using these methods:
+
+    window.addEventListener('WebComponentsReady', function() {
+        var colBrowser = document.querySelector('px-context-browser');
+        colBrowser.handlers = {
+          getChildren: function(parent) {
+            return demoGetChildren(parent);
+          },
+          itemOpenHandler: function(context) {
+            console.log('Opened: ', context);
+          }
+        };
+    });
+
+@element px-context-browser
+@blurb Context browser element
+@homepage index.html
+@demo demo.html
+-->
 <dom-module id="px-context-browser">
   <link rel="import" type="css" href="css/px-context-browser.css" polyfill-next-selector/>
   <script src="../lodash/lodash.js"></script>
@@ -49,9 +87,8 @@
           opened-item-name="[[openedItemName]]">
           <content></content>
         </px-context-browser-header>
-        <!-- <px-context-browser-breadcrumbs
+        <px-context-browser-breadcrumbs
           class$="[[_breadcrumbsClassNames]]"></px-context-browser-breadcrumbs>
-        -->
         <px-context-browser-column-browser
           id="columnBrowser"
           parent-nodes="[[parentNodes]]"
@@ -65,11 +102,8 @@
   </template>
   <script>
     Polymer({
-
       is: 'px-context-browser',
-
       behaviors: [PxContextBrowserBehaviors],
-
       properties: {
 
         apiUrl: {
@@ -91,6 +125,16 @@
         labelField: {
           type: String,
           value: "name"
+        },
+        /**
+         * contains the selected item data
+         *
+         * @type {Object}
+         * @default null
+         */
+        selectItem: {
+          type: Object,
+          value: null
         },
         /**
          * Mapping for the field name in the context data that represents a unique id for an item. This property allows data of any form/keys to be used as
@@ -215,24 +259,15 @@
         "_contextChanged(_context.localUpdatedAt)"
       ],
 
-      listeners: {
-        'item-click': '_itemClickHandler',
-        'header-click': '_headerClickHandler'
-      },
-
       ready: function() {
         var _this = this;
+        this._setHeaderClickListener();
+        this._setItemClickListener();
+
         this._selectedItemUri = this.rootUri;
 
         // Need to watch the width of the column-browser.
         var columnBrowser = this.$$('#columnBrowser');
-
-        var getColumns = function() {
-          return $columnBrowserColumns.childNodes.filter(
-            function(n) {
-              return n.tagName === 'DIV';
-            });
-        };
 
         // var columnBrowserColumnRuler = Polymer.dom(columnBrowser).querySelector('.ruler');
         // var columnBrowserColumns = Polymer.dom(columnBrowser).querySelector('div:first-of-type');
@@ -245,7 +280,12 @@
         //console.log('columnBrowser: ', columnBrowser);
 
         // Watch the container size change.
-
+        var getColumns = function() {
+          return $columnBrowserColumns.childNodes.filter(
+            function(n) {
+              return n.tagName === 'DIV';
+            });
+        };
 
         // setInterval(
         // function() {
@@ -302,13 +342,18 @@
         this.set('showColumnBrowser', !this.showColumnBrowser);
       },
 
-      _itemClickHandler: function(e) {
-        var item = e.detail.item;
-        this._selectedItemUri = item.uri;
+      _setItemClickListener: function() {
+        this.addEventListener("px-context-browser-column-item-click", function(e) {
+          // 'px-context-browser-column-item-click' event is passed with object: { item: ItemObject{...} }
+          var item = e.detail.item;
+          this._selectedItemUri = item.uri;
+        });
       },
 
-      _headerClickHandler: function(e) {
-        this.toggleColumnBrowser();
+      _setHeaderClickListener: function() {
+        this.addEventListener("header-click", function() {
+          this.toggleColumnBrowser();
+        });
       },
 
 

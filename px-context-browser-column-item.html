@@ -14,196 +14,195 @@
       </template>
     </li>
   </template>
+  <script>
+    Polymer({
+      is: 'px-context-browser-column-item',
+      behaviors: [PxContextBrowserBehaviors],
+      properties: {
+        /**
+         * Item data passed from parent menu
+         *
+         * @type {Object}
+         * @default null
+         */
+        columnItem: {
+          type: Object,
+          value: null,
+          observer: '_columnItemChanged'
+        },
+        /**
+         * show chevron
+         * @type {Boolean}
+         * @default false
+         *
+         */
+        showChevron: {
+          type: Boolean,
+          value: false,
+          reflectToAttribute: true
+        },
+
+        testValue: 'test',
+
+        fieldKeys: {
+          type: Object
+        },
+
+        _openButtonClass: {
+          type: String,
+          value: 'temp-item-opener-class',
+          computed: '_computeOpenButtonClass(columnItem, _baseOpenButtonClassNames)'
+        },
+
+        itemId: {
+          type: String,
+          computed: '_computeItemId(columnItem, fieldKeys)'
+        },
+
+        itemLabel: {
+          type: String,
+          computed: '_computeItemLabel(columnItem, fieldKeys)'
+        },
+
+        _itemClassNames: {
+          type: String,
+          computed: '_computeItemClassNames(columnItem, _baseItemClassNames, _isSelected)'
+        },
+
+        _hasChildren: {
+          type: Boolean,
+          value: false,
+          computed: '_computeHasChildren(columnItem)'
+        },
+
+        _baseOpenButtonClassNames: {
+          type: String,
+          value: 'opener btn btn--small btn--tertiary '
+        },
+
+        _baseItemClassNames: {
+          type: String,
+          value: 'flex flex--middle selectable-item column-item'
+        },
+
+        _isSelected: {
+          type: Boolean,
+          computed: '_computeIsSelected(columnItem, columnItem.selected)'
+        }
+
+      },
+
+      observers: [
+        '_columnItemSelectedChanged(columnItem.selected)'
+      ],
+
+      _contextChanged: function() {
+        //console.log('this.columnItem.selected: ', this.columnItem.selected);
+      },
+
+      _columnItemChanged: function() {
+      },
+
+      ready: function() {
+        this.set('columnItem.selected', this._computeIsSelected(this.columnItem.selected));
+      },
+
+      _columnItemSelectedChanged: function(item) {
+      },
+
+      _computeOpenButtonClass: function(item) {
+        var openableClassName = item.isOpenable ? "openable" : "unopenable";
+        return this._baseOpenButtonClassNames + openableClassName;
+      },
+
+      _computeIsSelected: function(selected) {
+        // assume selected is false
+        if(typeof selected === 'undefined' || selected === false) {
+          return false;
+        } else {
+          return true;
+        }
+      },
+
+      _computeItemId: function(item) {
+        return item[this.fieldKeys.id];
+      },
+
+      _computeItemLabel: function(item) {
+        return item[this.fieldKeys.label];
+      },
+
+      /* returns string to be used for _itemClassNames */
+      _computeItemClassNames: function(item) {
+        return this.addConditionalClass(item._isSelected, "selected", this._baseItemClassNames);
+      },
+
+      _computeHasChildren: function(item) {
+        return (this.showChevron) ? (item.hasChildren || item.children) : false;
+      },
+
+      /**
+       * Event listener on item clicks, listener is registered from the template
+       *
+       * @param {Event} evt
+       * @private
+       */
+      itemClickHandler: function(evt) {
+        this.debounce('itemClick', function() {
+          this.fire('item-click', { 'item': this.columnItem } );
+        }, 1);
+      },
+
+      _openClickHandler: function() {
+
+      },
+
+      /**
+       * this method checks whether the attribute hasChildren has been set to true, and if it has,
+       * whether the item has a property by the name of children or hasChildren
+       * @param {object} item
+       * @private
+       */
+      _hasChildren: function() {
+        return (this.showChevron) ? (this.item.hasChildren || this.item.children) : false;
+      },
+
+      /**
+       * @param {Object} item
+       * @return {String} Display label for given item
+       * @private
+       */
+      getItemLabel: function(item) {
+        return item ? item[this.parent.labelField] || '' : '';
+      },
+
+      /**
+       * @param {Object} item
+       * @return {String} Id for given item
+       * @private
+       */
+      getItemId: function(item) {
+
+      },
+
+      /**
+       * @param {Object} item
+       * @return {String} CSS class for item opener
+       * @private
+       */
+      getItemOpenerClass: function() {
+
+      },
+
+      /**
+       * @param {String} base
+       * @return {String} CSS class for item
+       * @private
+       */
+      isItemSelected: function(selectedItem) {
+
+      },
+
+    });
+  </script>
 </dom-module>
-
-<script>
-  Polymer({
-    is: 'px-context-browser-column-item',
-    behaviors: [PxContextBrowserBehaviors],
-    properties: {
-      /**
-       * Item data passed from parent menu
-       *
-       * @type {Object}
-       * @default null
-       */
-      columnItem: {
-        type: Object,
-        value: null,
-        observer: '_columnItemChanged'
-      },
-      /**
-       * show chevron
-       * @type {Boolean}
-       * @default false
-       *
-       */
-      showChevron: {
-        type: Boolean,
-        value: false,
-        reflectToAttribute: true
-      },
-
-      testValue: 'test',
-
-      fieldKeys: {
-        type: Object
-      },
-
-      _openButtonClass: {
-        type: String,
-        value: 'temp-item-opener-class',
-        computed: '_computeOpenButtonClass(columnItem, _baseOpenButtonClassNames)'
-      },
-
-      itemId: {
-        type: String,
-        computed: '_computeItemId(columnItem, fieldKeys)'
-      },
-
-      itemLabel: {
-        type: String,
-        computed: '_computeItemLabel(columnItem, fieldKeys)'
-      },
-
-      _itemClassNames: {
-        type: String,
-        computed: '_computeItemClassNames(columnItem, _baseItemClassNames, _isSelected)'
-      },
-
-      _hasChildren: {
-        type: Boolean,
-        value: false,
-        computed: '_computeHasChildren(columnItem)'
-      },
-
-      _baseOpenButtonClassNames: {
-        type: String,
-        value: 'opener btn btn--small btn--tertiary '
-      },
-
-      _baseItemClassNames: {
-        type: String,
-        value: 'flex flex--middle selectable-item column-item'
-      },
-
-      _isSelected: {
-        type: Boolean,
-        computed: '_computeIsSelected(columnItem, columnItem.selected)'
-      }
-
-    },
-
-    observers: [
-      '_columnItemSelectedChanged(columnItem.selected)'
-    ],
-
-    _contextChanged: function() {
-      //console.log('this.columnItem.selected: ', this.columnItem.selected);
-    },
-
-    _columnItemChanged: function() {
-    },
-
-    ready: function() {
-      this.set('columnItem.selected', this._computeIsSelected(this.columnItem.selected));
-    },
-
-    _columnItemSelectedChanged: function(item) {
-    },
-
-    _computeOpenButtonClass: function(item) {
-      var openableClassName = item.isOpenable ? "openable" : "unopenable";
-      return this._baseOpenButtonClassNames + openableClassName;
-    },
-
-    _computeIsSelected: function(selected) {
-      // assume selected is false
-      if(typeof selected === 'undefined' || selected === false) {
-        return false;
-      } else {
-        return true;
-      }
-    },
-
-    _computeItemId: function(item) {
-      return item[this.fieldKeys.id];
-    },
-
-    _computeItemLabel: function(item) {
-      return item[this.fieldKeys.label];
-    },
-
-    /* returns string to be used for _itemClassNames */
-    _computeItemClassNames: function(item) {
-      return this.addConditionalClass(item._isSelected, "selected", this._baseItemClassNames);
-    },
-
-    _computeHasChildren: function(item) {
-      return (this.showChevron) ? (item.hasChildren || item.children) : false;
-    },
-
-    /**
-     * Event listener on item clicks, listener is registered from the template
-     *
-     * @param {Event} evt
-     * @private
-     */
-    itemClickHandler: function(evt) {
-      this.debounce('itemClick', function() {
-        this.fire('px-context-browser-column-item-click', { 'item': this.columnItem } );
-      }, 1);
-    },
-
-    _openClickHandler: function() {
-
-    },
-
-    /**
-     * this method checks whether the attribute hasChildren has been set to true, and if it has,
-     * whether the item has a property by the name of children or hasChildren
-     * @param {object} item
-     * @private
-     */
-    _hasChildren: function() {
-      return (this.showChevron) ? (this.item.hasChildren || this.item.children) : false;
-    },
-
-    /**
-     * @param {Object} item
-     * @return {String} Display label for given item
-     * @private
-     */
-    getItemLabel: function(item) {
-      return item ? item[this.parent.labelField] || '' : '';
-    },
-
-    /**
-     * @param {Object} item
-     * @return {String} Id for given item
-     * @private
-     */
-    getItemId: function(item) {
-
-    },
-
-    /**
-     * @param {Object} item
-     * @return {String} CSS class for item opener
-     * @private
-     */
-    getItemOpenerClass: function() {
-
-    },
-
-    /**
-     * @param {String} base
-     * @return {String} CSS class for item
-     * @private
-     */
-    isItemSelected: function(selectedItem) {
-
-    },
-
-  });
-</script>

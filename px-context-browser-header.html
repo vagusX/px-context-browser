@@ -21,46 +21,46 @@
       </div>
     </header>
   </template>
-</dom-module>
 
-<script>
-  Polymer({
-    is: 'px-context-browser-header',
-    behaviors: [PxContextBrowserBehaviors],
-    properties: {
+  <script>
+    Polymer({
+      is: 'px-context-browser-header',
+      behaviors: [PxContextBrowserBehaviors],
+      properties: {
 
-      /**
-       * Item data passed from parent menu
-       *
-       * @type {Object}
-       * @default null
-       */
-      menuData: {
-        type: Object,
-        value: null
+        /**
+         * Item data passed from parent menu
+         *
+         * @type {Object}
+         * @default null
+         */
+        menuData: {
+          type: Object,
+          value: null
+        },
+
+        /**
+         * Initial context name to be shown on page
+         *
+         * @type {String}
+         * @default 'Select Context'
+         */
+        openedItemName: {
+          type: String,
+          value: 'Select Context'
+        }
       },
 
-      /**
-       * Initial context name to be shown on page
-       *
-       * @type {String}
-       * @default 'Select Context'
-       */
-      openedItemName: {
-        type: String,
-        value: 'Select Context'
+      menu: null,
+
+      ready: function() {
+        this.parent = this.parentNode;
+      },
+
+      handleHeaderClick: function(e) {
+        this.fire('header-click', { type: e.type });
       }
-    },
 
-    menu: null,
-
-    ready: function() {
-      this.parent = this.parentNode;
-    },
-
-    handleHeaderClick: function(e) {
-      this.fire('header-click', { type: e.type });
-    }
-
-  });
-</script>
+    });
+  </script>
+</dom-module>

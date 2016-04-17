@@ -21,109 +21,111 @@
       <div class="overlay"></div>
     </div>
   </template>
-</dom-module>
+  <script>
+    Polymer({
 
-<script>
-  Polymer({
-    is: 'px-context-browser-column-browser',
-    behaviors: [PxContextBrowserBehaviors],
-    properties: {
-      _columns: {
-        type: Array,
-        value: function() { return []; }
-      }
-    },
+      is: 'px-context-browser-column-browser',
 
-    observers: [
-      '_contextChanged(fieldKeys, _columns, context, context.localUpdatedAt)'
-    ],
+      behaviors: [PxContextBrowserBehaviors],
 
-    _contextChanged: function() {
-      if(!_.isEmpty(this.context)) {
-        this._setColumns();
-      } else {
-        this.columns = [];
-      }
-    },
+      properties: {
 
-    // remove all columns so that they can be reset
-    _popAllColumns: function() {
-      _.forEach(this._columns, this._popColumn.bind(this));
-    },
-
-    // pop one single columnItem off this._columnItems
-    _popColumn: function() {
-      this.pop('_columns');
-    },
-
-    _isSelected(node) {
-      return (typeof node.selected !== 'undefined' && node.selected === true);
-    },
-
-    _addColumn(node, index) {
-      var childrenKey = this.fieldKeys['children'];
-      var children = node[childrenKey] || [];
-      var i, len = children.length;
-      if(len > 0) {
-        if(!_.isEqual(this._columns[index], { children })) {
-          this.push('_columns', { children });
+        _columns: {
+          type: Array,
+          value: function() { return []; }
         }
-        for(i=0;i<len;i++) {
-          var childNode = children[i];
-          if(this._isSelected(childNode)) {
-            var grandChildren = childNode[childrenKey];
-            if(typeof grandChildren !== 'undefined' && grandChildren.length > 0) {
-              index++;
-              this._addColumn(childNode, index);
+
+      },
+
+      observers: [
+        '_contextChanged(fieldKeys, _columns, context, context.localUpdatedAt)'
+      ],
+
+      _contextChanged: function() {
+        if(!_.isEmpty(this.context)) {
+          this._setColumns();
+        } else {
+          this._columns = [];
+        }
+      },
+
+      // remove all columns so that they can be reset
+      _popAllColumns: function() {
+        _.forEach(this._columns, this._popColumn.bind(this));
+      },
+
+      // pop one single columnItem off this._columnItems
+      _popColumn: function() {
+        this.pop('_columns');
+      },
+
+      _isSelected(node) {
+        return (typeof node.selected !== 'undefined' && node.selected === true);
+      },
+
+      _addColumn(node, index) {
+        var childrenKey = this.fieldKeys['children'];
+        var children = node[childrenKey] || [];
+        var i, len = children.length;
+        if(len > 0) {
+          if(!_.isEqual(this._columns[index], { children })) {
+            this.push('_columns', { children });
+          }
+          for(i=0;i<len;i++) {
+            var childNode = children[i];
+            if(this._isSelected(childNode)) {
+              var grandChildren = childNode[childrenKey];
+              if(typeof grandChildren !== 'undefined' && grandChildren.length > 0) {
+                index++;
+                this._addColumn(childNode, index);
+              }
             }
-          } else {
-            this._removeColumn(index+1);
           }
         }
-      }
-    },
+      },
 
-    _removeColumn: function(index) {
-      if(this._columns) {
-        this.splice('_columns', index, 1);
-      }
-    },
-
-    _setColumns: function() {
-      this._addColumn(this.context, 0);
-      /*
-      if(_.isEmpty(this._columns)) {
-        // add the first column
-        this.push('_columns', { children });
-      } else {
-        console.log('update existing columns')
-        // update existing columns
-        this.set('_columns.0', { children });
-        _.each(children, function(child) {
-          if(child.selected) {
-            console.log('child selected:', child);
-          }
-        });
-        // TODO: Recursively add more columns as children have many children...
+      _removeColumn: function(index) {
+        if(this._columns) {
+          this.splice('_columns', index, 1);
         }
-      */
-    },
+      },
 
-    showOverlay: function() {
-      this.$$('.overlay').style.display = 'block';
-    },
+      _setColumns: function() {
+        this._addColumn(this.context, 0);
+        /*
+        if(_.isEmpty(this._columns)) {
+          // add the first column
+          this.push('_columns', { children });
+        } else {
+          console.log('update existing columns')
+          // update existing columns
+          this.set('_columns.0', { children });
+          _.each(children, function(child) {
+            if(child.selected) {
+              console.log('child selected:', child);
+            }
+          });
+          // TODO: Recursively add more columns as children have many children...
+          }
+        */
+      },
 
-    hideOverlay: function() {
-      this.$$('.overlay').style.display = 'none';
-    },
+      showOverlay: function() {
+        this.$$('.overlay').style.display = 'block';
+      },
 
-    showSpinner: function() {
-      this.$.spinner.set('finished', false);
-    },
+      hideOverlay: function() {
+        this.$$('.overlay').style.display = 'none';
+      },
 
-    hideSpinner: function() {
-      this.$.spinner.set('finished', true);
-    }
+      showSpinner: function() {
+        this.$.spinner.set('finished', false);
+      },
 
-  });
-</script>
+      hideSpinner: function() {
+        this.$.spinner.set('finished', true);
+      }
+
+    });
+  </script>
+</dom-module>

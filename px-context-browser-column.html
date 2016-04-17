@@ -21,112 +21,111 @@
       </div>
     </div>
   </template>
-</dom-module>
+  <script>
+    Polymer({
+      is: 'px-context-browser-column',
+      behaviors: [PxContextBrowserBehaviors],
+      properties: {
+        /**
+         * Item data passed from parent menu
+         *
+         * @type {Object}
+         * @default null
+         */
+        columnData: {
+          type: Object,
+          value: null,
+          observer: '_columnDataChanged'
+        },
+        _columnItems: {
+          type: Array,
+          value: function() { return []; }
+        },
+        /**
+         * show chevron
+         * @type {Boolean}
+         * @default false
+         *
+         */
+        showChevron: {
+          type: Boolean,
+          value: false,
+          reflectToAttribute: true
+        },
+        _listClassNames: {
+          type: String,
+          computed: '_computeListClassNames(columnData, _baseListClassNames)'
+        },
+        _baseListClassNames: {
+          type: String,
+          value: 'list-bare level'
+        }
+      },
 
-<script>
-  Polymer({
-    is: 'px-context-browser-column',
-    behaviors: [PxContextBrowserBehaviors],
-    properties: {
+      ready: function() {
+        this.parent = this.parentNode;
+        this._setColumnItems(this.columnData);
+      },
+
+      _columnDataChanged: function(newValue, oldValue) {
+        if(typeof newValue !== 'undefined') {
+          this._setColumnItems(newValue);
+        }
+      },
+
+      // set new column items
+      _setColumnItems(columnData) {
+        if(typeof this.fieldKeys !== 'undefined' && typeof this._columnItems !== 'undefined') {
+          var newColumnItems = columnData[this.fieldKeys['children']];
+          this._popAllColumnItems();
+          this._pushNewColumnItems(newColumnItems);
+          this.async( function() { this.$.level.render(); });
+        }
+      },
+
+      // remove all columns so that they can be reset
+      _popAllColumnItems: function() {
+        _.forEach(this._columnItems, this._popColumnItem.bind(this));
+      },
+
+      // pop one single columnItem off this._columnItems
+      _popColumnItem: function() {
+        this.pop('_columnItems');
+      },
+
+      _pushColumnItem: function(item) {
+
+        this.push('_columnItems', item);
+      },
+
+      // push new column items
+      _pushNewColumnItems: function(newColumnItems) {
+        _.forEach(newColumnItems, this._pushColumnItem.bind(this));
+      },
+
       /**
-       * Item data passed from parent menu
+       * Finds out if the passed UL has a child that's selected, and if so, add selected to the return path
        *
-       * @type {Object}
-       * @default null
+       * @param {Object} item
+       * @param {selectedItem} the selected item.
+       * @private
        */
-      columnData: {
-        type: Object,
-        value: null,
-        observer: '_columnDataChanged'
-      },
-      _columnItems: {
-        type: Array,
-        value: function() { return []; }
-      },
-      /**
-       * show chevron
-       * @type {Boolean}
-       * @default false
-       *
-       */
-      showChevron: {
-        type: Boolean,
-        value: false,
-        reflectToAttribute: true
-      },
-      _listClassNames: {
-        type: String,
-        computed: '_computeListClassNames(columnData, _baseListClassNames)'
-      },
-      _baseListClassNames: {
-        type: String,
-        value: 'list-bare level'
-      }
-    },
-
-    ready: function() {
-      this.parent = this.parentNode;
-      this._setColumnItems(this.columnData);
-    },
-
-    _columnDataChanged: function(newValue, oldValue) {
-      if(typeof newValue !== 'undefined') {
-        this._setColumnItems(newValue);
-      }
-    },
-
-    // set new column items
-    _setColumnItems(columnData) {
-      if(typeof this.fieldKeys !== 'undefined' && typeof this._columnItems !== 'undefined') {
-        var newColumnItems = columnData[this.fieldKeys['children']];
-        this._popAllColumnItems();
-        this._pushNewColumnItems(newColumnItems);
-        this.async( function() { this.$.level.render(); });
-      }
-    },
-
-    // remove all columns so that they can be reset
-    _popAllColumnItems: function() {
-      _.forEach(this._columnItems, this._popColumnItem.bind(this));
-    },
-
-    // pop one single columnItem off this._columnItems
-    _popColumnItem: function() {
-      this.pop('_columnItems');
-    },
-
-    _pushColumnItem: function(item) {
-
-      this.push('_columnItems', item);
-    },
-
-    // push new column items
-    _pushNewColumnItems: function(newColumnItems) {
-      _.forEach(newColumnItems, this._pushColumnItem.bind(this));
-    },
-
-    /**
-     * Finds out if the passed UL has a child that's selected, and if so, add selected to the return path
-     *
-     * @param {Object} item
-     * @param {selectedItem} the selected item.
-     * @private
-     */
-    _computeListClassNames: function(columnData) {
-      /*
-          id = this.idField,
-          itemId = selectedItem[id];
-      */
-      /*
-      if (item.children) {
-        for (var i = 0, len = item.children.length; i < len; i++) {
-          if (item.children[i][id] === itemId) {
-            base += " selected";
+      _computeListClassNames: function(columnData) {
+        /*
+            id = this.idField,
+            itemId = selectedItem[id];
+        */
+        /*
+        if (item.children) {
+          for (var i = 0, len = item.children.length; i < len; i++) {
+            if (item.children[i][id] === itemId) {
+              base += " selected";
+            }
           }
         }
+        */
+        return this._baseListClassNames;
       }
-      */
-      return this._baseListClassNames;
-    }
-  });
-</script>
+    });
+  </script>
+</dom-module>
