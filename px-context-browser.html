@@ -8,8 +8,8 @@
 <link rel="import" href="../px-spinner/px-spinner.html"/>
 <link rel="import" href="../px-overlay/px-overlay.html"/>
 <link rel="import" href="px-context-browser-behaviors.html"/>
-<link rel="import" href="px-context-browser-breadcrumbs.html"/>
-<link rel="import" href="px-context-browser-column-browser.html"/>
+<link rel="import" href="px-breadcrumbs.html"/>
+<link rel="import" href="px-column-browser.html"/>
 <link rel="import" href="px-context-browser-header.html"/>
 <link rel="import" href="px-context-browser-model.html"/>
 
@@ -49,17 +49,21 @@
           opened-item-name="[[openedItemName]]">
           <content></content>
         </px-context-browser-header>
-        <!-- <px-context-browser-breadcrumbs
-          class$="[[_breadcrumbsClassNames]]"></px-context-browser-breadcrumbs>
-        -->
-        <px-context-browser-column-browser
-          id="columnBrowser"
-          parent-nodes="[[parentNodes]]"
-          field-keys="[[fieldKeys]]"
-          context="[[_context]]"
-          show-column-browser="[[showColumnBrowser]]"
-          class$="[[_columnBrowserClassNames]]"
-          ></px-context-browser-column-browser>
+        <div id="ruler" class="flex flex--col">
+          <div class="flex flex--col">
+            <px-breadcrumbs
+              class$="[[_breadcrumbsClassNames]]">
+            </px-breadcrumbs>
+            <px-column-browser
+              id="columnBrowser"
+              parent-nodes="[[parentNodes]]"
+              field-keys="[[fieldKeys]]"
+              context="[[_context]]"
+              show-column-browser="[[_showColumnBrowser]]"
+              class$="[[_columnBrowserClassNames]]">
+            </px-column-browser>
+          </div>
+        </div>
       </div>
     </div>
   </template>
@@ -73,17 +77,20 @@
       properties: {
 
         apiUrl: {
-          type: String,
+          type: String
         },
+
         rootUri: {
           type: String
         },
+
         _selectedItemUri: {
           type: String
         },
+
         /**
-        * Mapping for the field name in the context data that represents the display label for an item. This property allows data of any form/keys to be used as
-        * long as it has the notion of a 'display label' in it.
+        * Mapping for the field name in the context data that represents the display label for an item.
+        * This property allows data of any form/keys to be used as long as it has the notion of a 'display label' in it.
         *
         * @type {String}
         * @default "name"
@@ -113,49 +120,7 @@
           type: String,
           value: "children"
         },
-        /**
-         * if we have a selected Item, it's stored here.
-         * must be null for polymer to determine the correct classes for ULs and LIs
-         * @type {String}
-         * @default ''
-         */
-        selectedItem: {
-          type: Object,
-          value: function() {return {};}
-        },
-        /**
-         * Object defining some or all of the following functions as members:
-         *
-         * ```js
-         * itemOpenHandler: function(item) {}
-         *  // returns special callback behavior when
-         *  // a given context item is opened
-         * itemClickHandler: function(item) {}
-         *   // returns special callback behavior when
-         *   // a given context is selected
-         * getChildren: function (parent, startIdx) {}
-         *   // returns a JavaScript promise that will
-         *   // resolve to children of the item and
-         *   // starting with the given index (to support lazy loading)
-         *```
-         *
-         * @type {Object}
-         */
-        handlers: {
-          value: function(){return {};},
-          type: Object
-        },
-        /**
-         * Hierarchy of items down to currently selected item. Set here as a property to expose it to the template, but managed internally. Do not set this.
-         *
-         * @type {Array}
-         * @default []
-         * @private
-         */
-        parentNodes: {
-          type: Array,
-          value: function() {return [];} //this is Polmer's way of defining an empty array in properties
-        },
+
         /**
          * Initial context name to be shown on page
          *
@@ -171,7 +136,7 @@
          * @type {Boolean}
          * @default false
          */
-        showColumnBrowser: {
+        _showColumnBrowser: {
           type: Boolean,
           value: false
         },
@@ -198,21 +163,21 @@
         },
         _overlayClassNames: {
           type: String,
-          computed: '_computeOverlayClassNames(showColumnBrowser)'
+          computed: '_computeOverlayClassNames(_showColumnBrowser)'
         },
         _columnBrowserClassNames: {
           type: String,
-          computed: '_computeColumnBrowserClassNames(showColumnBrowser)'
+          computed: '_computeColumnBrowserClassNames(_showColumnBrowser)'
         },
         _breadcrumbsClassNames: {
           type: String,
-          computed: '_computeBreadcrumbsClassNames(showColumnBrowser)'
+          computed: '_computeBreadcrumbsClassNames(_showColumnBrowser)'
         }
       },
 
       observers: [
         "_setFieldKeys(childrenField, idField, labelField)",
-        "_contextChanged(_context.localUpdatedAt)"
+        "_contextChanged(context)"
       ],
 
       listeners: {
@@ -221,71 +186,16 @@
       },
 
       ready: function() {
-        var _this = this;
         this._selectedItemUri = this.rootUri;
-
-        // Need to watch the width of the column-browser.
-        var columnBrowser = this.$$('#columnBrowser');
-
-        var getColumns = function() {
-          return $columnBrowserColumns.childNodes.filter(
-            function(n) {
-              return n.tagName === 'DIV';
-            });
-        };
-
-        // var columnBrowserColumnRuler = Polymer.dom(columnBrowser).querySelector('.ruler');
-        // var columnBrowserColumns = Polymer.dom(columnBrowser).querySelector('div:first-of-type');
-        // columnBrowserColumnsBaseCss = columnBrowserColumns.className, // Polymer does weird stuff.
-        // var $columnBrowserColumns = Polymer.dom(columnBrowserColumns);
-        // var contextBrowserWidth, contextBrowserChildrenCount;
-
-        //console.log('columnBrowserColumns: ', columnBrowserColumns);
-        //console.log('this.$$', this.$$);
-        //console.log('columnBrowser: ', columnBrowser);
-
-        // Watch the container size change.
-
-
-        // setInterval(
-        // function() {
-          // var width = columnBrowser.offsetWidth,
-          //    removedCount = $columnBrowserColumns.querySelectorAll('.removed').length;
-              // cCount = columnBrowserColumns.childNodes.length - removedCount;
-          // cCount = 0;
-          // if (width !== contextBrowserWidth || cCount !== contextBrowserChildrenCount) {
-          //   contextBrowserWidth = width;
-          //   contextBrowserChildrenCount = cCount;
-          //   var count = getColumns().length - removedCount;
-
-          // columns = Math.floor(width / columnBrowserColumnRuler.offsetWidth),
-          // desiredClass = columnBrowserColumnsBaseCss + ' columns-' + columns;
-          // if (count > columns) {
-          // desiredClass += " column-index-" + (count - columns);
-          // }
-          // if (columnBrowserColumns.className !== desiredClass) {
-          //   columnBrowserColumns.className = desiredClass;
-          // }
-          // }
-        // }, 2000); // ms/fps
       },
 
-      _contextChanged: function(newValue, oldValue) {
-        // console.log('new context: ', this._context);
+      _contextChanged: function(context) {
+        console.log('context', context);
       },
 
-      _computeBreadcrumbsClassNames: function() {
-        return this.removeConditionalClass(this.showColumnBrowser, 'visuallyhidden', 'flex flex--col');
-      },
-
-      _computeColumnBrowserClassNames: function() {
-        return this.removeConditionalClass(this.showColumnBrowser, 'visuallyhidden', 'flex flex--col');
-      },
-
-      _computeOverlayClassNames: function() {
-        return this.addConditionalClass(this.showColumnBrowser, 'fadeFromHidden');
-      },
-
+      /**
+       * set fieldKeys values to be used by many sub-components
+      */
       _setFieldKeys: function() {
         this.set('fieldKeys', {
           id: this.idField,
@@ -294,344 +204,49 @@
         });
       },
 
-
       /**
-       * toggle visbility of the column browser
+       * handles 'item-click' event fired from column-item
       */
-      toggleColumnBrowser: function() {
-        this.set('showColumnBrowser', !this.showColumnBrowser);
-      },
-
       _itemClickHandler: function(e) {
         var item = e.detail.item;
         this._selectedItemUri = item.uri;
       },
 
+      /**
+       * handles 'header-click' event fired from column-item
+      */
       _headerClickHandler: function(e) {
         this.toggleColumnBrowser();
       },
 
-
       /**
-       * Event listener on breadcrumb clicks, listener is registered from the template
-       *
-       * @param {Event} evt
-       * @private
-       */
-      handleBreadcrumbClick: function(evt) {
-        var level = this.$.breadcrumbs.indexForElement(evt.target); //"$.breadcrumbs" is id of the template element with a dom-repeat
-        this.selectItem(this.parentNodes[level]);
-      },
-
-
-      /**
-       * Event listener on scroll of item panels/columns, listener is registered from the template
-       *
-       * @param {Event} evt
-       * @private
-       */
-      scrollEndHandler: function(evt) {
-        this.debounce(
-          'scroll-panel', function() {
-            // executes when it hasn't been called for 500ms
-            var _this = this,
-                levelIdx = this.$.levels.indexForElement(evt.target),
-                scrollableHeight = evt.target.scrollHeight,
-                visibleHeight = evt.target.offsetHeight,
-                threshold = 10,
-                hiddenContentHeight = scrollableHeight - visibleHeight;
-
-            if (hiddenContentHeight - evt.target.scrollTop <= threshold) {
-              if (this.handlers.getChildren) {
-                _this.$.columnBrowser.showSpinner();
-                var item = this.parentNodes[levelIdx],
-                    options = {};
-                if (item && item.meta) {
-                  if (item.meta.total) {
-                    if (item.children.length >= item.meta.total) {
-                      return;
-                    }
-                    else {
-                      options.rangeStart = item.children.length;
-                    }
-                  }
-                  else {
-                    options = item.meta;
-                  }
-
-                  this.handlers.getChildren(item).then(
-                    function(children) {
-                      _this.$.columnBrowser.hideSpinner();
-                      _this.appendChildren(item, children);
-                    });
-                }
-              }
-            }
-          }, 200);
-      },
-      /**
-       * Event listener on 'open' button of open-able items, listener is registered from the template
-       *
-       * @param {Event} evt
-       * @private
-       */
-      openClickHandler: function(evt) {
-        evt.stopPropagation();
-        if (this.selectedItem && this.handlers.itemOpenHandler) {
-          this.configureBreadcrumbs(evt);
-          this.openedItemName = this.selectedItem.name;
-          this.toggleColumnBrowser();
-          this.handlers.itemOpenHandler(this.selectedItem, this.openedBreadcrumbs);
-        }
-      },
-      /**
-       * Configure the breadcrumb trail from both the parentNode and/or the selected name.
-       *
-       * @param {Event} evt
-       * @private
-       */
-      configureBreadcrumbs: function(evt) {
-        var i,
-            len=this.parentNodes.length;
-        this.openedBreadcrumbs = [];
-          for (i=0; i<len;i++) {
-            if (this.getItemLabel(this.parentNodes[i])) {
-              this.push('openedBreadcrumbs', this.getItemLabel(this.parentNodes[i]));
-            }
-          }
-      },
-      /**
-       * @param {Object} item
-       * @return {String} Display label for given item
-       * @private
-       */
-      getItemLabel: function(item) {
-        return item ? item[this.labelField] || '' : '';
-      },
-      /**
-       * @param {Object} item
-       * @return {String} Id for given item
-       * @private
-       */
-      getItemId: function(item) {
-        return item ? item[this.idField] : null;
-      },
-      /**
-       * @param {Object} item
-       * @return {String} CSS class for item opener
-       * @private
-       */
-      getItemOpenerClass: function(item) {
-        var base = "opener btn btn--small btn--tertiary ";
-        return base = (item.isOpenable) ? base + "openable" : base + "unopenable";
-      },
-      /**
-       * @param {String} base
-       * @return {String} CSS class for item
-       * @private
-       */
-      isItemSelected: function(item, selectedItem) {
-        var base = "flex flex--middle selectable-item";
-        return base = (item.inSelectedPath) ? base += " selected" : base;
+       * toggle visbility of the column browser
+      */
+      toggleColumnBrowser: function() {
+        this.set('_showColumnBrowser', !this._showColumnBrowser);
       },
 
       /**
-       * this method checks whether the attribute hasChildren has been set to true, and if it has,
-       * whether the item has a property by the name of children or hasChildren
-       * @param {object} item
-       * @private
-       */
-      _hasChildren: function(item) {
-        return (this.showChevron) ? (item.hasChildren || item.children) : false;
+       * compute _breadcrumbsClassNames
+      */
+      _computeBreadcrumbsClassNames: function() {
+        var base = 'flex flex--col';
+        return this.removeConditionalClass(this._showColumnBrowser, 'visuallyhidden', base);
       },
 
       /**
-       * Appends children to those already at a level.
-       *
-       * @param {Object} item The parent
-       * @param {Object} results Describes the children
-       *  @config {Array} data List of children objects
-       *  @config {Object} meta Keys describe the data.
-       *  @private
-       */
-      appendChildren: function(item, results) {
-        if (results === undefined || results === null) {
-          return;
-        }
-        var children = results.data || [];
-
-        // set up the parent pointers
-        for (var i = 0; i < children.length; i++) {
-          children[i].parent = item;
-        }
-        item.meta = results.meta;
-        // adding all the new children onto the node's children
-        Array.prototype.push.apply(item.children, children);
-      },
-      /**
-       * Add children to a level, overwriting any existing.
-       *
-       * @param {Object} parentNode The parent
-       * @param {Object} results Describes the children
-       *  @config {Array} data List of children objects
-       *  @config {Object} meta Keys describe the data.
-       *  @private
-       */
-      addChildren: function(parentNode, results) {
-        if (results === undefined || results === null) {
-          return;
-        }
-        var children = results[this.childrenKey] || [];
-        // set up the parent pointers
-        for (var i = 0; i < children.length; i++) {
-          children[i].parent = parentNode;
-        }
-
-        parentNode.children = children;
-        parentNode.meta = results.meta;
-      },
-      /**
-       * Drops all children of a given item;
-       *
-       * @param {Object} item
-       * @private
-       */
-      dropCurrentChildren: function(item) {
-        // drop the children from the master list of nodes (and update the level)
-        for (var i = 0; i < this.parentNodes.length - 1; i++) {
-          if (this.parentNodes[i] === item.parent) {
-            this.parentNodes = this.parentNodes.slice(0, i + 1);
-          }
-        }
+       * compute _columnBrowserClassNames
+      */
+      _computeColumnBrowserClassNames: function() {
+        var base = 'flex flex--col column-browser';
+        return this.removeConditionalClass(this._showColumnBrowser, 'visuallyhidden', base);
       },
 
       /**
-       * @private
-       */
-      addToParentNodes: function(item) {
-        var found = false,
-            i = 0;
-
-        while (i < this.parentNodes.length && !found) {
-          if (this.parentNodes[i][this.idField] && this.parentNodes[i][this.idField] === item[this.idField]) {
-            // if it is already in the parent nodes, then don't add it
-            return;
-          }
-          i++;
-        }
-        this.push('parentNodes', item);
-      },
-
-      /**
-       * Fetches all children of a given item
-       *
-       * @param {Object} item
-       * @private
-       */
-      getNewChildren: function(item) {
-        this.showSpinner();
-        if (this.handlers.getChildren) {
-          var _this = this;
-          this.handlers.getChildren(item).then(
-            function(data) {
-              _this.$.columnBrowser.hideSpinner();
-              var children = data[this.childrenKey],
-                  parentId = data.parentId || data.meta.parentId,
-                  selectedNode = _this.selectedItem;
-
-              if (parentId === undefined || parentId === null) {
-                console.warn('Context tree getChildren response must have meta.parentId defined.');
-              }
-              //check response is for the current selected node
-              else if (parentId === selectedNode[_this.idField]) {
-                _this.addChildren(item, data);
-                _this.addToParentNodes(item);
-              } else {
-                // disregard response, it's from an old getChildren call
-              }
-          });
-        }
-      },
-
-      /**
-       * Marks an item as selected and fetches its children
-       *
-       * @param {Object} item
-       * @param {Element} itemElement The element in the local DOM representing the given item. If not passed, will try to find it in the DOM based on item[this.idField]
-       * @private
-       */
-      selectItem: function(item, itemElement) {
-        var _this = this;
-
-        // Defer this execution since event handlers may be listening to dom targets that will end up getting removed and can cause unexpected problems.
-        // By doing so, we allow an event to complete before changing the DOM.
-        setTimeout(function() {
-          //execute callback
-          if (_this.handlers.itemClickHandler) {
-            _this.handlers.itemClickHandler(item);
-          }
-
-          _this.changeSelected(item);
-          _this.dropCurrentChildren(item);
-          _this.getNewChildren(item);
-        }, 0);
-      },
-
-      /**
-       * resets all the selected siblings items, and sets the selected item.
-       *
-       * @param {Object} item
-       * @private
-       */
-      changeSelected: function(item) {
-        var children = item.parent.children,
-            sib,
-            id = this.idField;
-
-        for (var i = 0, len = children.length; i < len; i++) {
-          sib = children[i];
-
-          if (sib[id] !== item[id]) {
-            if (sib.inSelectedPath || sib.selectedAsset) {
-              sib.inSelectedPath = false;
-              sib.selectedAsset = false;
-            }
-          // only turn those on if you're the selected Item.
-          } else {
-            sib.inSelectedPath = true;
-            sib.selectedAsset = true;
-          }
-        }
-
-        item.parent.selectedColumn = true;
-        //change the itemId, and notify polymer to re-run the templates
-        this.set('selectedItem', item);
-      },
-      /**
-       * TBD whether we need this...only way to get 'handlers' correctly parsed in Polymer 0.5. May be able to dump now.  TBD.
-       *
-       * @private
-       */
-      ngScopeToken: "ngScope:",
-
-      /**
-       * TBD whether we need this...only way to get 'handlers' correctly parsed in Polymer 0.5. May be able to dump now.  TBD.
-       *
-       * @private
-       */
-      resolveNgScopeAttr: function(ngScope, attrName, attrValue) {
-        var scopePath, scopeTokens, i, resolvedValue;
-        if (attrValue.indexOf(this.ngScopeToken) === 0) {
-          scopePath = attrValue.substring(this.ngScopeToken.length);
-
-          scopeTokens = scopePath.split('.');
-          resolvedValue = ngScope;
-          for (i = 0; i < scopeTokens.length; i++) {
-            //iterate over the dots values in 'a.b.c' to find the final resolved value
-            resolvedValue = resolvedValue[scopeTokens[i]];
-          }
-          this[attrName] = resolvedValue;
-        }
+       * compute _overlayClassNames
+      */
+      _computeOverlayClassNames: function() {
+        return this.addConditionalClass(this._showColumnBrowser, 'fadeFromHidden');
       }
 
     });

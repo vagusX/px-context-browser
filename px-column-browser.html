@@ -1,30 +1,30 @@
 <link rel="import" href="../polymer/polymer.html"/>
-<link rel="import" href="px-context-browser-column.html"/>
 <link rel="import" href="px-context-browser-behaviors.html"/>
+<link rel="import" href="px-column.html"/>
 
-<dom-module id="px-context-browser-column-browser">
+<dom-module id="px-column-browser">
   <link rel="import" type="css" href="css/px-context-browser.css" />
   <script src="../lodash/lodash.js"></script>
   <template>
-    <div class="flex flex--col column-browser">
+    <div id="widthTest" class="flex flex--col column-browser">
       <px-spinner id="spinner" finished></px-spinner>
-      <div class="flex">
+      <div id="columns" class$="[[_columnsClassNames]]">
         <template is="dom-repeat" id="levels" items="[[_columns]]">
-          <px-context-browser-column
+          <px-column
             column-data="[[item]]"
             field-keys="[[fieldKeys]]"
-            context="[[context]]"></px-context-browser-column>
+            context="[[context]]">
+          </px-column>
         </template>
       </div>
-      <div class="ruler">
-      </div>
+      <div id="rulers" class="ruler"></div>
       <div class="overlay"></div>
     </div>
   </template>
   <script>
     Polymer({
 
-      is: 'px-context-browser-column-browser',
+      is: 'px-column-browser',
 
       behaviors: [PxContextBrowserBehaviors],
 
@@ -33,6 +33,11 @@
         _columns: {
           type: Array,
           value: function() { return []; }
+        },
+
+        _columnsClassNames: {
+          type: String,
+          computed: '_computeColumnsClassNames(context)'
         }
 
       },
@@ -41,11 +46,43 @@
         '_contextChanged(fieldKeys, _columns, context, context.localUpdatedAt)'
       ],
 
+      _computeColumnsClassNames: function() {
+        console.log('_computeColumnsClassNames');
+        // return 'flex';
+        return 'flex ' + this._columnIndexClassName(); // + ' ' + this._numColumnsClassName();
+      },
+
+      _getTotalColumnCount: function() {
+        var columnBrowserColumns = this.$.columns.querySelector('div:first-of-type');
+        var removedCount = this.$.columns.querySelectorAll('.removed').length;
+        this._columns.length - removedCount;
+      },
+
+      _getFitColumnCount: function() {
+        var width = this.$.columns.offsetWidth;
+        console.log('width: ', width);
+        console.log('ruler width: ', this.$.widthTest.offsetWidth);
+        return Math.floor(width / this.$.widthTest.offsetWidth);
+      },
+
+      _numColumnsClassName: function() {
+        var columns = this._getFitColumnCount();
+        return 'columns-' + columns;
+      },
+
+      _columnIndexClassName: function() {
+        var count = this._getTotalColumnCount();
+        var columns = this._getFitColumnCount();
+        if (count > columns) {
+          return 'column-index-' + (count - columns);
+        } else {
+          return '';
+        }
+      },
+
       _contextChanged: function() {
         if(!_.isEmpty(this.context)) {
           this._setColumns();
-        } else {
-          this._columns = [];
         }
       },
 

@@ -1,7 +1,7 @@
 <link rel="import" href="../polymer/polymer.html"/>
 <link rel="import" href="px-context-browser-behaviors.html"/>
 
-<dom-module id="px-context-browser-column-item">
+<dom-module id="px-column-item">
   <link rel="import" type="css" href="css/px-context-browser.css" />
   <template>
     <li on-click="itemClickHandler" id$="[[itemId]]" class$="[[_itemClassNames]]">
@@ -16,7 +16,7 @@
   </template>
   <script>
     Polymer({
-      is: 'px-context-browser-column-item',
+      is: 'px-column-item',
       behaviors: [PxContextBrowserBehaviors],
       properties: {
         /**

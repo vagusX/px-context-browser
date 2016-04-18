@@ -1,46 +1,60 @@
 <link rel="import" href="../polymer/polymer.html"/>
-<link rel="import" href="px-context-browser-column-item.html"/>
+<link rel="import" href="px-column-item.html"/>
 <link rel="import" href="px-context-browser-behaviors.html"/>
 
-<dom-module id="px-context-browser-column">
+<dom-module id="px-column">
   <link rel="import" type="css" href="css/px-context-browser.css" />
   <script src="../lodash/lodash.js"></script>
   <template>
     <div class="flex flex--col column push" data-column>
-      <div class="head">{{menuData.header}}</div>
+      <div class="head">[[columnData.header]]</div>
       <div class="flex__item scroll-y" on-scroll="scrollEndHandler">
         <ul class$="[[_listClassNames]]">
-          <template is="dom-repeat" id="level" items="{{_columnItems}}">
-            <px-context-browser-column-item
+          <template is="dom-repeat" id="level" items="[[_columnItems]]">
+            <px-column-item
               show-chevron
               column-item="[[item]]"
               field-keys="[[fieldKeys]]"
-              context="[[context]]"></px-context-browser-column-item>
+              context="[[context]]">
+            </px-column-item>
           </template>
         </ul>
       </div>
     </div>
   </template>
   <script>
+
     Polymer({
-      is: 'px-context-browser-column',
+
+      is: 'px-column',
+
       behaviors: [PxContextBrowserBehaviors],
+
       properties: {
+
         /**
          * Item data passed from parent menu
          *
          * @type {Object}
          * @default null
-         */
+        */
         columnData: {
           type: Object,
           value: null,
           observer: '_columnDataChanged'
         },
+
+        /**
+         * Array of column items
+         *
+         * @type {Array}
+         * @default []
+        */
         _columnItems: {
           type: Array,
           value: function() { return []; }
         },
+
         /**
          * show chevron
          * @type {Boolean}
@@ -52,6 +66,7 @@
           value: false,
           reflectToAttribute: true
         },
+
         _listClassNames: {
           type: String,
           computed: '_computeListClassNames(columnData, _baseListClassNames)'
@@ -94,7 +109,6 @@
       },
 
       _pushColumnItem: function(item) {
-
         this.push('_columnItems', item);
       },
 

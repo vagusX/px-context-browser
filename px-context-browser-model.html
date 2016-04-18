@@ -27,7 +27,8 @@
       context : {
         value: function() { return {}; },
         type: Object,
-        notify: true
+        notify: true,
+        reflectToAttribute: true
       },
       apiUrl: {
         type: String
@@ -61,19 +62,22 @@
         this.set('context', newValue);
         this._setLocalUpdatedAt();
       } else {
-        // After init, context will have data to be preserved
-        // So we must merge new data into existing context object using lodash merge
-        try {
-          var destinationNode = this._findNodeByUri(newValue.uri);
-          if(destinationNode === null) {
-            console.log('could not find destinationNode for: ', newValue.uri);
-          } else {
-            _.merge(destinationNode, newValue);
-            this._setLocalUpdatedAt();
-          }
-        } catch(e) {
-          console.log(e);
+        this._mergeNodeIntoContext(newValue);
+      }
+    },
+
+    _mergeNodeIntoContext: function(newValue) {
+      // After init, context will have data to be preserved
+      // So we must merge new data into existing context object using lodash merge
+      try {
+        var destinationNode = this._findNodeByUri(newValue.uri);
+        if(destinationNode === null) {
+          throw('could not find destinationNode for: ' + newValue.uri);
         }
+        _.merge(destinationNode, newValue);
+        this._setLocalUpdatedAt();
+      } catch(e) {
+        console.log(e);
       }
     },
 
