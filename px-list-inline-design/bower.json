@@ -1,6 +1,6 @@
 {
   "name": "px-list-inline-design",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "authors": [
     "General Electric",
     "Harry Roberts <harry@csswizardry.com>"
@@ -15,7 +15,7 @@
   ],
   "license": "Apache 2",
   "homepage": "https://github.com/PredixDev/px-list-inline-design.git",
-  "private": true,
+  "private": false,
   "ignore": [
     "**/.*",
     "node_modules",

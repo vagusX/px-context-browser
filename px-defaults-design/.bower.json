@@ -1,6 +1,6 @@
 {
   "name": "px-defaults-design",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "authors": [
     "General Electric",
     "Harry Roberts"
@@ -14,7 +14,7 @@
   ],
   "license": "Apache 2",
   "homepage": "https://github.com/PredixDev/px-defaults-design.git",
-  "private": true,
+  "private": false,
   "ignore": [
     "**/.*",
     "node_modules",
@@ -25,11 +25,11 @@
   "dependencies": {
     "px-functions-design": "https://github.com/PredixDev/px-functions-design.git#~0.2.0"
   },
-  "_release": "0.2.7",
+  "_release": "0.2.8",
   "_resolution": {
     "type": "version",
-    "tag": "v0.2.7",
-    "commit": "96d870e980cc83fab87bf6522fbe5214b020dc3c"
+    "tag": "v0.2.8",
+    "commit": "429a42892f24de0c080c995b9c72922ec20908fa"
   },
   "_source": "https://github.com/PredixDev/px-defaults-design.git",
   "_target": "~0.2.0",

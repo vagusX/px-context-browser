@@ -1,6 +1,6 @@
 {
   "name": "px-mixins-design",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "authors": [
     "General Electric"
   ],
@@ -13,7 +13,7 @@
   ],
   "license": "Apache 2",
   "homepage": "https://github.com/PredixDev/px-mixins-design.git",
-  "private": true,
+  "private": false,
   "ignore": [
     "**/.*",
     "node_modules",

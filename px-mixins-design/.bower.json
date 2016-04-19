@@ -1,6 +1,6 @@
 {
   "name": "px-mixins-design",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "authors": [
     "General Electric"
   ],
@@ -13,7 +13,7 @@
   ],
   "license": "Apache 2",
   "homepage": "https://github.com/PredixDev/px-mixins-design.git",
-  "private": true,
+  "private": false,
   "ignore": [
     "**/.*",
     "node_modules",
@@ -24,11 +24,11 @@
   "dependencies": {
     "px-defaults-design": "https://github.com/PredixDev/px-defaults-design.git#~0.2.0"
   },
-  "_release": "0.2.5",
+  "_release": "0.2.6",
   "_resolution": {
     "type": "version",
-    "tag": "v0.2.5",
-    "commit": "8567d0f9d7ff04bf0470eef0f68ea1f15f199a0a"
+    "tag": "v0.2.6",
+    "commit": "6277bb1b623068ff4634c0338f6fc495ccea81b9"
   },
   "_source": "https://github.com/PredixDev/px-mixins-design.git",
   "_target": "~0.2.0",

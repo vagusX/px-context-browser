@@ -1,6 +1,6 @@
 {
   "name": "px-iconography-design",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "authors": [
     "General Electric"
   ],
@@ -15,7 +15,7 @@
   ],
   "license": "Apache 2",
   "homepage": "https://github.com/PredixDev/px-iconography-design.git",
-  "private": true,
+  "private": false,
   "ignore": [
     "**/.*",
     "node_modules",

@@ -1,6 +1,6 @@
 {
   "name": "px-list-bare-design",
-  "version": "0.2.11",
+  "version": "0.2.12",
   "authors": [
     "General Electric",
     "Harry Roberts <harry@csswizardry.com>"
@@ -15,7 +15,7 @@
   ],
   "license": "Apache 2",
   "homepage": "https://github.com/PredixDev/px-list-bare-design.git",
-  "private": true,
+  "private": false,
   "ignore": [
     "**/.*",
     "node_modules",

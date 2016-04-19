@@ -1,6 +1,6 @@
 {
   "name": "px-buttons-design",
-  "version": "0.4.22",
+  "version": "0.4.23",
   "authors": [
     "General Electric",
     "Harry Roberts <harry@csswizardry.com>"
@@ -14,7 +14,7 @@
   ],
   "license": "Apache 2",
   "homepage": "https://github.com/PredixDev/px-buttons-design.git",
-  "private": true,
+  "private": false,
   "ignore": [
     "**/.*",
     "node_modules",
@@ -31,11 +31,11 @@
     "px-iconography-design": "https://github.com/PredixDev/px-iconography-design.git#~0.2.0",
     "px-starter-kit-design": "https://github.com/PredixDev/px-starter-kit-design.git#~0.4.0"
   },
-  "_release": "0.4.22",
+  "_release": "0.4.23",
   "_resolution": {
     "type": "version",
-    "tag": "v0.4.22",
-    "commit": "e4e07e20ff211b4bb01a58e642617d1174474855"
+    "tag": "v0.4.23",
+    "commit": "8a5fe3e1bdd2999b6ee7ab061fd7c50fbbce313b"
   },
   "_source": "https://github.com/PredixDev/px-buttons-design.git",
   "_target": "~0.4.0",

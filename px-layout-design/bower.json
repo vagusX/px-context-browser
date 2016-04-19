@@ -1,6 +1,6 @@
 {
   "name": "px-layout-design",
-  "version": "0.3.11",
+  "version": "0.3.12",
   "authors": [
     "General Electric"
   ],
@@ -14,7 +14,7 @@
   ],
   "license": "Apache 2",
   "homepage": "https://github.com/PredixDev/px-layout-design.git",
-  "private": true,
+  "private": false,
   "ignore": [
     "**/.*",
     "node_modules",

@@ -1,6 +1,6 @@
 {
   "name": "px-layout-design",
-  "version": "0.3.11",
+  "version": "0.3.12",
   "authors": [
     "General Electric"
   ],
@@ -14,7 +14,7 @@
   ],
   "license": "Apache 2",
   "homepage": "https://github.com/PredixDev/px-layout-design.git",
-  "private": true,
+  "private": false,
   "ignore": [
     "**/.*",
     "node_modules",
@@ -32,11 +32,11 @@
     "px-iconography-design": "https://github.com/PredixDev/px-iconography-design.git#~0.2.0",
     "px-starter-kit-design": "https://github.com/PredixDev/px-starter-kit-design.git#~0.4.0"
   },
-  "_release": "0.3.11",
+  "_release": "0.3.12",
   "_resolution": {
     "type": "version",
-    "tag": "v0.3.11",
-    "commit": "b537aedee6466d8bce0a7b68fb61273faf8b1138"
+    "tag": "v0.3.12",
+    "commit": "0f433efa95379b9d5844a8b1673903cb062fdb2f"
   },
   "_source": "https://github.com/PredixDev/px-layout-design.git",
   "_target": "~0.3.7",

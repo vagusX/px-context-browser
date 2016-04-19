@@ -1,6 +1,6 @@
 {
   "name": "px-spacing-design",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "authors": [
     "General Electric",
     "Harry Roberts <harry@csswizardry.com>"
@@ -14,7 +14,7 @@
   ],
   "license": "Apache 2",
   "homepage": "https://github.com/PredixDev/px-spacing-design.git",
-  "private": true,
+  "private": false,
   "ignore": [
     "**/.*",
     "node_modules",
@@ -25,11 +25,11 @@
   "dependencies": {
     "px-defaults-design": "https://github.com/PredixDev/px-defaults-design.git#~0.2.0"
   },
-  "_release": "0.3.6",
+  "_release": "0.3.7",
   "_resolution": {
     "type": "version",
-    "tag": "v0.3.6",
-    "commit": "73f0a8d4c8b00eb144a6d71664a9a07e6b37ec52"
+    "tag": "v0.3.7",
+    "commit": "065daf0db062df4081688e2197d564475635da76"
   },
   "_source": "https://github.com/PredixDev/px-spacing-design.git",
   "_target": "~0.3.0",

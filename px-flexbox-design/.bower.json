@@ -1,6 +1,6 @@
 {
   "name": "px-flexbox-design",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "authors": [
     "General Electric"
   ],
@@ -13,7 +13,7 @@
   ],
   "license": "Apache 2",
   "homepage": "https://github.com/PredixDev/px-flexbox-design.git",
-  "private": true,
+  "private": false,
   "ignore": [
     "**/.*",
     "node_modules",
@@ -21,11 +21,11 @@
     "test",
     "tests"
   ],
-  "_release": "0.3.6",
+  "_release": "0.3.7",
   "_resolution": {
     "type": "version",
-    "tag": "v0.3.6",
-    "commit": "1d8345434735830d412d452da555719f064ca32a"
+    "tag": "v0.3.7",
+    "commit": "d0f06abce64c0b8f4c8f635b3705e4eb2d4d7944"
   },
   "_source": "https://github.com/PredixDev/px-flexbox-design.git",
   "_target": "~0.3.0",

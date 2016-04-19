@@ -1,6 +1,6 @@
 {
   "name": "px-normalize-design",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "authors": [
     "General Electric",
     "Harry Roberts <harry@csswizardry.com>",
@@ -15,7 +15,7 @@
   ],
   "license": "MIT",
   "homepage": "https://github.com/PredixDev/px-normalize-design.git",
-  "private": true,
+  "private": false,
   "ignore": [
     "**/.*",
     "node_modules",
@@ -26,11 +26,11 @@
   "dependencies": {
     "px-defaults-design": "https://github.com/PredixDev/px-defaults-design.git#~0.2.0"
   },
-  "_release": "0.3.7",
+  "_release": "0.3.8",
   "_resolution": {
     "type": "version",
-    "tag": "v0.3.7",
-    "commit": "aeea12d27385eb9f81072f3725b7a7c2722014f9"
+    "tag": "v0.3.8",
+    "commit": "719c8f8682eea83bb24bb8435d9bfd61f022b807"
   },
   "_source": "https://github.com/PredixDev/px-normalize-design.git",
   "_target": "~0.3.0",

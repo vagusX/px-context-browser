@@ -1,6 +1,6 @@
 {
   "name": "px-normalize-design",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "authors": [
     "General Electric",
     "Harry Roberts <harry@csswizardry.com>",
@@ -15,7 +15,7 @@
   ],
   "license": "MIT",
   "homepage": "https://github.com/PredixDev/px-normalize-design.git",
-  "private": true,
+  "private": false,
   "ignore": [
     "**/.*",
     "node_modules",
