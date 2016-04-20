@@ -1,3 +1,11 @@
+v0.8.6
+====================
+* cleaned up docs a bit, and cleaned up css class methods.
+
+v0.8.5
+====================
+* Updated travis file
+
 v0.8.4
 ====================
 * Updated documentation for api only.
