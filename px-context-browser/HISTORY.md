@@ -1,3 +1,15 @@
+v0.9.2
+====================
+* fixed tests
+
+v0.9.1
+====================
+* fixed the breadcrumbs so they adhere to specs
+
+v0.9.0
+====================
+* Upgrade to Polymer 1.4.0
+
 v0.8.6
 ====================
 * cleaned up docs a bit, and cleaned up css class methods.
