@@ -1,6 +1,6 @@
 {
   "name": "px-context-browser",
-  "version": "0.8.2",
+  "version": "0.9.3",
   "main": [
     "px-context-browser.html"
   ],
@@ -14,10 +14,9 @@
     "test"
   ],
   "dependencies": {
-    "polymer": "~v1.2.3",
-    "px-spinner": "https://github.com/predixdev/px-spinner.git#~0.1.1",
-    "px-theme": "https://github.com/PredixDev/px-theme.git#~v0.4.0",
-    "px-context-browser": "*"
+    "polymer": "~v1.4.0",
+    "px-spinner": "https://github.com/predixdev/px-spinner.git#~0.2.0",
+    "px-theme": "https://github.com/PredixDev/px-theme.git#~v0.7.0"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#~v1.1.0",
@@ -29,10 +28,5 @@
     "px-list-inline-design": "https://github.com/PredixDev/px-list-inline-design.git#~0.2.0",
     "px-starter-kit-design": "https://github.com/PredixDev/px-starter-kit-design.git#~0.4.0",
     "q": "~v1.2.0"
-  },
-  "resolutions": {
-    "px-theme": "~v0.7.0",
-    "px-spinner": "~0.2.0",
-    "polymer": "^1.2.1"
   }
 }

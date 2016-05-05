@@ -36,7 +36,7 @@
     "tag": "v1.0.14",
     "commit": "c1d38a26219cf2e83b31a71a2bd8ae35ebee7ed7"
   },
-  "_source": "https://github.com/PolymerElements/iron-behaviors.git",
+  "_source": "git://github.com/PolymerElements/iron-behaviors.git",
   "_target": "^1.0.0",
   "_originalSource": "PolymerElements/iron-behaviors"
 }

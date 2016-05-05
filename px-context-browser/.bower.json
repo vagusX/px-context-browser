@@ -37,6 +37,7 @@
     "commit": "b89c77dd3e8669f6f898974e321118d1fdab5963"
   },
   "_source": "https://github.com/PredixDev/px-context-browser.git",
-  "_target": "*",
-  "_originalSource": "px-context-browser"
+  "_target": "^0.9.2",
+  "_originalSource": "px-context-browser",
+  "_direct": true
 }
