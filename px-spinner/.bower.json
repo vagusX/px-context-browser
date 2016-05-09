@@ -1,6 +1,6 @@
 {
   "name": "px-spinner",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "main": [
     "px-spinner.html"
   ],
@@ -23,11 +23,11 @@
     "px-starter-kit-design": "https://github.com/PredixDev/px-starter-kit-design.git#~0.4.0"
   },
   "homepage": "https://github.com/predixdev/px-spinner",
-  "_release": "0.2.2",
+  "_release": "0.2.3",
   "_resolution": {
     "type": "version",
-    "tag": "v0.2.2",
-    "commit": "49a270f54e64e06e624f9029933a950d4d6fbe5e"
+    "tag": "v0.2.3",
+    "commit": "d98feff1e02eba0679fb375d9c261953fb0625f7"
   },
   "_source": "https://github.com/predixdev/px-spinner.git",
   "_target": "~0.2.0",
