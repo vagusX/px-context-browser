@@ -1,6 +1,6 @@
 {
   "name": "px-context-browser",
-  "version": "0.9.4",
+  "version": "0.9.5",
   "main": [
     "px-context-browser.html"
   ],
@@ -11,7 +11,8 @@
     "sass",
     "bower_components",
     "node_modules",
-    "test"
+    "test",
+    "OSS_Notice.pdf"
   ],
   "dependencies": {
     "polymer": "~v1.4.0",
@@ -30,11 +31,11 @@
     "q": "~v1.2.0"
   },
   "homepage": "https://github.com/PredixDev/px-context-browser",
-  "_release": "0.9.4",
+  "_release": "0.9.5",
   "_resolution": {
     "type": "version",
-    "tag": "v0.9.4",
-    "commit": "4443d32533fcc9e028608cc166fd5d1d7f339560"
+    "tag": "v0.9.5",
+    "commit": "cec6b47202706131d5bdfbe5812740129dc4dac8"
   },
   "_source": "https://github.com/PredixDev/px-context-browser.git",
   "_target": "^0.9.2",
