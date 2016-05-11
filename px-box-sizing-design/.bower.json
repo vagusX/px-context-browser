@@ -1,6 +1,6 @@
 {
   "name": "px-box-sizing-design",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "authors": [
     "General Electric",
     "Harry Roberts <harry@csswizardry.com>"
@@ -22,11 +22,11 @@
     "test",
     "tests"
   ],
-  "_release": "0.2.6",
+  "_release": "0.2.7",
   "_resolution": {
     "type": "version",
-    "tag": "v0.2.6",
-    "commit": "60ec6174364f42373f75948a111bd8d075609099"
+    "tag": "v0.2.7",
+    "commit": "ea8c8f5856e869bb4cc29a7f862a983325e4477b"
   },
   "_source": "https://github.com/PredixDev/px-box-sizing-design.git",
   "_target": "~0.2.0",

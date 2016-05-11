@@ -1,10 +1,10 @@
 {
   "name": "px-layout-design",
-  "version": "0.3.12",
+  "version": "0.3.13",
   "authors": [
     "General Electric"
   ],
-  "description": "Predix Experience layout engine",
+  "description": "Predix UI layout engine",
   "main": "_objects.layout.scss",
   "keywords": [
     "px",
@@ -32,11 +32,11 @@
     "px-iconography-design": "https://github.com/PredixDev/px-iconography-design.git#~0.2.0",
     "px-starter-kit-design": "https://github.com/PredixDev/px-starter-kit-design.git#~0.4.0"
   },
-  "_release": "0.3.12",
+  "_release": "0.3.13",
   "_resolution": {
     "type": "version",
-    "tag": "v0.3.12",
-    "commit": "0f433efa95379b9d5844a8b1673903cb062fdb2f"
+    "tag": "v0.3.13",
+    "commit": "75469020d71f5f83e6a8e1197e95919457b060ec"
   },
   "_source": "https://github.com/PredixDev/px-layout-design.git",
   "_target": "~0.3.7",

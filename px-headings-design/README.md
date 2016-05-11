@@ -1,15 +1,10 @@
 # Headings
 
-The Predix Experience Headings module defines font sizes for base-level heading elements from `h1` through to `h6`. This module is a fork of the [inuitcss Headings module](https://github.com/inuitcss/base.headings).
-
-
-
-
-
+The Predix UI Headings module defines font sizes for base-level heading elements from `h1` through to `h6`. This module is a fork of the [inuitcss Headings module](https://github.com/inuitcss/base.headings).
 
 ## Dependencies
 
-Px's Headings module depends on two other Px modules:
+Predix UI's Headings module depends on two other Px modules:
 
 * [px-defaults-design](https://github.com/PredixDev/px-defaults-design)
 * [px-mixins-design](https://github.com/PredixDev/px-mixins-design)
@@ -18,7 +13,7 @@ Px's Headings module depends on two other Px modules:
 
 Install this module and its dependencies using bower:
 
-    bower install --save https://github.com/PredixDev/px-headings-design.git
+    bower install --save px-headings-design
 
 Once installed, `@import` into your project's Sass file in its Base layer:
 
@@ -34,3 +29,5 @@ The following font-size variables can be customized:
     $inuit-heading-size-4
     $inuit-heading-size-5
     $inuit-heading-size-6
+
+view the full API [here](http://predixdev.github.io/px-headings-design/)

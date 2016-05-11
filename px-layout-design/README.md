@@ -1,15 +1,10 @@
 # Layout
 
-The Predix Experience Layout module defines the "grid," or more accurately the layout engine, for Predix Experience. This module is a fork of the [inuitcss Layout module](https://github.com/inuitcss/objects.layout). Main features of the grid are its inherent fluidity, and responsiveness which is based on each `.layout__item` shrinking to a minimum size rather then having their size based on the viewport of the browser.
-
-
-
-
-
+The Predix UI Layout module defines the "grid," or more accurately the layout engine, for Predix UI. This module is a fork of the [inuitcss Layout module](https://github.com/inuitcss/objects.layout). Main features of the grid are its inherent fluidity, and responsiveness which is based on each `.layout__item` shrinking to a minimum size rather then having their size based on the viewport of the browser.
 
 ## Dependency
 
-Px's Layout module depends on one other Px module:
+Predix UI's Layout module depends on one other Px module:
 
 * [px-defaults-design](https://github.com/PredixDev/px-defaults-design)
 
@@ -17,7 +12,7 @@ Px's Layout module depends on one other Px module:
 
 Install this module and its dependency using bower:
 
-    bower install --save https://github.com/PredixDev/px-layout-design.git
+    bower install --save  px-layout-design
 
 Once installed, `@import` into your project's Sass file in its Base layer:
 
@@ -40,7 +35,7 @@ These flags are available and, if needed, should be set to `true` prior to impor
     $inuit-enable-layout--center
     $inuit-enable-layout__item--full
     $inuit-enable-layout__item--center
-    $inuit-enable-layout__item--bottom 
+    $inuit-enable-layout__item--bottom
 
 The following variable is available for use in the module:
 
@@ -69,3 +64,5 @@ In this example, the initial `.layout__item` will take up one half of the width 
       <div class=layout__item>
       </div>
     </div>
+
+view the full API [here](http://predixdev.github.io/px-layout-design/)

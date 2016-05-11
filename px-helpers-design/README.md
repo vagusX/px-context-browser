@@ -35,3 +35,5 @@ Once installed, `@import` into your project's Sass file in its Generic layer:
 Only use a helper class if an element/component doesn’t already have a class to which you could apply this styling, e.g. if you need to float `.main-nav` left then add `float:left;` to that ruleset as opposed to adding the `.float--left` class to the markup.
 
 A lot of these classes carry `!important` as you will always want them to win out over other selectors.
+
+view the full API [here](http://predixdev.github.io/px-helpers-design/)

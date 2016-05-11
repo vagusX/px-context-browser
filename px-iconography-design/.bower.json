@@ -1,6 +1,6 @@
 {
   "name": "px-iconography-design",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "authors": [
     "General Electric"
   ],
@@ -26,11 +26,11 @@
   "dependencies": {
     "font-awesome": "~4.4.0"
   },
-  "_release": "0.2.9",
+  "_release": "0.2.10",
   "_resolution": {
     "type": "version",
-    "tag": "v0.2.9",
-    "commit": "bd7a483c083a504865d4d2bc4ded7f67c274c523"
+    "tag": "v0.2.10",
+    "commit": "ed6e49aeaa872897eb03a5adc77a41a7b27ee8ed"
   },
   "_source": "https://github.com/PredixDev/px-iconography-design.git",
   "_target": "~0.2.9",

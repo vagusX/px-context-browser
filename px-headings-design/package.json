@@ -1,6 +1,6 @@
 {
   "name": "px-headings-design",
-  "version": "0.2.12",
+  "version": "0.2.13",
   "description": "Base heading styles for Predix Experience",
   "private": false,
   "scripts": {

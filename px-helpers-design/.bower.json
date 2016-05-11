@@ -1,6 +1,6 @@
 {
   "name": "px-helpers-design",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "authors": [
     "General Electric"
   ],
@@ -30,11 +30,11 @@
     "px-iconography-design": "https://github.com/PredixDev/px-iconography-design.git#~0.2.0",
     "px-starter-kit-design": "https://github.com/PredixDev/px-starter-kit-design.git#~0.4.0"
   },
-  "_release": "0.3.4",
+  "_release": "0.3.5",
   "_resolution": {
     "type": "version",
-    "tag": "v0.3.4",
-    "commit": "150af98daf3f1d52a34e53e04bb1fca50db6dbea"
+    "tag": "v0.3.5",
+    "commit": "df9c9adff2a7187701e98ba2827d107daab3cc08"
   },
   "_source": "https://github.com/PredixDev/px-helpers-design.git",
   "_target": "~0.3.0",

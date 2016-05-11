@@ -1,10 +1,10 @@
 {
   "name": "px-layout-design",
-  "version": "0.3.12",
+  "version": "0.3.13",
   "authors": [
     "General Electric"
   ],
-  "description": "Predix Experience layout engine",
+  "description": "Predix UI layout engine",
   "main": "_objects.layout.scss",
   "keywords": [
     "px",
