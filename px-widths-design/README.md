@@ -4,7 +4,7 @@ The Predix UI Widths module is a series of width helper classes that you can use
 
 ## Dependencies
 
-Px's Widths module depends on two other Px modules:
+Predix UI's Widths module depends on two other Px modules:
 
 * [px-functions-design](https://github.com/PredixDev/px-functions-design)
 * [px-widths-tools-design](https://github.com/PredixDev/px-widths-tools-design)
@@ -15,7 +15,7 @@ Install using Bower:
 
     bower install --save px-widths-design
 
-Once installed, `@import` into your project's Sass file in its Trumps layer:
+Once installed, `@import` into your project's Sass file in its **Trumps** layer:
 
     @import "px-widths-design/_trumps.widths.scss";
 
@@ -54,4 +54,4 @@ Sixths:
 * `u-4/6|u-4-of-6`
 * `u-5/6|u-5-of-6`
 
-Please view the full API [here](http://predixdev.github.io/px-widths-design/sassdoc/)
+view the full API [here](http://predixdev.github.io/px-widths-design/sassdoc/)

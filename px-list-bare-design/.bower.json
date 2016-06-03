@@ -1,6 +1,6 @@
 {
   "name": "px-list-bare-design",
-  "version": "0.2.12",
+  "version": "0.2.13",
   "authors": [
     "General Electric",
     "Harry Roberts <harry@csswizardry.com>"
@@ -21,7 +21,8 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "OSS_Notice.pdf"
   ],
   "dependencies": {
     "px-defaults-design": "https://github.com/PredixDev/px-defaults-design.git#~0.2.0"
@@ -32,11 +33,11 @@
     "px-iconography-design": "https://github.com/PredixDev/px-iconography-design.git#~0.2.0",
     "px-starter-kit-design": "https://github.com/PredixDev/px-starter-kit-design.git#~0.4.0"
   },
-  "_release": "0.2.12",
+  "_release": "0.2.13",
   "_resolution": {
     "type": "version",
-    "tag": "v0.2.12",
-    "commit": "497f4d73364540b2081bcffe9d12a123f648c01b"
+    "tag": "v0.2.13",
+    "commit": "43496651e8a0dacf7e42fddf74cd86d65738512a"
   },
   "_source": "https://github.com/PredixDev/px-list-bare-design.git",
   "_target": "~0.2.0",

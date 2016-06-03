@@ -1,6 +1,6 @@
 {
   "name": "px-spinner",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "main": [
     "px-spinner.html"
   ],
@@ -11,7 +11,8 @@
     "sass",
     "bower_components",
     "node_modules",
-    "test"
+    "test",
+    "OSS_Notice.pdf"
   ],
   "dependencies": {
     "polymer": "~1.4.0",
@@ -23,11 +24,11 @@
     "px-starter-kit-design": "https://github.com/PredixDev/px-starter-kit-design.git#~0.4.0"
   },
   "homepage": "https://github.com/predixdev/px-spinner",
-  "_release": "0.2.4",
+  "_release": "0.2.5",
   "_resolution": {
     "type": "version",
-    "tag": "v0.2.4",
-    "commit": "bdc31a6c9cd991431da77ab3357822e69f92c44a"
+    "tag": "v0.2.5",
+    "commit": "57fbc8e82f981e550e25ee94d20b4586cfd2a9c1"
   },
   "_source": "https://github.com/predixdev/px-spinner.git",
   "_target": "~0.2.0",

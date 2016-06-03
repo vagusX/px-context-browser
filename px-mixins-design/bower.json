@@ -1,6 +1,6 @@
 {
   "name": "px-mixins-design",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "authors": [
     "General Electric"
   ],
@@ -19,7 +19,8 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "OSS_Notice.pdf"
   ],
   "dependencies": {
     "px-defaults-design": "https://github.com/PredixDev/px-defaults-design.git#~0.2.0"

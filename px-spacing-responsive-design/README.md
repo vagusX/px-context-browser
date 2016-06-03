@@ -1,6 +1,6 @@
 # Spacing Responsive
 
-The Predix Experience Spacing Responsive module is an extension of the default [px-spacing-design](https://github.com/PredixDev/px-spacing-design) module and provides breakpoint-based classes for nudging margins and paddings around responsively. This module is a fork of inuitcss' [spacing-responsive](https://github.com/inuitcss/trumps.spacing-responsive) module.
+The Predix UI Spacing Responsive module is an extension of the default [px-spacing-design](https://github.com/PredixDev/px-spacing-design) module and provides breakpoint-based classes for nudging margins and paddings around responsively. This module is a fork of inuitcss' [spacing-responsive](https://github.com/inuitcss/trumps.spacing-responsive) module.
 
 The Spacing Responsive module loops through the breakpoints defined in inuitcss' [settings.responsive](https://github.com/inuitcss/settings.responsive) module to generate prefixed breakpoint-based classes. If you are using inuitcss’ default breakpoints, you will be given classes like `u-lap-and-up-m0`, or `u-desk-pt++`, etc.
 
@@ -8,11 +8,9 @@ Based on the breakpoints defined in the `$breakpoints` Sass list, then the margi
 
 For example, a `$breakpoint` named `desk` which defines a media-query for viewports wider than 1024 pixels, the class `.u-desk-m0` would zero out all margins with a viewport above 1024 pixels. At narrower viewports `.u-desk-m0` has no effect.
 
-
-
 ## Dependencies
 
-Px's Spacing Responsive module depends on one other Px module and two other inuitcss modules:
+Predix UI's Spacing Responsive module depends on one other Px module and two other inuitcss modules:
 
 * [settings.responsive](https://github.com/inuitcss/settings.responsive)
 * [tools.responsive](https://github.com/inuitcss/tools.responsive)
@@ -28,9 +26,9 @@ The Spacing Responsive module is also an upstream dependency in this meta kit:
 
 Install this module and its dependencies using bower:
 
-    bower install --save https://github.com/PredixDev/px-spacing-responsive-design.git
+    bower install --save px-spacing-responsive-design
 
-Once installed, `@import` into your project's Sass file in its Trumps layer:
+Once installed, `@import` into your project's Sass file in its **Trumps** layer:
 
     @import "px-spacing-responsive-design/_trumps.spacing-responsive.scss";
 
@@ -43,25 +41,25 @@ These flags are available and, if needed, should be set to `true` prior to impor
     $inuit-enable-responsive-margins--small
     $inuit-enable-responsive-margins--large
     $inuit-enable-responsive-margins--huge
-    
+
     $inuit-enable-responsive-margins--negative
     $inuit-enable-responsive-margins--negative-tiny
     $inuit-enable-responsive-margins--negative-small
     $inuit-enable-responsive-margins--negative-large
     $inuit-enable-responsive-margins--negative-huge
-    
+
     $inuit-enable-responsive-margins--none
-    
+
     $inuit-enable-responsive-margins--rtl
-    
+
     $inuit-enable-responsive-paddings
     $inuit-enable-responsive-paddings--tiny
     $inuit-enable-responsive-paddings--small
     $inuit-enable-responsive-paddings--large
     $inuit-enable-responsive-paddings--huge
-    
+
     $inuit-enable-responsive-paddings--none
-    
+
     $inuit-enable-responsive-paddings--rtl
 
 The conventions used in the classes in the Spacing Responsive module are as follows:
@@ -243,3 +241,5 @@ These classes are available if the following variable flags are set to `true`:
 * `.u-*-pl0`: remove padding left
 * `.u-*-ph0`: remove padding right and left
 * `.u-*-pv0`: remove padding top and bottom
+
+view the full API [here](http://predixdev.github.io/px-spacing-responsive-design/sassdoc/)

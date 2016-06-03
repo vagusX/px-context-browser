@@ -1,15 +1,11 @@
 # List Inline
 
-The Predix Experience List Inline module simply displays a list as one horizontal row. This module is a fork of the [inuitcss list-inline module](https://github.com/inuitcss/objects.list-inline).
-
-
-
-
+The Predix UI List Inline module simply displays a list as one horizontal row. This module is a fork of the [inuitcss list-inline module](https://github.com/inuitcss/objects.list-inline).
 
 
 ## Dependency
 
-Px’s List Inline Module depends on one other Px module:
+Predix UI's List Inline Module depends on one other Px module:
 
 * [px-defaults-design](https://github.com/PredixDev/px-defaults-design)
 
@@ -23,7 +19,7 @@ The List Inline module is also an upstream dependency in this meta kit:
 
 Install this module and its dependencies using bower:
 
-    bower install --save https://github.com/PredixDev/px-list-inline-design.git
+    bower install --save px-list-inline-design
 
 Once installed, `@import` into your project's Sass file in its Objects layer:
 
@@ -62,3 +58,5 @@ For example:
         <li>Bar</li>
         <li>Baz</li>
     </ul>
+
+view the full API [here](https://predixdev.github.io/px-list-inline-design/)

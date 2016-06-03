@@ -1,11 +1,11 @@
 {
   "name": "px-typography-design",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "homepage": "https://github.com/PredixDev/px-typography-design.git",
   "authors": [
     "General Electric"
   ],
-  "description": "Base typographic styles for Predix Experience",
+  "description": "Base typographic styles for Predix UI",
   "main": "_base.typography.scss",
   "keywords": [
     "px",
@@ -19,18 +19,19 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "OSS_Notice.pdf"
   ],
   "dependencies": {
     "px-colors-design": "https://github.com/PredixDev/px-colors-design.git#~0.2.0",
     "px-defaults-design": "https://github.com/PredixDev/px-defaults-design.git#~0.2.0",
     "px-mixins-design": "https://github.com/PredixDev/px-mixins-design.git#~0.2.0"
   },
-  "_release": "0.3.4",
+  "_release": "0.3.5",
   "_resolution": {
     "type": "version",
-    "tag": "v0.3.4",
-    "commit": "5b397b0852796a5b5afb7db483c13c2be5ea7c8f"
+    "tag": "v0.3.5",
+    "commit": "94be85b225477d8b22bd57b001a0c9c741607d36"
   },
   "_source": "https://github.com/PredixDev/px-typography-design.git",
   "_target": "~0.3.0",

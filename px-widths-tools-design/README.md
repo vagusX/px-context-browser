@@ -5,7 +5,7 @@ The Predix UI Widths Tools allows you to generate a suite of utility classes for
 
 ## Dependency
 
-Px's Widths Tools module depends on one other PX-design module:
+Predix UI's Widths Tools module depends on one other PX module:
 
 * [px-defaults-design](https://github.com/PredixDev/px-defaults-design)
 
@@ -15,7 +15,7 @@ Install using Bower:
 
     bower install --save px-widths-tools-design
 
-Once installed, `@import` into your project's Sass file in its Tools layer:
+Once installed, `@import` into your project's Sass file in its **Tools** layer:
 
     @import "px-widths-tools-design/_tools.widths.scss";
 
@@ -31,4 +31,4 @@ The following mixin is provided:
 
 * `inuit-widths`: Generates series of classes in the format `.u-7/12` or `.u-7-of-12` (dependent on how the `$inuit-use-fractions` flag is set) to be used for sizing.
 
-Please read the full API [here](http://predixdev.github.io/px-widths-tools-design/sassdoc/)
+view the full API [here](http://predixdev.github.io/px-widths-tools-design/sassdoc/)

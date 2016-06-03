@@ -1,10 +1,10 @@
 # Normalize
 
-The Predix Experience Normalize module is based on normalize.css at version v3.0.2. normalize.css <q>makes browsers render all elements more consistently and in line with modern standards</q>. It is developed and maintained by [Nicolas Gallagher](https://twitter.com/necolas).
+The Predix UI Normalize module is based on normalize.css at version v3.0.2. normalize.css <q>makes browsers render all elements more consistently and in line with modern standards</q>. It is developed and maintained by [Nicolas Gallagher](https://twitter.com/necolas).
 
 ## Dependency
 
-Px's Normalize module depends on one other Px module:
+Predix UI's Normalize module depends on one other Px module:
 
 * [px-defaults-design](https://github.com/PredixDev/px-defaults-design)
 
@@ -18,7 +18,7 @@ The Normalize module is also an upstream dependency in this meta kit:
 
 Install this module and its dependency using bower:
 
-    bower install --save https://github.com/PredixDev/px-normalize-design.git
+    bower install --save px-normalize-design
 
 Once installed, `@import` into your project's Sass file in its Generic layer:
 

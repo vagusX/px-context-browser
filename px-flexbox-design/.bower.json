@@ -1,6 +1,6 @@
 {
   "name": "px-flexbox-design",
-  "version": "0.3.8",
+  "version": "0.3.9",
   "authors": [
     "General Electric"
   ],
@@ -21,11 +21,11 @@
     "test",
     "tests"
   ],
-  "_release": "0.3.8",
+  "_release": "0.3.9",
   "_resolution": {
     "type": "version",
-    "tag": "v0.3.8",
-    "commit": "aacf4ec7b5469ad3af9128d9cf109d8cd0a8f42f"
+    "tag": "v0.3.9",
+    "commit": "60fc64b6b4a8f9b5f65bc2f9b160de225358e6a4"
   },
   "_source": "https://github.com/PredixDev/px-flexbox-design.git",
   "_target": "~0.3.0",

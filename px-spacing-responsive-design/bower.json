@@ -1,6 +1,6 @@
 {
   "name": "px-spacing-responsive-design",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "authors": [
     "General Electric",
     "Harry Roberts <harry@csswizardry.com>"
@@ -21,7 +21,8 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "OSS_Notice.pdf"
   ],
   "dependencies": {
     "inuit-responsive-settings": "~0.1.5",
