@@ -1,6 +1,6 @@
 {
   "name": "px-context-browser",
-  "version": "0.9.6",
+  "version": "0.10.0",
   "main": [
     "px-context-browser.html"
   ],
@@ -15,9 +15,9 @@
     "OSS_Notice.pdf"
   ],
   "dependencies": {
-    "polymer": "~v1.4.0",
-    "px-spinner": "https://github.com/predixdev/px-spinner.git#~0.2.0",
-    "px-theme": "https://github.com/PredixDev/px-theme.git#~v0.7.0"
+    "polymer": "^v1.5.0",
+    "px-spinner": "https://github.com/predixdev/px-spinner.git#~0.3.0",
+    "px-theme": "https://github.com/PredixDev/px-theme.git#~v0.8.0"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#~v1.1.0",
@@ -31,13 +31,14 @@
     "q": "~v1.2.0"
   },
   "homepage": "https://github.com/PredixDev/px-context-browser",
-  "_release": "0.9.6",
+  "_release": "0.10.0",
   "_resolution": {
     "type": "version",
-    "tag": "v0.9.6",
-    "commit": "e0dc04f8c4e76c0bf52569d4cffc66ee84da20f5"
+    "tag": "v0.10.0",
+    "commit": "b955127eccb4c9b7740f953fdfdd62a5a0f2c1a6"
   },
   "_source": "https://github.com/PredixDev/px-context-browser.git",
-  "_target": "^0.9.2",
-  "_originalSource": "px-context-browser"
+  "_target": "^0.10.0",
+  "_originalSource": "px-context-browser",
+  "_direct": true
 }

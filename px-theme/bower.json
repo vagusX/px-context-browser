@@ -1,6 +1,6 @@
 {
   "name": "px-theme",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "main": [
     "px-theme.html"
   ],
@@ -15,7 +15,7 @@
     "OSS_Notice.pdf"
   ],
   "dependencies": {
-    "polymer": "~v1.4.0",
+    "polymer": "^v1.5.0",
     "px-iconography-design": "https://github.com/PredixDev/px-iconography-design.git#~0.2.9",
     "px-typography-design": "https://github.com/PredixDev/px-typography-design.git#~0.3.4"
   },
