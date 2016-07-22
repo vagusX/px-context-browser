@@ -39,7 +39,7 @@
     "tag": "v0.2.13",
     "commit": "43496651e8a0dacf7e42fddf74cd86d65738512a"
   },
-  "_source": "https://github.com/PredixDev/px-list-bare-design.git",
+  "_source": "https://github.com/predixDev/px-list-bare-design.git",
   "_target": "~0.2.0",
-  "_originalSource": "https://github.com/PredixDev/px-list-bare-design.git"
+  "_originalSource": "px-list-bare-design"
 }

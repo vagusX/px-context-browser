@@ -1,6 +1,6 @@
 {
   "name": "px-headings-design",
-  "version": "0.2.13",
+  "version": "0.2.14",
   "authors": [
     "General Electric",
     "Harry Roberts <harry@csswizardry.com>"
@@ -32,13 +32,13 @@
     "px-iconography-design": "https://github.com/PredixDev/px-iconography-design.git#~0.2.0",
     "px-starter-kit-design": "https://github.com/PredixDev/px-starter-kit-design.git#~0.4.0"
   },
-  "_release": "0.2.13",
+  "_release": "0.2.14",
   "_resolution": {
     "type": "version",
-    "tag": "v0.2.13",
-    "commit": "1eaff87e5703211248aa47dfd3bb95a298eda6e7"
+    "tag": "v0.2.14",
+    "commit": "ea4fd15c19407c6fe4e849ec97162a009a95c804"
   },
-  "_source": "https://github.com/PredixDev/px-headings-design.git",
-  "_target": "~0.2.0",
-  "_originalSource": "https://github.com/PredixDev/px-headings-design.git"
+  "_source": "https://github.com/predixDev/px-headings-design.git",
+  "_target": "^0.2.14",
+  "_originalSource": "px-headings-design"
 }

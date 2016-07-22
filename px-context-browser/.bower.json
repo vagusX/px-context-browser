@@ -1,6 +1,6 @@
 {
   "name": "px-context-browser",
-  "version": "0.10.0",
+  "version": "1.0.1",
   "main": [
     "px-context-browser.html"
   ],
@@ -12,33 +12,43 @@
     "bower_components",
     "node_modules",
     "test",
-    "OSS_Notice.pdf"
+    "OSS_Notice.pdf",
+    "importQ.html"
   ],
   "dependencies": {
     "polymer": "^v1.5.0",
-    "px-spinner": "https://github.com/predixdev/px-spinner.git#~0.3.0",
-    "px-theme": "https://github.com/PredixDev/px-theme.git#~v0.8.0"
+    "px-spinner": "#~0.3.0",
+    "px-theme": "#~v0.8.0"
   },
   "devDependencies": {
-    "iron-component-page": "PolymerElements/iron-component-page#~v1.1.0",
-    "px-buttons-design": "https://github.com/PredixDev/px-buttons-design.git#~0.4.0",
+    "px-buttons-design": "~0.4.0",
     "iron-ajax": "PolymerElements/iron-ajax#~1.1.1",
-    "px-colors-design": "https://github.com/PredixDev/px-colors-design.git#~0.2.0",
-    "px-headings-design": "https://github.com/PredixDev/px-headings-design.git#~0.2.0",
-    "px-list-bare-design": "https://github.com/PredixDev/px-list-bare-design.git#~0.2.0",
-    "px-list-inline-design": "https://github.com/PredixDev/px-list-inline-design.git#~0.2.0",
-    "px-starter-kit-design": "https://github.com/PredixDev/px-starter-kit-design.git#~0.4.0",
-    "q": "~v1.2.0"
+    "px-colors-design": "~0.2.0",
+    "px-headings-design": "^0.2.14",
+    "px-list-bare-design": "~0.2.0",
+    "px-list-inline-design": "^0.2.11",
+    "px-starter-kit-design": "~0.4.0",
+    "q": "~v1.2.0",
+    "px-forms-design": "#~0.3.15",
+    "px-tables-design": "#~0.3.12",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#~1.2.3",
+    "polymer-font-awesome": "~0.1.5",
+    "px-tabs": "~0.4.0",
+    "px-api-viewer": "^0.0.3",
+    "px-demo-snippet": "^0.0.11",
+    "px-toggle-design": "^0.2.12",
+    "px-actionable-text-icons-design": "^0.0.3",
+    "px-code-design": "^0.2.11"
   },
   "homepage": "https://github.com/PredixDev/px-context-browser",
-  "_release": "0.10.0",
+  "_release": "1.0.1",
   "_resolution": {
     "type": "version",
-    "tag": "v0.10.0",
-    "commit": "b955127eccb4c9b7740f953fdfdd62a5a0f2c1a6"
+    "tag": "v1.0.1",
+    "commit": "04ef3125c6a7fd3ff45ca1841f5c2305567fd6b3"
   },
   "_source": "https://github.com/PredixDev/px-context-browser.git",
-  "_target": "^0.10.0",
+  "_target": "^1.0.1",
   "_originalSource": "px-context-browser",
   "_direct": true
 }

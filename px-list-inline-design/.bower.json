@@ -39,7 +39,7 @@
     "tag": "v0.2.11",
     "commit": "de261cb7aed43c773a53d506cc56f7d099cbf8f7"
   },
-  "_source": "https://github.com/PredixDev/px-list-inline-design.git",
-  "_target": "~0.2.0",
-  "_originalSource": "https://github.com/PredixDev/px-list-inline-design.git"
+  "_source": "https://github.com/predixDev/px-list-inline-design.git",
+  "_target": "^0.2.11",
+  "_originalSource": "px-list-inline-design"
 }

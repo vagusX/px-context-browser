@@ -40,7 +40,7 @@
     "tag": "v0.4.9",
     "commit": "695de5708d559772c22ce4b87485f4034c819eaf"
   },
-  "_source": "https://github.com/PredixDev/px-starter-kit-design.git",
+  "_source": "https://github.com/predixDev/px-starter-kit-design.git",
   "_target": "~0.4.0",
-  "_originalSource": "https://github.com/PredixDev/px-starter-kit-design.git"
+  "_originalSource": "px-starter-kit-design"
 }
