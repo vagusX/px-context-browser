@@ -1,6 +1,6 @@
 {
   "name": "px-context-browser",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": [
     "px-context-browser.html"
   ],
@@ -12,13 +12,14 @@
     "bower_components",
     "node_modules",
     "test",
-    "OSS_Notice.pdf",
-    "importQ.html"
+    "OSS_Notice.pdf"
   ],
   "dependencies": {
     "polymer": "^v1.5.0",
     "px-spinner": "#~0.3.0",
-    "px-theme": "#~v0.8.0"
+    "px-theme": "#~v0.8.0",
+    "px-typography-design": "^0.3.5",
+    "px-iconography-design": "^0.2.10"
   },
   "devDependencies": {
     "px-buttons-design": "~0.4.0",
@@ -41,14 +42,13 @@
     "px-code-design": "^0.2.11"
   },
   "homepage": "https://github.com/PredixDev/px-context-browser",
-  "_release": "1.0.1",
+  "_release": "1.0.2",
   "_resolution": {
     "type": "version",
-    "tag": "v1.0.1",
-    "commit": "04ef3125c6a7fd3ff45ca1841f5c2305567fd6b3"
+    "tag": "v1.0.2",
+    "commit": "fa5fbca8012d6d12366d7b3eab9fa8f48e16d95d"
   },
   "_source": "https://github.com/PredixDev/px-context-browser.git",
   "_target": "^1.0.1",
-  "_originalSource": "px-context-browser",
-  "_direct": true
+  "_originalSource": "px-context-browser"
 }

@@ -1,6 +1,6 @@
 {
   "name": "px-context-browser",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": [
     "px-context-browser.html"
   ],
@@ -12,13 +12,14 @@
     "bower_components",
     "node_modules",
     "test",
-    "OSS_Notice.pdf",
-    "importQ.html"
+    "OSS_Notice.pdf"
   ],
   "dependencies": {
     "polymer": "^v1.5.0",
     "px-spinner": "#~0.3.0",
-    "px-theme": "#~v0.8.0"
+    "px-theme": "#~v0.8.0",
+    "px-typography-design": "^0.3.5",
+    "px-iconography-design": "^0.2.10"
   },
   "devDependencies": {
     "px-buttons-design": "~0.4.0",
@@ -39,8 +40,5 @@
     "px-toggle-design": "^0.2.12",
     "px-actionable-text-icons-design": "^0.0.3",
     "px-code-design": "^0.2.11"
-  },
-  "resolutions": {
-    "px-context-browser": "^1.0.1"
   }
 }
