@@ -50,7 +50,7 @@
   "_resolution": {
     "type": "version",
     "tag": "v1.0.9",
-    "commit": "74ea7e79b24ad3fac71e14ec0d8f52bf03a8ed7d"
+    "commit": "3dd3014e1b785f8412400123f95170f6e7dc0247"
   },
   "_source": "https://github.com/PredixDev/px-context-browser.git",
   "_target": "^1.0.1",
