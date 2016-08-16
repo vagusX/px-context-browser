@@ -37,6 +37,6 @@
     "commit": "1a7b2cbc88bc0a6a9c44c7d578af374adcdb8930"
   },
   "_source": "https://github.com/predixDev/px-code-design.git",
-  "_target": "^0.2.11",
+  "_target": "~0.2.11",
   "_originalSource": "px-code-design"
 }

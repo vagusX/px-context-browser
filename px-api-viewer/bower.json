@@ -1,6 +1,6 @@
 {
   "name": "px-api-viewer",
-  "version": "0.0.3",
+  "version": "0.0.1",
   "main": [
     "px-api-viewer.html"
   ],
