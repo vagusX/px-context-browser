@@ -1,3 +1,11 @@
+v0.5.9
+=================
+* added codepen
+
+v0.5.8
+=================
+* fixed demo bugs
+
 v0.5.7
 =================
 * updated mega demo styles and bower px-demo-snippet to ^

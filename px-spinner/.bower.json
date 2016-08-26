@@ -1,6 +1,6 @@
 {
   "name": "px-spinner",
-  "version": "0.3.13",
+  "version": "0.3.14",
   "main": [
     "px-spinner.html"
   ],
@@ -29,8 +29,8 @@
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#~1.2.3",
     "px-polymer-font-awesome": "^0.1.8",
     "px-tabs": "~0.4.0",
-    "px-api-viewer": "~0.0.3",
-    "px-demo-snippet": "^0.1.0",
+    "px-api-viewer": "~0.0.4",
+    "px-demo-snippet": "^0.3.1",
     "px-toggle-design": "^0.2.12",
     "px-actionable-text-icons-design": "^0.0.3",
     "px-headings-design": "^0.2.14",
@@ -38,11 +38,11 @@
     "px-list-inline-design": "^0.2.11"
   },
   "homepage": "https://github.com/PredixDev/px-spinner",
-  "_release": "0.3.13",
+  "_release": "0.3.14",
   "_resolution": {
     "type": "version",
-    "tag": "v0.3.13",
-    "commit": "d6399993ce4e7d36095425c33b87221da082c767"
+    "tag": "v0.3.14",
+    "commit": "5801c175e71d37e8c081e0009a2846ca4bef336b"
   },
   "_source": "https://github.com/PredixDev/px-spinner.git",
   "_target": "~0.3.0",
