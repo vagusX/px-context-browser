@@ -7,7 +7,10 @@
   <link rel="stylesheet" type="text/css" href="css/px-slider-demo.css"/>
   <!-- Import custom element. Note: see comment about relative paths to dependencies in the *.html file referenced below -->
   <script src="../webcomponentsjs/webcomponents-lite.js"></script>
-  <link rel="import" href="../px-theme/px-theme.html"/>
+
+  <link rel="import" href="../px-theme/px-theme-styles.html">
+  <style include="px-theme-styles" is="custom-style"></style>
+
   <link rel="import" href="../px-api-viewer/px-api-viewer.html" />
   <link rel="import" href="../px-tabs/px-tab-set.html" />
   <link rel="import" href="px-slider.html"/>
@@ -151,6 +154,14 @@ window.addEventListener('WebComponentsReady', function() {
           "step":step[0],
           "startValue":startValue[0],
           "endValue":endValue[0]
+        },
+        {
+          "value":value[1],
+          "min":min[1],
+          "max":max[1],
+          "step":step[1],
+          "startValue":startValue[1],
+          "endValue":endValue[1]
         }
       ],
       indexPlusOne = function(num) {

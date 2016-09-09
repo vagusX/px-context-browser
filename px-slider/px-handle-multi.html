@@ -20,9 +20,13 @@ Handle Element expected to be used in px-slider
 @homepage index.html
 @demo demo.html
 -->
+
+<link rel="import" href="css/px-handle-styles.html">
+
 <dom-module id="px-handle-multi">
-  <link rel="import" type="css" href="css/px-handle.css" />
   <template>
+    <style include="px-handle-styles"></style>
+    <style include="px-theme-styles"></style>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 21" id="multiHandleSVG">
       <g id="handleTarget" on-down="handleDown" on-up="handleUp" on-track="handleTrack" tabindex="-1">
         <path id="handleDropShadow" d="M0.76,12.26V4.67a3,3,0,0,1,3-3h15a3,3,0,0,1,3,3v7.59l-10,8.41h-1Z"/>

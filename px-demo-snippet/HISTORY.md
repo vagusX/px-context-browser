@@ -1,3 +1,31 @@
+v0.4.0
+=================
+* added sibling Element
+
+v0.3.2
+=================
+* added px-tabs exception
+
+v0.3.1
+=================
+* added a title and description to the codepen
+
+v0.3.0
+=================
+* added dynamic code pen the mix
+
+v0.2.2
+=================
+* moved prism-element to latest version that supports shadow dom.
+
+v0.2.1
+=================
+* changed async from 0 to 50
+
+v0.2.0
+=================
+* added the ability to specify a parent component
+
 v0.1.6
 =================
 * added css break-all words to editor

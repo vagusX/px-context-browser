@@ -22,9 +22,13 @@ Allow the user to select a value or range of values within a specified min and m
 @homepage index.html
 @demo demo.html
 -->
+
+<link rel="import" href="css/px-slider-styles.html">
+
 <dom-module id="px-slider">
-  <link rel="import" type="css" href="css/px-slider.css" />
   <template>
+    <style include="px-slider-styles"></style>
+    <style include="px-theme-styles"></style>
     <div class="flex">
       <input id="inputStart" type="text" class="text-input" value="{{value}}" on-change="handleStartChange"  tabindex="0"/>
       <div id="sliderContainer" class="slider flex__item" on-click="jumpToValue">
