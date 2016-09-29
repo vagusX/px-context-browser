@@ -1,6 +1,6 @@
 {
   "name": "px-tooltip",
-  "version": "0.8.1",
+  "version": "0.9.0",
   "main": [
     "px-tooltip.html"
   ],
@@ -13,7 +13,9 @@
     "node_modules",
     "test",
     "OSS_Notice.pdf",
-    "px-tooltip.png"
+    "px-tooltip.png",
+    "wct.conf.*",
+    "package.json"
   ],
   "dependencies": {
     "iron-resizable-behavior": "PolymerElements/iron-resizable-behavior#~1.0.2",
@@ -40,13 +42,13 @@
     "px-buttons-design": "^0.4.26"
   },
   "homepage": "https://github.com/PredixDev/px-tooltip",
-  "_release": "0.8.1",
+  "_release": "0.9.0",
   "_resolution": {
     "type": "version",
-    "tag": "v0.8.1",
-    "commit": "c8d10813a626d9c751a64714077317f5115db0e9"
+    "tag": "v0.9.0",
+    "commit": "cc32349e4b6b1148ae21e6675109af71a5a0be6b"
   },
   "_source": "https://github.com/PredixDev/px-tooltip.git",
-  "_target": "~0.8.0",
+  "_target": "~0.9.0",
   "_originalSource": "px-tooltip"
 }
