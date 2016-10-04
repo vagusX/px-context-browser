@@ -47,63 +47,44 @@ Handle Element expected to be used in px-slider
 
     properties: {
       /**
-       *
-       * Name of the event that will be raised when the handle is DOWN and dragged.
-       *
+       * Indicates whether the handle is currently being dragged.
+       * @property tracking
+       * @type Boolean
+       * @default false
        */
       tracking: {
         type: Boolean,
         value: false,
-        readOnly: true,
         observer: '_trackingChanged'
       },
 
       /**
-       * Name of the event that will be raised when a DOWN event is fired on the handle.
-       *
-       * @type {String}
-       */
-      handleDownEventName: {
-        type: String,
-        reflect: true
-      },
-
-      /**
-       * Name of the event that will be raised when an UP event is fired on the handle.
-       *
-       * @type {String}
-       */
-      handleUpEventName: {
-        type: String,
-        reflect: true
-      },
-
-      /**
-       * Name of the event that will be raised when a TRACK event is fired on the handle.
-       *
-       * @type {String}
-       */
-      handleTrackEventName: {
-        type: String,
-        reflect: true
-      },
-
-      /**
        * Boolean to decide which handle to flip around and move down vs up.
-       *
-       * @type {String}
+       * @property handleRotate
+       * @type String
        */
       handleRotate:{
         type:Boolean,
         value:false,
         observer: '_rotateHandle'
+      },
+      /**
+       * A boolean reflecting whether the slider is disabled or not
+       * @property disabled
+       * @type property
+       * @default false
+       */
+      disabled: {
+        type: Boolean,
+        value: false,
+        observer: '_disabledChanged'
       }
     },
     /**
      * When the handle is clicked on for a drag, adds class for style
-     * @method {_trackingChanged}
-     * @param {newValue}
-     * @param {oldValue}
+     * @method _trackingChanged
+     * @param newValue
+     * @param oldValue
      */
     _trackingChanged: function(newValue, oldValue) {
       // toggleClass uses classlist which does not work with SVG on IE
@@ -112,41 +93,46 @@ Handle Element expected to be used in px-slider
       this._setClassOnSVG(this.$.handleTarget,newValue,'tracking');
     },
     /**
+     * When the slider is disabled, adds class for style
+     * @method _disabledChanged
+     * @param newValue
+     * @param oldValue
+     */
+    _disabledChanged: function(newValue, oldValue) {
+      // toggleClass uses classlist which does not work with SVG on IE
+      // this.toggleClass('tracking', newValue, this.$.handleTarget);
+      // So do it the old fashioned way...
+      this._setClassOnSVG(this.$.handleTarget,newValue,'disabled');
+    },
+    /**
      * When the handle is clicked on, fire event
-     *
-     * @method {handleDown}
-     * @param {event}
+     * @method handleDown
+     * @param event
      */
     handleDown: function(event) {
       this._setTracking(true);
-      this.fire(this.handleDownEventName);
     },
     /**
      * When the handle is let go (after being clicked on), fire event
-     *
-     * @method {handleUp}
-     * @param {event}
+     * @method handleUp
+     * @param event
      */
     handleUp: function(event) {
       this._setTracking(false);
-      this.fire(this.handleUpEventName);
     },
     /**
      * When the handle is moving, fire event
-     *
-     * @method {handleTrack}
-     * @param {event}
+     * @method handleTrack
+     * @param event
      */
     handleTrack: function(event) {
       if (this.tracking) {
-        this.fire(this.handleTrackEventName);
       }
     },
     /**
      * Sets styles on handle when we know if it is a start or end handle
-     *
-     * @method {_rotateHandle}
-     * @param {bool}
+     * @method _rotateHandle
+     * @param bool
      */
     _rotateHandle: function(bool){
       // toggleClass uses classlist which does not work with SVG on IE
@@ -164,11 +150,10 @@ Handle Element expected to be used in px-slider
     /**
      * Sets the classes on SVG elems
      * toggleClass uses classlist which does not work with SVG on IE
-     *
-     * @method {_setClassOnSVG}
-     * @param {bool}
-     * @param {elem}
-     * @param {classname}
+     * @method _setClassOnSVG
+     * @param bool
+     * @param elem
+     * @param classname
      */
     _setClassOnSVG: function(elem,bool,classname){
       var existingClass = elem.getAttribute('class');

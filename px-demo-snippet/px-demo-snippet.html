@@ -229,14 +229,22 @@ There are 3 special properties that demo-snippet looks for, and are NOT included
       formEl.submit();
     },
     _render: function() {
-      var  output = this._fireOutputEvent(this._output, 'html');
+      var output = this._fireOutputEvent(this._output, 'html'),
+          name= "prism-highlighter";
 
-      if (output.substr(0, 5) !== '<span') {
-        //prism highlighter hasn't loaded yet. run this again with async.
-        this.async(this._render,50);
-      } else {
-        this.$.jeditor.innerHTML = output;
-      }
+       if (Polymer.telemetry.registrations) {
+         var elmMap = Polymer.telemetry.registrations.map(function(elm) {
+           return elm.is;
+         });
+
+         if (elmMap.indexOf(name) !== "-1") {
+           this.$.jeditor.innerHTML = output;
+         } else {
+           //prism highlighter hasn't loaded yet. run this again with async.
+           this.async(this._render,50);
+         }
+       }
+
     },
     /**
     *

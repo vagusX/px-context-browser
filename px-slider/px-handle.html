@@ -43,9 +43,10 @@ Handle element for the single handle for px-slider
 
     properties: {
       /**
-       *
-       * Name of the event that will be raised when the handle is DOWN and dragged.
-       *
+       * Indicates whether the handle is currently being dragged.
+       * @property tracking
+       * @type Boolean
+       * @default false
        */
       tracking: {
         type: Boolean,
@@ -53,72 +54,59 @@ Handle element for the single handle for px-slider
         readOnly: true,
         observer: '_trackingChanged'
       },
-
       /**
-       * Name of the event that will be raised when a DOWN event is fired on the handle.
-       *
-       * @type {String}
+       * A boolean reflecting whether the slider is disabled or not
+       * @property disabled
+       * @type Boolean
+       * @default false
        */
-      handleDownEventName: {
-        type: String,
-        reflect: true
-      },
-
-      /**
-       * Name of the event that will be raised when an UP event is fired on the handle.
-       *
-       * @type {String}
-       */
-      handleUpEventName: {
-        type: String,
-        reflect: true
-      },
-
-      /**
-       * Name of the event that will be raised when a TRACK event is fired on the handle.
-       *
-       * @type {String}
-       */
-      handleTrackEventName: {
-        type: String,
-        reflect: true
+      disabled: {
+        type: Boolean,
+        value: false,
+        observer: '_disabledChanged'
       }
     },
     /**
      * When the handle is clicked on for a drag, toggles "tracking" class
-     * @method {_trackingChanged}
-     * @param {newValue}
-     * @param {oldValue}
+     * @method _trackingChanged
+     * @param newValue
+     * @param oldValue
      */
     _trackingChanged: function(newValue, oldValue) {
       this.toggleClass('tracking', newValue, this.$.handleTarget);
     },
     /**
+     * If the slider is disabled, apply the right class for styling
+     * @method _disabledChanged
+     * @param newValue
+     * @param oldValue
+     */
+    _disabledChanged: function(newValue, oldValue) {
+      this.toggleClass('disabled', newValue, this.$.handleTarget);
+    },
+    /**
      * When the handle is clicked on, fire event
-     * @method {handleDown}
-     * @param {event}
+     * @method handleDown
+     * @param event
      */
     handleDown: function(event) {
       this._setTracking(true);
-      this.fire(this.handleDownEventName);
     },
     /**
      * When the handle is let go (after being clicked on), fire event
-     * @method {handleUp}
-     * @param  {event}
+     * @method handleUp
+     * @param  event
      */
     handleUp: function(event) {
       this._setTracking(false);
-      this.fire(this.handleUpEventName);
     },
     /**
      * When the handle is moving, fire event
-     * @method {handleTrack}
-     * @param {event}
+     * @method handleTrack
+     * @param event
      */
     handleTrack: function(event) {
       if (this.tracking) {
-        this.fire(this.handleTrackEventName);
       }
     }
   });

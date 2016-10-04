@@ -18,11 +18,6 @@
   <link rel="import" href="../px-demo-snippet/px-demo-snippet.html">
   <link rel="import" href="../px-polymer-font-awesome/polymer-font-awesome.html" />
   <!-- Requires Webcomponents.js polyfill is provided by the page for browsers that don't support html imports -->
-  <style >
-    .container{
-      width: 600px;
-    }
-  </style>
   </head>
 
 <body>
@@ -36,9 +31,6 @@
       <a class="actionable flex flex--right flex--middle" href="https://github.com/PredixDev/px-slider" target="_blank"><iron-icon class="menu__open" icon="fa:fa-github"></iron-icon>View on Github</a>
   		<h1 class="delta">px-slider</h1>
       <div class="description-text">
-    		<p>
-    			The	<code>px-slider</code> component provides a progress bar, which can optionally include stripes and an animation effect.
-    		</p>
         <p>
           The Slider component allows a user to select a numeric value from a range of acceptable values. The minimum and maximum values,
           step, and default value can all be specified in configuration. When the endValue property is enabled, a second input box appears
@@ -70,11 +62,16 @@
               <div class="properties u-ph+ u-pb+ u-mt+">
                 <p class="epsilon">Properties</p>
                 <div class="u-mb-">Value: <input id="value{{indexPlusOne(index)}}" class="text-input" type="numeric" placeholder="0" value="{{item.value::input}}" /></div>
-                <div class="u-mb-">min: <input id="min{{indexPlusOne(index)}}" class="text-input" type="numeric" placeholder="0" value="{{item.min::input}}" /></div>
-                <div class="u-mb-">max: <input id="max{{indexPlusOne(index)}}" class="text-input" type="numeric" placeholder="0" value="{{item.max::input}}" /></div>
-                <div class="u-mb-">step: <input id="step{{indexPlusOne(index)}}" class="text-input" type="numeric" placeholder="0" value="{{item.step::input}}" /></div>
-                <div class="u-mb-">startValue: <input id="startValue{{indexPlusOne(index)}}" class="text-input" type="numeric" placeholder="0" value="{{item.startValue::input}}" /></div>
-                <div class="u-mb-">endValue: <input id="endValue{{indexPlusOne(index)}}" class="text-input" type="numeric" placeholder="0" value="{{item.endValue::input}}" /></div>
+                <div class="u-mb-">Min: <input id="min{{indexPlusOne(index)}}" class="text-input" type="numeric" placeholder="0" value="{{item.min::input}}" /></div>
+                <div class="u-mb-">Max: <input id="max{{indexPlusOne(index)}}" class="text-input" type="numeric" placeholder="0" value="{{item.max::input}}" /></div>
+                <div class="u-mb-">Step: <input id="step{{indexPlusOne(index)}}" class="text-input" type="numeric" placeholder="0" value="{{item.step::input}}" /></div>
+                <div class="u-mb-">Start Value: <input id="startValue{{indexPlusOne(index)}}" class="text-input" type="numeric" placeholder="0" value="{{item.startValue::input}}" /></div>
+                <div class="u-mb-">End Value: <input id="endValue{{indexPlusOne(index)}}" class="text-input" type="numeric" placeholder="0" value="{{item.endValue::input}}" /></div>
+                <div class="flex u-mb-">
+                  <input id="disabled{{indexPlusOne(index)}}" class="toggle__input toggle__input--small" type="checkbox" checked="{{item.disabled::change}}">
+                  <label for$="disabled{{indexPlusOne(index)}}" class="toggle__label toggle__label--small"></label>
+                  <div class="u-ml-">Disabled</div>
+                </div>
               </div>
 
               <div class="demoContainer u-mt+">
@@ -89,7 +86,8 @@
                         max="{{item.max}}"
                         step="{{item.step}}"
                         start-value="{{item.startValue}}"
-                        end-value="{{item.endValue}}">
+                        end-value="{{item.endValue}}"
+                        disabled="{{item.disabled}}">
                       </px-slider>
                     </div>
 
@@ -129,7 +127,7 @@
             <li>
               <a href="mailto:info@predix.io" class="footer__list--lnk">Contact Us</a>
             </li>
-            <li>Copyright &copy; {{year}} General Electric Company. All rights reserved.</li>
+            <li>Copyright &copy; 2016 General Electric Company. All rights reserved.</li>
           </ul>
         </div>
       </div>
@@ -138,42 +136,33 @@
 <script>
 window.addEventListener('WebComponentsReady', function() {
   var template = document.querySelector('template[is=dom-bind]'),
-      year = new Date(),
-
-      value = ["20","20"],
-      min = ["0","0"],
-      max = ["100","100"],
-      step = ["0.01","5"],
-      startValue = ["","20"],
-      endValue = ["","80"],
       optionsArray = [
         {
-          "value":value[0],
-          "min":min[0],
-          "max":max[0],
-          "step":step[0],
-          "startValue":startValue[0],
-          "endValue":endValue[0]
+          "value":20,
+          "min":0,
+          "max":100,
+          "step":0.01,
+          "startValue":"",
+          "endValue":"",
+          "disabled":false
         },
         {
-          "value":value[1],
-          "min":min[1],
-          "max":max[1],
-          "step":step[1],
-          "startValue":startValue[1],
-          "endValue":endValue[1]
+          "value":20,
+          "min":20,
+          "max":100,
+          "step":5,
+          "startValue":20,
+          "endValue":80,
+          "disabled":false
         }
       ],
       indexPlusOne = function(num) {
         return num + 1;
       };
 
-  year = year.getFullYear();
-
   template.selected = "0";
   template.optionsArray = optionsArray;
   template.indexPlusOne = indexPlusOne;
-  template.year = year;
 });
 </script>
 
