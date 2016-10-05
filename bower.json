@@ -42,8 +42,8 @@
     "px-dropdown": "^0.12.1"
   },
   "resolutions": {
-    "px-typography-design": "^1.1.0",
-    "px-theme": "~1.1.2",
-    "iron-ajax": "^1.0.0"
+    "iron-ajax": "^1.4.3",
+    "px-typography-design": "~1.1.1",
+    "px-theme": "^1.1.2"
   }
 }
