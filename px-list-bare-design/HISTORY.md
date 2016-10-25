@@ -1,3 +1,16 @@
+v0.2.16
+==============================
+* added mega demo section to index
+
+v0.2.15
+==============================
+* Updated dependencies
+* Updated boilerplate files
+
+v0.2.14
+==============================
+* added new demo page and auto-ghp
+
 v0.2.13
 ==============================
 * added oss_notice to bower ignore

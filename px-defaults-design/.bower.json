@@ -1,18 +1,17 @@
 {
   "name": "px-defaults-design",
-  "version": "0.2.9",
+  "version": "0.3.1",
   "authors": [
     "General Electric",
     "Harry Roberts"
   ],
-  "description": "PXd's default settings",
+  "description": "The defaults module contains variables and settings that are required for using nearly all Predix UI CSS modules.",
   "main": "_settings.defaults.scss",
   "keywords": [
     "PXd",
     "Sass",
     "defaults"
   ],
-  "license": "Apache 2",
   "homepage": "https://github.com/PredixDev/px-defaults-design.git",
   "private": false,
   "ignore": [
@@ -23,15 +22,19 @@
     "tests"
   ],
   "dependencies": {
-    "px-functions-design": "https://github.com/PredixDev/px-functions-design.git#~0.2.0"
+    "px-functions-design": "~1.0.0"
   },
-  "_release": "0.2.9",
+  "devDependencies": {
+    "px-starter-kit-design": "~0.6.0",
+    "px-sass-doc": "^0.2.4"
+  },
+  "_release": "0.3.1",
   "_resolution": {
     "type": "version",
-    "tag": "v0.2.9",
-    "commit": "64ee40205bedc0defcd6d05af6fabe53a2f7f970"
+    "tag": "v0.3.1",
+    "commit": "5d2019bb00fe6030adcbf75d998c9dfc8f9f16af"
   },
-  "_source": "https://github.com/PredixDev/px-defaults-design.git",
-  "_target": "~0.2.0",
-  "_originalSource": "https://github.com/PredixDev/px-defaults-design.git"
+  "_source": "https://github.com/predixDev/px-defaults-design.git",
+  "_target": "^0.3.0",
+  "_originalSource": "px-defaults-design"
 }

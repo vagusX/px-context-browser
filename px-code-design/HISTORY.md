@@ -1,3 +1,28 @@
+v0.2.17
+==============================
+* minor text changes in demo
+
+v0.2.16
+==============================
+* Updated dependencies
+* Updated boilerplate files
+
+v0.2.15
+==============================
+* added correct discription of component for demo
+
+v0.2.14
+==============================
+* fixed travis setup
+
+v0.2.13
+==============================
+* set up travis auto-ghp
+
+v0.2.12
+==============================
+* updated to new demo
+
 v0.2.11
 ==============================
 * updated oss notice and readme, pointing to gh-pages
