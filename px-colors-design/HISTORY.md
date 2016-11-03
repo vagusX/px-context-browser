@@ -1,3 +1,12 @@
+
+v0.2.25
+==================
+* patch test
+
+v0.2.24
+==============================
+* updated to px-sass-doc#0.2.8
+
 v0.2.23
 ==============================
 * fix ghp script to use git add with -A option

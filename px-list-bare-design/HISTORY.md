@@ -1,3 +1,12 @@
+
+v0.2.18
+==================
+* patch test
+
+v0.2.17
+==============================
+* updated to px-sass-doc#0.2.8
+
 v0.2.16
 ==============================
 * added mega demo section to index
