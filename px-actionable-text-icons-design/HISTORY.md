@@ -1,4 +1,14 @@
 
+v0.1.4
+==================
+* bumping sassdoc to propogate clipboard changes
+
+
+v0.1.3
+==================
+* bumping all version of px-sass-doc to get px-clipboard update
+
+
 v0.1.2
 ==================
 * patch test
