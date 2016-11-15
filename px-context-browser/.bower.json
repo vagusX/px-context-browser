@@ -1,6 +1,6 @@
 {
   "name": "px-context-browser",
-  "version": "1.3.8",
+  "version": "1.3.10",
   "main": [
     "px-context-browser.html"
   ],
@@ -36,7 +36,7 @@
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#~1.2.3",
     "px-tabs": "~0.5.2",
     "px-api-viewer": "^0.1.0",
-    "px-demo-snippet": "^0.6.2",
+    "px-demo-snippet": "^0.6.9",
     "px-list-inline-design": "^0.2.11",
     "px-toggle-design": "^0.2.12",
     "px-headings-design": "^0.2.14",
@@ -45,11 +45,11 @@
     "px-dropdown": "^0.12.1"
   },
   "homepage": "https://github.com/PredixDev/px-context-browser",
-  "_release": "1.3.8",
+  "_release": "1.3.10",
   "_resolution": {
     "type": "version",
-    "tag": "v1.3.8",
-    "commit": "d1f4d7ab70cc309e7585d3ac5ac729205d50dfd3"
+    "tag": "v1.3.10",
+    "commit": "89c90f680433d5779818e2d93f785c855e923692"
   },
   "_source": "https://github.com/PredixDev/px-context-browser.git",
   "_target": "^1.0.1",

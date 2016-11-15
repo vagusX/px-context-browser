@@ -1,6 +1,6 @@
 {
   "name": "px-clipboard",
-  "version": "0.1.9",
+  "version": "0.1.12",
   "main": [
     "px-clipboard.html"
   ],
@@ -32,18 +32,18 @@
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#~1.2.3",
     "px-tabs": "~0.5.0",
     "px-api-viewer": "~0.1.0",
-    "px-demo-snippet": "^0.6.4",
+    "px-demo-snippet": "^0.6.9",
     "px-toggle-design": "^0.2.12",
     "px-headings-design": "^0.2.14",
     "px-code-design": "^0.2.11",
     "px-list-inline-design": "^0.2.11"
   },
   "homepage": "https://github.com/predixdev/px-clipboard",
-  "_release": "0.1.9",
+  "_release": "0.1.12",
   "_resolution": {
     "type": "version",
-    "tag": "v0.1.9",
-    "commit": "1005a5120403431c68a69df8643e5aecd1edd9a2"
+    "tag": "v0.1.12",
+    "commit": "ee85e3179d9cf4b532645eab860e836dd28fc2ad"
   },
   "_source": "https://github.com/predixdev/px-clipboard.git",
   "_target": "^0.1.1",

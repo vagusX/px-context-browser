@@ -1,6 +1,6 @@
 {
   "name": "px-code-design",
-  "version": "0.2.21",
+  "version": "0.2.22",
   "authors": [
     "General Electric"
   ],
@@ -29,11 +29,11 @@
     "px-starter-kit-design": "^0.6.0",
     "px-sass-doc": "^0.2.10"
   },
-  "_release": "0.2.21",
+  "_release": "0.2.22",
   "_resolution": {
     "type": "version",
-    "tag": "v0.2.21",
-    "commit": "8bf3b41f5d5bfca5e5d220d1be68a1d830a98f8c"
+    "tag": "v0.2.22",
+    "commit": "77eda485aafcdc4f852b2eeda5dec71e4261a157"
   },
   "_source": "https://github.com/predixDev/px-code-design.git",
   "_target": "~0.2.11",
