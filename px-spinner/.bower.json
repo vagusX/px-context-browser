@@ -1,13 +1,13 @@
 {
   "name": "px-spinner",
-  "version": "0.4.5",
+  "version": "0.4.7",
   "main": [
     "px-spinner.html"
   ],
   "ignore": [
     ".*",
     "npm-debug.log",
-    "Gruntfile.js",
+    "gulpfile.js",
     "sass",
     "bower_components",
     "node_modules",
@@ -38,11 +38,11 @@
     "px-list-inline-design": "^0.2.11"
   },
   "homepage": "https://github.com/PredixDev/px-spinner",
-  "_release": "0.4.5",
+  "_release": "0.4.7",
   "_resolution": {
     "type": "version",
-    "tag": "v0.4.5",
-    "commit": "f55aab2cbc7aed7ee34b59205b380a1fa7bbd5ea"
+    "tag": "v0.4.7",
+    "commit": "3c30530995d030c53a6e5b14cff43b914e9cf198"
   },
   "_source": "https://github.com/PredixDev/px-spinner.git",
   "_target": "~0.4.2",
