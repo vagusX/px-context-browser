@@ -24,19 +24,19 @@ Custom property | Description | Default
 ----------------|-------------|----------
 `--px-slider-border-color` | Border color for the unselected portion of the slider | `$gray5`
 `--px-slider-background-color` | Background color for the unselected portion of the slider | `$gray1`
-`--px-slider-selected-border-color` | Border color for the selected portion of the slider | `$select-blue-pressed`
-`--px-slider-selected-background-color` | Background color for the selected portion of the slider | `$select-blue-default`
+`--px-slider-border-color--selected` | Border color for the selected portion of the slider | `$select-blue-pressed`
+`--px-slider-background-color--selected` | Background color for the selected portion of the slider | `$select-blue-default`
 `--px-handle-border-color` | Border color for the slider's handle | `$gray5`
-`--px-handle-disabled-border-color` | Border color for the handle when disabled | `$gray4`
+`--px-handle-border-color--disabled` | Border color for the handle when disabled | `$gray4`
 `--px-handle-stroke-color` | Color of the small lines on the slider handle | `$gray6`
 `--px-handle-background-color` | Background color for the handle | `$white`
-`--px-handle-hover-background-color` | Background color when the handle is pressed | `$gray7`
+`--px-handle-background-color--hover` | Background color when the handle is pressed | `$gray7`
 `--px-handle-shadow-color` | Color of the drop shadow on the slider handle | `$black`
 
 @element px-slider
 @blurb Allow the user to select a value or range of values within a specified min and max.
 @homepage index.html
-@demo demo.html
+@demo index.html
 -->
 
 <link rel="import" href="css/px-slider-styles.html">
@@ -44,9 +44,9 @@ Custom property | Description | Default
 <dom-module id="px-slider">
   <template>
     <style include="px-slider-styles"></style>
-    <style include="px-theme-styles"></style>
+    
     <div class="flex">
-      <input id="inputStart" type="text" class="text-input" value="{{value}}" on-change="_handleStartChange" tabindex="0" disabled="{{disabled}}"/>
+      <input id="inputStart" type="text" class="text-input visuallyhidden" value="{{value}}" on-change="_handleStartChange" tabindex="0" disabled="{{disabled}}"/>
       <div id="sliderContainer" class="slider flex__item" on-click="_jumpToValue">
         <div id="sliderSelected" class="slider__selected"></div>
         <px-handle-multi id="startHandle" class="start visuallyhidden" on-track="_handleTrackStart" handle-rotate disabled="{{disabled}}"></px-handle-multi>
@@ -75,7 +75,7 @@ Custom property | Description | Default
      */
     properties: {
       /**
-       * a Boolean property reflecting whether range is true or false
+       * A Boolean property reflecting whether range is true or false.
        */
       _range: {
         type: Boolean,
@@ -105,7 +105,7 @@ Custom property | Description | Default
         observer: '_endValueChanged'
       },
       /**
-       * A min value for the slider. The user cannot choose less than the min
+       * A min value for the slider. The user cannot choose less than the min.
        */
       min: {
         type: Number,
@@ -113,7 +113,7 @@ Custom property | Description | Default
         observer: '_minChanged'
       },
       /**
-       * A max value for the slider. The user cannot choose greater than the max
+       * A max value for the slider. The user cannot choose greater than the max.
        */
       max: {
         type: Number,
@@ -131,11 +131,19 @@ Custom property | Description | Default
         observer: '_stepChanged'
       },
       /**
-       * A boolean reflecting whether the slider is disabled or not
+       * A boolean reflecting whether the slider is disabled or not.
        */
       disabled: {
         type: Boolean,
         value: false
+      },
+      /**
+       * A boolean reflecting whether the text input fields should be hidden.
+       */
+      hideInputs: {
+        type: Boolean,
+        value: false,
+        observer: '_hideInputsChanged'
       }
     },
 
@@ -171,7 +179,10 @@ Custom property | Description | Default
         // Show the start handle and the end input and end handle
         this.toggleClass('visuallyhidden', false, this.$.startHandle);
         this.toggleClass('visuallyhidden', false, this.$.endHandle);
-        this.toggleClass('visuallyhidden', false, this.$.inputEnd);
+        if(!this.hideInputs) {
+          this.toggleClass('visuallyhidden', false, this.$.inputStart);
+          this.toggleClass('visuallyhidden', false, this.$.inputEnd);
+        }
 
         // add class to make style adjustments specific to the multi handle version
         this.toggleClass('slider__multi', true, this.$.sliderContainer);
@@ -210,6 +221,10 @@ Custom property | Description | Default
 
         // Show the single handle
         this.toggleClass('visuallyhidden', false,  this.$.singleHandle);
+        if(!this.hideInputs) {
+          this.toggleClass('visuallyhidden', false,  this.$.inputStart);
+          this.toggleClass('visuallyhidden', true,  this.$.inputEnd);
+        }
 
         this.async(function() {
           // calculate the amount to offset the range on the right for handle width
@@ -386,6 +401,20 @@ Custom property | Description | Default
       this.max = this._checkStep(this.max);
       if (this._range) {
         this.endValue = this._checkStep(this.endValue);
+      }
+    },
+    /**
+     * Function that is called if the hide-inputs property is changed.
+     * @method _hideInputsChanged
+     */
+    _hideInputsChanged: function(newValue, oldValue) {
+      if(newValue === true) {
+        this.toggleClass("visuallyhidden", true, this.$.inputStart);
+        if(this._range) this.toggleClass("visuallyhidden", true, this.$.inputEnd);
+      }
+      else {
+        this.toggleClass("visuallyhidden", false, this.$.inputStart);
+        if(this._range) this.toggleClass("visuallyhidden", false, this.$.inputEnd);
       }
     },
     /**

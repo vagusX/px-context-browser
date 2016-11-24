@@ -1,3 +1,33 @@
+v0.7.6
+==================
+* changing all devDeps to ^
+
+v0.7.5
+==================
+* Update px-theme to 2.0.1 and update test fixtures
+
+v0.7.4
+==================
+* removing px-theme style call
+
+
+v0.7.3
+==================
+* changing Gruntfile.js to gulpfile.js
+
+v0.7.2
+==================
+* changed css variable names to match BEM
+
+v0.7.1
+==================
+* bower updating px-demo-snippet
+
+v0.7.0
+=================
+* fixed display issue with multi-handle
+* added property for hide-inputs per #7
+
 v0.6.7
 =================
 * added style variables for theming

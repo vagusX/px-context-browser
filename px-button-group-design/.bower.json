@@ -34,6 +34,6 @@
     "commit": "0b6cc6795573d862f087dac7220d185f0c965a2c"
   },
   "_source": "https://github.com/predixDev/px-button-group-design.git",
-  "_target": "~0.3.12",
+  "_target": "^0.3.12",
   "_originalSource": "px-button-group-design"
 }

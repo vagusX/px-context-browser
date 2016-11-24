@@ -72,6 +72,11 @@
                   <label for$="disabled{{indexPlusOne(index)}}" class="toggle__label toggle__label--small"></label>
                   <div class="u-ml-">Disabled</div>
                 </div>
+                <div class="flex u-mb-">
+                  <input id="hideInputs{{indexPlusOne(index)}}" class="toggle__input toggle__input--small" type="checkbox" checked="{{item.hideInputs::change}}">
+                  <label for$="hideInputs{{indexPlusOne(index)}}" class="toggle__label toggle__label--small"></label>
+                  <div class="u-ml-">Hide Inputs</div>
+                </div>
               </div>
 
               <div class="demoContainer u-mt+">
@@ -88,7 +93,8 @@
                         step="{{item.step}}"
                         start-value="{{item.startValue}}"
                         end-value="{{item.endValue}}"
-                        disabled="{{item.disabled}}">
+                        disabled="{{item.disabled}}"
+                        hide-inputs="{{item.hideInputs}}">
                       </px-slider>
                     </div>
 
@@ -145,7 +151,8 @@ window.addEventListener('WebComponentsReady', function() {
           "step":0.01,
           "startValue":"",
           "endValue":"",
-          "disabled":false
+          "disabled":false,
+          "hideInputs":false
         },
         {
           "value":20,
@@ -154,7 +161,8 @@ window.addEventListener('WebComponentsReady', function() {
           "step":5,
           "startValue":20,
           "endValue":80,
-          "disabled":false
+          "disabled":false,
+          "hideInputs":false
         }
       ],
       indexPlusOne = function(num) {

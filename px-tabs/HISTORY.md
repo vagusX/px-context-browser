@@ -1,3 +1,11 @@
+v0.5.10
+==================
+* changing all devDeps to ^
+
+v0.5.9
+==================
+* Update px-theme to 2.0.1 and update test fixtures
+
 v0.5.8
 ==================
 * update dependencies for dropdown
